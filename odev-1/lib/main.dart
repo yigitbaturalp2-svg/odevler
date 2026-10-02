@@ -7,6 +7,99 @@ void main() {
   runApp(const DemokrasiApp());
 }
 
+const String kAppFontFamily = 'Outfit';
+const double kReadingLetterSpacing = 0.27;
+
+/// Balpy projesinden uyarlanan tipografi ölçeği ve font stilleri.
+class AppTextStyles {
+  static const TextStyle displayLarge = TextStyle(
+    fontFamily: kAppFontFamily,
+    fontSize: 57,
+    fontWeight: FontWeight.bold,
+  );
+
+  static const TextStyle displayMedium = TextStyle(
+    fontFamily: kAppFontFamily,
+    fontSize: 45,
+    fontWeight: FontWeight.bold,
+  );
+
+  static const TextStyle headlineLarge = TextStyle(
+    fontFamily: kAppFontFamily,
+    fontSize: 32,
+    fontWeight: FontWeight.bold,
+  );
+
+  static const TextStyle headlineMedium = TextStyle(
+    fontFamily: kAppFontFamily,
+    fontSize: 28,
+    fontWeight: FontWeight.bold,
+  );
+
+  static const TextStyle headlineSmall = TextStyle(
+    fontFamily: kAppFontFamily,
+    fontSize: 24,
+    fontWeight: FontWeight.bold,
+  );
+
+  static const TextStyle titleLarge = TextStyle(
+    fontFamily: kAppFontFamily,
+    fontSize: 22,
+    fontWeight: FontWeight.w600,
+  );
+
+  static const TextStyle titleLargeCompact = TextStyle(
+    fontFamily: kAppFontFamily,
+    fontSize: 20,
+    fontWeight: FontWeight.w600,
+  );
+
+  static const TextStyle titleMedium = TextStyle(
+    fontFamily: kAppFontFamily,
+    fontSize: 16,
+    fontWeight: FontWeight.w600,
+  );
+
+  static const TextStyle titleSmall = TextStyle(
+    fontFamily: kAppFontFamily,
+    fontSize: 14,
+    fontWeight: FontWeight.w500,
+  );
+
+  static const TextStyle bodyLarge = TextStyle(
+    fontFamily: kAppFontFamily,
+    fontSize: 16,
+  );
+
+  static const TextStyle bodyMedium = TextStyle(
+    fontFamily: kAppFontFamily,
+    fontSize: 14,
+  );
+
+  static const TextStyle bodySmall = TextStyle(
+    fontFamily: kAppFontFamily,
+    fontSize: 12,
+  );
+
+  static const TextStyle labelLarge = TextStyle(
+    fontFamily: kAppFontFamily,
+    fontSize: 14,
+    fontWeight: FontWeight.w500,
+  );
+
+  static const TextStyle labelMedium = TextStyle(
+    fontFamily: kAppFontFamily,
+    fontSize: 12,
+    fontWeight: FontWeight.w500,
+  );
+
+  static const TextStyle labelSmall = TextStyle(
+    fontFamily: kAppFontFamily,
+    fontSize: 12,
+    fontWeight: FontWeight.w500,
+  );
+}
+
 class DemokrasiApp extends StatelessWidget {
   const DemokrasiApp({super.key});
 
@@ -15,7 +108,10 @@ class DemokrasiApp extends StatelessWidget {
     return MaterialApp(
       title: 'Demokrasi Platformu',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData.dark().copyWith(
+      theme: ThemeData(
+        useMaterial3: true,
+        fontFamily: kAppFontFamily,
+        brightness: Brightness.dark,
         scaffoldBackgroundColor: const Color(0xFF090D16),
         cardColor: const Color(0xFF0F172A),
         primaryColor: const Color(0xFF38BDF8),
@@ -23,6 +119,20 @@ class DemokrasiApp extends StatelessWidget {
           primary: Color(0xFF38BDF8),
           secondary: Color(0xFF818CF8),
           surface: Color(0xFF0F172A),
+        ),
+        textTheme: ThemeData.dark().textTheme.apply(
+          fontFamily: kAppFontFamily,
+        ),
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Color(0xFF090D16),
+          elevation: 0,
+          scrolledUnderElevation: 0,
+          titleTextStyle: TextStyle(
+            fontFamily: kAppFontFamily,
+            fontSize: 20,
+            fontWeight: FontWeight.w700,
+            letterSpacing: 0.3,
+          ),
         ),
       ),
       home: const MainScreen(),
@@ -387,18 +497,24 @@ class _MainScreenState extends State<MainScreen> {
               borderRadius: BorderRadius.circular(6),
               child: Image.asset(
                 'assets/icon/app_logo.png',
-                width: 22,
-                height: 22,
+                width: 24,
+                height: 24,
                 fit: BoxFit.cover,
               ),
             ),
-            const SizedBox(width: 6),
+            const SizedBox(width: 8),
             const Flexible(
               child: Text(
                 'DEMOKRASİ',
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
-                style: TextStyle(fontSize: 14, fontWeight: FontWeight.w900, color: Colors.white, letterSpacing: 0.8),
+                style: TextStyle(
+                  fontFamily: kAppFontFamily,
+                  fontSize: 18,
+                  fontWeight: FontWeight.w800,
+                  color: Colors.white,
+                  letterSpacing: 0.8,
+                ),
               ),
             ),
           ],
@@ -406,7 +522,7 @@ class _MainScreenState extends State<MainScreen> {
         actions: [
           // Ses Kredisi
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
             decoration: BoxDecoration(
               color: const Color(0xFFF59E0B).withValues(alpha: 0.15),
               borderRadius: BorderRadius.circular(14),
@@ -415,11 +531,17 @@ class _MainScreenState extends State<MainScreen> {
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                const Icon(Icons.bolt, color: Color(0xFFF59E0B), size: 11),
-                const SizedBox(width: 2),
+                const Icon(Icons.bolt, color: Color(0xFFF59E0B), size: 13),
+                const SizedBox(width: 3),
                 Text(
                   '${activeCitizen.availableCredits} VC',
-                  style: const TextStyle(color: Color(0xFFF59E0B), fontWeight: FontWeight.bold, fontSize: 9),
+                  style: const TextStyle(
+                    fontFamily: kAppFontFamily,
+                    color: Color(0xFFF59E0B),
+                    fontWeight: FontWeight.w700,
+                    fontSize: 12,
+                    letterSpacing: 0.2,
+                  ),
                 ),
               ],
             ),
@@ -428,7 +550,7 @@ class _MainScreenState extends State<MainScreen> {
 
           // Sunum Senaryoları & Rehber Menüsü
           PopupMenuButton<int>(
-            icon: const Icon(Icons.more_vert, color: Colors.white70, size: 20),
+            icon: const Icon(Icons.more_vert, color: Colors.white70, size: 22),
             color: const Color(0xFF0F172A),
             tooltip: 'Hızlı Senaryolar & Rehber',
             onSelected: (val) {
@@ -443,18 +565,26 @@ class _MainScreenState extends State<MainScreen> {
                 value: 0,
                 child: Row(
                   children: [
-                    Icon(Icons.menu_book_rounded, color: Color(0xFF38BDF8), size: 14),
-                    SizedBox(width: 6),
-                    Text('Platform Rehberi (Nasıl Çalışır?)', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: Color(0xFF38BDF8))),
+                    Icon(Icons.menu_book_rounded, color: Color(0xFF38BDF8), size: 16),
+                    SizedBox(width: 8),
+                    Text(
+                      'Platform Rehberi (Nasıl Çalışır?)',
+                      style: TextStyle(
+                        fontFamily: kAppFontFamily,
+                        fontSize: 13,
+                        fontWeight: FontWeight.w700,
+                        color: Color(0xFF38BDF8),
+                      ),
+                    ),
                   ],
                 ),
               ),
               const PopupMenuDivider(),
-              const PopupMenuItem(value: 1, child: Text('1. Kentsel Dönüşüm & Karesel Oylama', style: TextStyle(fontSize: 11))),
-              const PopupMenuItem(value: 2, child: Text('2. Anayasaya Aykırı Teklif (Veto Örneği)', style: TextStyle(fontSize: 11))),
-              const PopupMenuItem(value: 3, child: Text('3. KVKK İhlali & Sansür Oylaması', style: TextStyle(fontSize: 11))),
-              const PopupMenuItem(value: 4, child: Text('4. Yürürlükteki Resmi Mevzuat', style: TextStyle(fontSize: 11))),
-              const PopupMenuItem(value: 5, child: Text('5. Sıfırdan Boş Başlangıç', style: TextStyle(fontSize: 11))),
+              const PopupMenuItem(value: 1, child: Text('1. Kentsel Dönüşüm & Karesel Oylama', style: TextStyle(fontFamily: kAppFontFamily, fontSize: 12.5))),
+              const PopupMenuItem(value: 2, child: Text('2. Anayasaya Aykırı Teklif (Veto Örneği)', style: TextStyle(fontFamily: kAppFontFamily, fontSize: 12.5))),
+              const PopupMenuItem(value: 3, child: Text('3. KVKK İhlali & Sansür Oylaması', style: TextStyle(fontFamily: kAppFontFamily, fontSize: 12.5))),
+              const PopupMenuItem(value: 4, child: Text('4. Yürürlükteki Resmi Mevzuat', style: TextStyle(fontFamily: kAppFontFamily, fontSize: 12.5))),
+              const PopupMenuItem(value: 5, child: Text('5. Sıfırdan Boş Başlangıç', style: TextStyle(fontFamily: kAppFontFamily, fontSize: 12.5))),
             ],
           ),
           const SizedBox(width: 6),
@@ -511,7 +641,10 @@ class _MainScreenState extends State<MainScreen> {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         backgroundColor: const Color(0xFF1E293B),
-        content: Text('✅ Senaryo $id yüklendi.', style: const TextStyle(fontSize: 11, color: Colors.white)),
+        content: Text(
+          '✅ Senaryo $id yüklendi.',
+          style: const TextStyle(fontFamily: kAppFontFamily, fontSize: 13, color: Colors.white),
+        ),
         duration: const Duration(seconds: 1),
       ),
     );
@@ -530,7 +663,7 @@ class _MainScreenState extends State<MainScreen> {
         color: Color(0xFF0A0F1D),
         border: Border(top: BorderSide(color: Color(0xFF1E293B), width: 1)),
       ),
-      padding: const EdgeInsets.symmetric(vertical: 6),
+      padding: const EdgeInsets.symmetric(vertical: 7),
       child: SafeArea(
         top: false,
         child: Row(
@@ -545,7 +678,7 @@ class _MainScreenState extends State<MainScreen> {
                   children: [
                     Icon(
                       isSel ? (it['active'] as IconData) : (it['icon'] as IconData),
-                      size: 20,
+                      size: 22,
                       color: isSel ? const Color(0xFF38BDF8) : Colors.white38,
                     ),
                     const SizedBox(height: 3),
@@ -554,8 +687,9 @@ class _MainScreenState extends State<MainScreen> {
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
-                        fontSize: 10,
-                        fontWeight: isSel ? FontWeight.bold : FontWeight.normal,
+                        fontFamily: kAppFontFamily,
+                        fontSize: 12,
+                        fontWeight: isSel ? FontWeight.w700 : FontWeight.w500,
                         color: isSel ? const Color(0xFF38BDF8) : Colors.white38,
                       ),
                     ),
@@ -602,7 +736,7 @@ class _MainScreenState extends State<MainScreen> {
                         onTap: () => setState(() => _selectedFilter = f),
                         borderRadius: BorderRadius.circular(12),
                         child: Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 7),
                           decoration: BoxDecoration(
                             color: isSel ? const Color(0xFF38BDF8).withValues(alpha: 0.15) : Colors.white10,
                             borderRadius: BorderRadius.circular(12),
@@ -611,8 +745,9 @@ class _MainScreenState extends State<MainScreen> {
                           child: Text(
                             f,
                             style: TextStyle(
-                              fontSize: 10,
-                              fontWeight: isSel ? FontWeight.bold : FontWeight.normal,
+                              fontFamily: kAppFontFamily,
+                              fontSize: 13,
+                              fontWeight: isSel ? FontWeight.w700 : FontWeight.w500,
                               color: isSel ? const Color(0xFF38BDF8) : Colors.white70,
                             ),
                           ),
@@ -628,7 +763,7 @@ class _MainScreenState extends State<MainScreen> {
               onTap: _showCreateProposalDialog,
               borderRadius: BorderRadius.circular(10),
               child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
+                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 7),
                 decoration: BoxDecoration(
                   color: const Color(0xFF2563EB),
                   borderRadius: BorderRadius.circular(10),
@@ -636,9 +771,17 @@ class _MainScreenState extends State<MainScreen> {
                 child: const Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Icon(Icons.add, size: 14, color: Colors.white),
-                    SizedBox(width: 2),
-                    Text('Teklif', style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: Colors.white)),
+                    Icon(Icons.add, size: 16, color: Colors.white),
+                    SizedBox(width: 4),
+                    Text(
+                      'Teklif',
+                      style: TextStyle(
+                        fontFamily: kAppFontFamily,
+                        fontSize: 13,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.white,
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -652,7 +795,10 @@ class _MainScreenState extends State<MainScreen> {
           const Padding(
             padding: EdgeInsets.symmetric(vertical: 40),
             child: Center(
-              child: Text('Bu filtreye uygun yasa teklifi bulunamadı.', style: TextStyle(fontSize: 11, color: Colors.white38)),
+              child: Text(
+                'Bu filtreye uygun yasa teklifi bulunamadı.',
+                style: TextStyle(fontFamily: kAppFontFamily, fontSize: 14, color: Colors.white38),
+              ),
             ),
           )
         else
@@ -689,12 +835,18 @@ class _MainScreenState extends State<MainScreen> {
                       prop.category.toUpperCase(),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(fontSize: 9, fontWeight: FontWeight.bold, color: Color(0xFF38BDF8), letterSpacing: 0.5),
+                      style: const TextStyle(
+                        fontFamily: kAppFontFamily,
+                        fontSize: 11.5,
+                        fontWeight: FontWeight.w700,
+                        color: Color(0xFF38BDF8),
+                        letterSpacing: 0.6,
+                      ),
                     ),
                   ),
-                  const SizedBox(width: 4),
+                  const SizedBox(width: 6),
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 2),
+                    padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 3),
                     decoration: BoxDecoration(
                       color: prop.status == 'KABUL_EDILDI'
                           ? const Color(0xFF10B981).withValues(alpha: 0.15)
@@ -706,8 +858,9 @@ class _MainScreenState extends State<MainScreen> {
                           ? '✓ Yürürlükte'
                           : (isVetoed ? '✕ Veto' : '🗳️ Oylamada'),
                       style: TextStyle(
-                        fontSize: 9,
-                        fontWeight: FontWeight.bold,
+                        fontFamily: kAppFontFamily,
+                        fontSize: 11.5,
+                        fontWeight: FontWeight.w600,
                         color: prop.status == 'KABUL_EDILDI'
                             ? const Color(0xFF10B981)
                             : (isVetoed ? Colors.redAccent : const Color(0xFFF59E0B)),
@@ -716,7 +869,7 @@ class _MainScreenState extends State<MainScreen> {
                   ),
                   const SizedBox(width: 4),
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 2),
+                    padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 3),
                     decoration: BoxDecoration(
                       color: isVetoed ? Colors.red.withValues(alpha: 0.1) : const Color(0xFF818CF8).withValues(alpha: 0.1),
                       borderRadius: BorderRadius.circular(12),
@@ -724,8 +877,9 @@ class _MainScreenState extends State<MainScreen> {
                     child: Text(
                       '%${prop.ontologyScore} Uyum',
                       style: TextStyle(
-                        fontSize: 9,
-                        fontWeight: FontWeight.bold,
+                        fontFamily: kAppFontFamily,
+                        fontSize: 11.5,
+                        fontWeight: FontWeight.w600,
                         color: isVetoed ? Colors.redAccent : const Color(0xFF818CF8),
                       ),
                     ),
@@ -737,23 +891,35 @@ class _MainScreenState extends State<MainScreen> {
               // Başlık
               Text(
                 prop.title,
-                style: const TextStyle(fontSize: 13, fontWeight: FontWeight.bold, color: Colors.white),
+                style: const TextStyle(
+                  fontFamily: kAppFontFamily,
+                  fontSize: 16.5,
+                  fontWeight: FontWeight.w700,
+                  color: Colors.white,
+                  height: 1.35,
+                ),
               ),
-              const SizedBox(height: 4),
+              const SizedBox(height: 6),
 
               // Gerekçe Özeti
               Text(
                 prop.content,
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
-                style: const TextStyle(fontSize: 11, color: Colors.white70, height: 1.35),
+                style: const TextStyle(
+                  fontFamily: kAppFontFamily,
+                  fontSize: 13.5,
+                  color: Colors.white70,
+                  height: 1.45,
+                  letterSpacing: 0.2,
+                ),
               ),
 
               // Veto Uyarısı Varsa
               if (isVetoed && prop.vetoReason != null) ...[
                 const SizedBox(height: 8),
                 Container(
-                  padding: const EdgeInsets.all(8),
+                  padding: const EdgeInsets.all(10),
                   decoration: BoxDecoration(
                     color: Colors.red.withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(8),
@@ -761,14 +927,19 @@ class _MainScreenState extends State<MainScreen> {
                   ),
                   child: Row(
                     children: [
-                      const Icon(Icons.gavel, color: Colors.redAccent, size: 14),
-                      const SizedBox(width: 6),
+                      const Icon(Icons.gavel, color: Colors.redAccent, size: 16),
+                      const SizedBox(width: 8),
                       Expanded(
                         child: Text(
                           prop.vetoReason!,
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
-                          style: const TextStyle(fontSize: 9, color: Colors.redAccent),
+                          style: const TextStyle(
+                            fontFamily: kAppFontFamily,
+                            fontSize: 12.5,
+                            color: Colors.redAccent,
+                            height: 1.35,
+                          ),
                         ),
                       ),
                     ],
@@ -776,74 +947,126 @@ class _MainScreenState extends State<MainScreen> {
                 ),
               ],
 
-              const SizedBox(height: 10),
+              const SizedBox(height: 12),
 
               // Oylama Oranı Çubuğu
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              Wrap(
+                alignment: WrapAlignment.spaceBetween,
+                crossAxisAlignment: WrapCrossAlignment.center,
+                spacing: 8,
+                runSpacing: 4,
                 children: [
-                  Text('Evet: %${prop.approvalRate.toStringAsFixed(1)} (${prop.yesVotes})', style: const TextStyle(fontSize: 10, color: Color(0xFF10B981), fontWeight: FontWeight.bold)),
-                  Text('Hayır: ${prop.noVotes}', style: const TextStyle(fontSize: 10, color: Colors.redAccent)),
+                  Text(
+                    'Evet: %${prop.approvalRate.toStringAsFixed(1)} (${prop.yesVotes})',
+                    style: const TextStyle(
+                      fontFamily: kAppFontFamily,
+                      fontSize: 13,
+                      color: Color(0xFF10B981),
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                  Text(
+                    'Hayır: ${prop.noVotes}',
+                    style: const TextStyle(
+                      fontFamily: kAppFontFamily,
+                      fontSize: 13,
+                      color: Colors.redAccent,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
                 ],
               ),
-              const SizedBox(height: 4),
+              const SizedBox(height: 5),
               ClipRRect(
                 borderRadius: BorderRadius.circular(3),
                 child: LinearProgressIndicator(
                   value: prop.approvalRate / 100,
                   backgroundColor: Colors.white12,
                   valueColor: AlwaysStoppedAnimation(isVetoed ? Colors.redAccent : const Color(0xFF10B981)),
-                  minHeight: 4,
+                  minHeight: 5,
                 ),
               ),
 
-              const SizedBox(height: 10),
+              const SizedBox(height: 12),
               const Divider(color: Color(0xFF1E293B), height: 1),
-              const SizedBox(height: 8),
+              const SizedBox(height: 10),
 
               // Alt Bilgiler ve Detay Butonu
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              Wrap(
+                alignment: WrapAlignment.spaceBetween,
+                crossAxisAlignment: WrapCrossAlignment.center,
+                spacing: 10,
+                runSpacing: 8,
                 children: [
-                  Expanded(
-                    child: Wrap(
-                      spacing: 8,
-                      runSpacing: 4,
-                      children: [
-                        if (prop.hasAmendment)
-                          const Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Icon(Icons.difference_outlined, size: 12, color: Color(0xFF06B6D4)),
-                              SizedBox(width: 3),
-                              Text('Diff Aktif', style: TextStyle(fontSize: 9, color: Color(0xFF06B6D4), fontWeight: FontWeight.bold)),
-                            ],
+                  Wrap(
+                    spacing: 10,
+                    runSpacing: 4,
+                    crossAxisAlignment: WrapCrossAlignment.center,
+                    children: [
+                      if (prop.hasAmendment)
+                        const Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Icon(Icons.difference_outlined, size: 14, color: Color(0xFF06B6D4)),
+                            SizedBox(width: 4),
+                            Text(
+                              'Diff Aktif',
+                              style: TextStyle(
+                                fontFamily: kAppFontFamily,
+                                fontSize: 12,
+                                color: Color(0xFF06B6D4),
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ],
+                        ),
+                      Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          const Icon(Icons.account_tree_outlined, size: 14, color: Color(0xFF38BDF8)),
+                          const SizedBox(width: 4),
+                          Text(
+                            '${prop.subTopics.length} Alt Madde',
+                            style: const TextStyle(
+                              fontFamily: kAppFontFamily,
+                              fontSize: 12,
+                              color: Color(0xFF38BDF8),
+                              fontWeight: FontWeight.w500,
+                            ),
                           ),
-                        Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            const Icon(Icons.account_tree_outlined, size: 12, color: Color(0xFF38BDF8)),
-                            const SizedBox(width: 3),
-                            Text('${prop.subTopics.length} Alt Madde', style: const TextStyle(fontSize: 9, color: Color(0xFF38BDF8))),
-                          ],
-                        ),
-                        Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            const Icon(Icons.chat_bubble_outline, size: 12, color: Colors.white54),
-                            const SizedBox(width: 3),
-                            Text('${prop.comments.length} Görüş', style: const TextStyle(fontSize: 9, color: Colors.white54)),
-                          ],
-                        ),
-                      ],
-                    ),
+                        ],
+                      ),
+                      Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          const Icon(Icons.chat_bubble_outline, size: 14, color: Colors.white54),
+                          const SizedBox(width: 4),
+                          Text(
+                            '${prop.comments.length} Görüş',
+                            style: const TextStyle(
+                              fontFamily: kAppFontFamily,
+                              fontSize: 12,
+                              color: Colors.white54,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
-                  const SizedBox(width: 6),
                   const Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Text('İncele & Oyla', style: TextStyle(fontSize: 10, color: Color(0xFF38BDF8), fontWeight: FontWeight.bold)),
-                      Icon(Icons.chevron_right, size: 14, color: Color(0xFF38BDF8)),
+                      Text(
+                        'İncele & Oyla',
+                        style: TextStyle(
+                          fontFamily: kAppFontFamily,
+                          fontSize: 13,
+                          color: Color(0xFF38BDF8),
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                      Icon(Icons.chevron_right, size: 16, color: Color(0xFF38BDF8)),
                     ],
                   ),
                 ],
@@ -876,19 +1099,28 @@ class _MainScreenState extends State<MainScreen> {
                   prop.category,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
+                  style: const TextStyle(
+                    fontFamily: kAppFontFamily,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w700,
+                  ),
                 ),
                 actions: [
                   Container(
                     margin: const EdgeInsets.only(right: 14, top: 12, bottom: 12),
-                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                     decoration: BoxDecoration(
                       color: isVetoed ? Colors.red.withValues(alpha: 0.2) : const Color(0xFF10B981).withValues(alpha: 0.2),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Text(
-                      prop.status == 'KABUL_EDILDI' ? '✓ Yürürlükte' : (isVetoed ? 'Veto' : 'Oylamada'),
-                      style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: isVetoed ? Colors.redAccent : const Color(0xFF10B981)),
+                      prop.status == 'KABUL_EDILDI' ? '✓ Yürürlükte' : (isVetoed ? '✕ Veto' : '🗳️ Oylamada'),
+                      style: TextStyle(
+                        fontFamily: kAppFontFamily,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w700,
+                        color: isVetoed ? Colors.redAccent : const Color(0xFF10B981),
+                      ),
                     ),
                   ),
                 ],
@@ -897,19 +1129,35 @@ class _MainScreenState extends State<MainScreen> {
                 padding: const EdgeInsets.all(14),
                 children: [
                   // 1. Yasa Başlığı ve Metni
-                  Text(prop.title, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white)),
+                  Text(
+                    prop.title,
+                    style: const TextStyle(
+                      fontFamily: kAppFontFamily,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w800,
+                      color: Colors.white,
+                      height: 1.3,
+                    ),
+                  ),
                   const SizedBox(height: 6),
                   Row(
                     children: [
-                      const Icon(Icons.person_outline, size: 12, color: Colors.white54),
+                      const Icon(Icons.person_outline, size: 14, color: Colors.white54),
                       const SizedBox(width: 4),
-                      Text('Öneren: ${prop.author}', style: const TextStyle(fontSize: 10, color: Colors.white54)),
+                      Text(
+                        'Öneren: ${prop.author}',
+                        style: const TextStyle(
+                          fontFamily: kAppFontFamily,
+                          fontSize: 13,
+                          color: Colors.white54,
+                        ),
+                      ),
                     ],
                   ),
-                  const SizedBox(height: 12),
+                  const SizedBox(height: 14),
 
                   Container(
-                    padding: const EdgeInsets.all(12),
+                    padding: const EdgeInsets.all(14),
                     decoration: BoxDecoration(
                       color: const Color(0xFF0F172A),
                       borderRadius: BorderRadius.circular(12),
@@ -918,9 +1166,26 @@ class _MainScreenState extends State<MainScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text('Yasa Metni & Gerekçe:', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: Color(0xFF38BDF8))),
-                        const SizedBox(height: 6),
-                        Text(prop.content, style: const TextStyle(fontSize: 11, color: Colors.white, height: 1.4)),
+                        const Text(
+                          'Yasa Metni & Gerekçe:',
+                          style: TextStyle(
+                            fontFamily: kAppFontFamily,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w700,
+                            color: Color(0xFF38BDF8),
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                        Text(
+                          prop.content,
+                          style: const TextStyle(
+                            fontFamily: kAppFontFamily,
+                            fontSize: 14.5,
+                            color: Colors.white,
+                            height: 1.5,
+                            letterSpacing: kReadingLetterSpacing,
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -957,7 +1222,7 @@ class _MainScreenState extends State<MainScreen> {
   // --- BÖLÜM: DÜZENLEME ÖNERGESİ (DIFF) ---
   Widget _buildAmendmentSection(Proposal prop, StateSetter setDetailState) {
     return Container(
-      padding: const EdgeInsets.all(12),
+      padding: const EdgeInsets.all(14),
       decoration: BoxDecoration(
         color: const Color(0xFF0F172A),
         borderRadius: BorderRadius.circular(12),
@@ -972,10 +1237,20 @@ class _MainScreenState extends State<MainScreen> {
               const Expanded(
                 child: Row(
                   children: [
-                    Icon(Icons.difference_outlined, size: 14, color: Color(0xFF06B6D4)),
-                    SizedBox(width: 6),
+                    Icon(Icons.difference_outlined, size: 16, color: Color(0xFF06B6D4)),
+                    SizedBox(width: 8),
                     Expanded(
-                      child: Text('Metin Değişiklik Önergesi (Diff)', maxLines: 1, overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: Color(0xFF06B6D4))),
+                      child: Text(
+                        'Metin Değişiklik Önergesi (Diff)',
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          fontFamily: kAppFontFamily,
+                          fontSize: 14.5,
+                          fontWeight: FontWeight.w700,
+                          color: Color(0xFF06B6D4),
+                        ),
+                      ),
                     ),
                   ],
                 ),
@@ -983,56 +1258,99 @@ class _MainScreenState extends State<MainScreen> {
               if (!prop.hasAmendment)
                 TextButton.icon(
                   onPressed: () => _showAddAmendmentDialog(prop, setDetailState),
-                  icon: const Icon(Icons.edit_note, size: 14),
-                  label: const Text('Önerge Ver', style: TextStyle(fontSize: 10)),
+                  icon: const Icon(Icons.edit_note, size: 16),
+                  label: const Text(
+                    'Önerge Ver',
+                    style: TextStyle(fontFamily: kAppFontFamily, fontSize: 13, fontWeight: FontWeight.w600),
+                  ),
                   style: TextButton.styleFrom(padding: EdgeInsets.zero, minimumSize: Size.zero),
                 ),
             ],
           ),
-          const SizedBox(height: 8),
+          const SizedBox(height: 10),
 
           if (prop.hasAmendment) ...[
             Container(
-              padding: const EdgeInsets.all(8),
+              padding: const EdgeInsets.all(10),
               decoration: BoxDecoration(
                 color: Colors.red.withValues(alpha: 0.08),
-                borderRadius: BorderRadius.circular(6),
+                borderRadius: BorderRadius.circular(8),
                 border: Border.all(color: Colors.redAccent.withValues(alpha: 0.3)),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text('[-] Yürürlükteki Madde (Eski):', style: TextStyle(fontSize: 9, fontWeight: FontWeight.bold, color: Colors.redAccent)),
-                  const SizedBox(height: 2),
-                  Text(prop.amendmentOldText ?? '', style: const TextStyle(fontSize: 10, color: Colors.redAccent, decoration: TextDecoration.lineThrough)),
+                  const Text(
+                    '[-] Yürürlükteki Madde (Eski):',
+                    style: TextStyle(
+                      fontFamily: kAppFontFamily,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w700,
+                      color: Colors.redAccent,
+                    ),
+                  ),
+                  const SizedBox(height: 3),
+                  Text(
+                    prop.amendmentOldText ?? '',
+                    style: const TextStyle(
+                      fontFamily: kAppFontFamily,
+                      fontSize: 13.5,
+                      color: Colors.redAccent,
+                      height: 1.4,
+                      decoration: TextDecoration.lineThrough,
+                    ),
+                  ),
                 ],
               ),
             ),
-            const SizedBox(height: 6),
+            const SizedBox(height: 8),
             Container(
-              padding: const EdgeInsets.all(8),
+              padding: const EdgeInsets.all(10),
               decoration: BoxDecoration(
                 color: const Color(0xFF10B981).withValues(alpha: 0.08),
-                borderRadius: BorderRadius.circular(6),
+                borderRadius: BorderRadius.circular(8),
                 border: Border.all(color: const Color(0xFF10B981).withValues(alpha: 0.3)),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text('[+] Teklif Edilen Düzenleme (Diff):', style: TextStyle(fontSize: 9, fontWeight: FontWeight.bold, color: Color(0xFF10B981))),
-                  const SizedBox(height: 2),
-                  Text(prop.amendmentNewText ?? '', style: const TextStyle(fontSize: 10, color: Color(0xFF10B981))),
+                  const Text(
+                    '[+] Teklif Edilen Düzenleme (Diff):',
+                    style: TextStyle(
+                      fontFamily: kAppFontFamily,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w700,
+                      color: Color(0xFF10B981),
+                    ),
+                  ),
+                  const SizedBox(height: 3),
+                  Text(
+                    prop.amendmentNewText ?? '',
+                    style: const TextStyle(
+                      fontFamily: kAppFontFamily,
+                      fontSize: 13.5,
+                      color: Color(0xFF10B981),
+                      height: 1.4,
+                    ),
+                  ),
                 ],
               ),
             ),
-            const SizedBox(height: 8),
+            const SizedBox(height: 10),
             Wrap(
               alignment: WrapAlignment.spaceBetween,
               crossAxisAlignment: WrapCrossAlignment.center,
               spacing: 8,
               runSpacing: 6,
               children: [
-                Text('Önerge: ${prop.amendmentYes} Kabul / ${prop.amendmentNo} Red', style: const TextStyle(fontSize: 9, color: Colors.white70)),
+                Text(
+                  'Önerge: ${prop.amendmentYes} Kabul / ${prop.amendmentNo} Red',
+                  style: const TextStyle(
+                    fontFamily: kAppFontFamily,
+                    fontSize: 12.5,
+                    color: Colors.white70,
+                  ),
+                ),
                 ElevatedButton(
                   onPressed: () {
                     setDetailState(() {
@@ -1042,13 +1360,29 @@ class _MainScreenState extends State<MainScreen> {
                     setState(() {});
                     _addBlock('DIFF_ENACTED: Düzenleme Kabul Edildi & Metne İşlendi');
                   },
-                  style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFF10B981), foregroundColor: Colors.black, minimumSize: Size.zero, padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5)),
-                  child: const Text('✓ Kabul Et & Metne İşle', style: TextStyle(fontSize: 9, fontWeight: FontWeight.bold)),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFF10B981),
+                    foregroundColor: Colors.black,
+                    minimumSize: Size.zero,
+                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 7),
+                  ),
+                  child: const Text(
+                    '✓ Kabul Et & Metne İşle',
+                    style: TextStyle(fontFamily: kAppFontFamily, fontSize: 12.5, fontWeight: FontWeight.w700),
+                  ),
                 ),
               ],
             ),
           ] else ...[
-            const Text('Şu an aktif bir değişiklik önerisi bulunmuyor. Dilerseniz yukarıdan madde düzenleme teklifi verebilirsiniz.', style: TextStyle(fontSize: 10, color: Colors.white54)),
+            const Text(
+              'Şu an aktif bir değişiklik önerisi bulunmuyor. Dilerseniz yukarıdan madde düzenleme teklifi verebilirsiniz.',
+              style: TextStyle(
+                fontFamily: kAppFontFamily,
+                fontSize: 13,
+                color: Colors.white54,
+                height: 1.4,
+              ),
+            ),
           ],
         ],
       ),
@@ -1058,7 +1392,7 @@ class _MainScreenState extends State<MainScreen> {
   // --- BÖLÜM: ALT KONULAR (SUB-TOPICS) ---
   Widget _buildSubTopicsSection(Proposal prop, StateSetter setDetailState) {
     return Container(
-      padding: const EdgeInsets.all(12),
+      padding: const EdgeInsets.all(14),
       decoration: BoxDecoration(
         color: const Color(0xFF0F172A),
         borderRadius: BorderRadius.circular(12),
@@ -1073,10 +1407,20 @@ class _MainScreenState extends State<MainScreen> {
               Expanded(
                 child: Row(
                   children: [
-                    const Icon(Icons.account_tree_outlined, size: 14, color: Color(0xFF38BDF8)),
-                    const SizedBox(width: 6),
+                    const Icon(Icons.account_tree_outlined, size: 16, color: Color(0xFF38BDF8)),
+                    const SizedBox(width: 8),
                     Expanded(
-                      child: Text('Bağlı Alt Maddeler (${prop.subTopics.length})', maxLines: 1, overflow: TextOverflow.ellipsis, style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: Color(0xFF38BDF8))),
+                      child: Text(
+                        'Bağlı Alt Maddeler (${prop.subTopics.length})',
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                          fontFamily: kAppFontFamily,
+                          fontSize: 14.5,
+                          fontWeight: FontWeight.w700,
+                          color: Color(0xFF38BDF8),
+                        ),
+                      ),
                     ),
                   ],
                 ),
@@ -1084,20 +1428,26 @@ class _MainScreenState extends State<MainScreen> {
               const SizedBox(width: 6),
               TextButton.icon(
                 onPressed: () => _showAddSubTopicDialog(prop, setDetailState),
-                icon: const Icon(Icons.add, size: 14),
-                label: const Text('Alt Madde Ekle', style: TextStyle(fontSize: 10)),
+                icon: const Icon(Icons.add, size: 16),
+                label: const Text(
+                  'Alt Madde Ekle',
+                  style: TextStyle(fontFamily: kAppFontFamily, fontSize: 13, fontWeight: FontWeight.w600),
+                ),
                 style: TextButton.styleFrom(padding: EdgeInsets.zero, minimumSize: Size.zero),
               ),
             ],
           ),
-          const SizedBox(height: 8),
+          const SizedBox(height: 10),
 
           if (prop.subTopics.isEmpty)
-            const Text('Bu teklife henüz bir alt madde eklenmemiş.', style: TextStyle(fontSize: 10, color: Colors.white54))
+            const Text(
+              'Bu teklife henüz bir alt madde eklenmemiş.',
+              style: TextStyle(fontFamily: kAppFontFamily, fontSize: 13, color: Colors.white54),
+            )
           else
             ...prop.subTopics.map((sub) => Container(
-                  margin: const EdgeInsets.only(bottom: 6),
-                  padding: const EdgeInsets.all(8),
+                  margin: const EdgeInsets.only(bottom: 8),
+                  padding: const EdgeInsets.all(10),
                   decoration: BoxDecoration(
                     color: const Color(0xFF090D16),
                     borderRadius: BorderRadius.circular(8),
@@ -1109,15 +1459,38 @@ class _MainScreenState extends State<MainScreen> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(sub.title, style: const TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: Colors.white)),
-                            const SizedBox(height: 2),
-                            Text('Öneren: ${sub.proposer} | %${sub.approvalRate.toStringAsFixed(0)} Evet (${sub.yesVotes}/${sub.yesVotes + sub.noVotes})', style: const TextStyle(fontSize: 8, color: Colors.white54)),
+                            Text(
+                              sub.title,
+                              style: const TextStyle(
+                                fontFamily: kAppFontFamily,
+                                fontSize: 13.5,
+                                fontWeight: FontWeight.w700,
+                                color: Colors.white,
+                              ),
+                            ),
+                            const SizedBox(height: 3),
+                            Text(
+                              'Öneren: ${sub.proposer} | %${sub.approvalRate.toStringAsFixed(0)} Evet (${sub.yesVotes}/${sub.yesVotes + sub.noVotes})',
+                              style: const TextStyle(
+                                fontFamily: kAppFontFamily,
+                                fontSize: 11.5,
+                                color: Colors.white54,
+                              ),
+                            ),
                           ],
                         ),
                       ),
-                      const SizedBox(width: 6),
+                      const SizedBox(width: 8),
                       sub.status == 'KABUL_EDILDI'
-                          ? const Text('✓ Kabul', style: TextStyle(fontSize: 9, color: Color(0xFF10B981), fontWeight: FontWeight.bold))
+                          ? const Text(
+                              '✓ Kabul',
+                              style: TextStyle(
+                                fontFamily: kAppFontFamily,
+                                fontSize: 12,
+                                color: Color(0xFF10B981),
+                                fontWeight: FontWeight.w700,
+                              ),
+                            )
                           : ElevatedButton(
                               onPressed: () {
                                 setDetailState(() {
@@ -1129,8 +1502,20 @@ class _MainScreenState extends State<MainScreen> {
                                 setState(() {});
                                 _addBlock('SUBTOPIC_VOTE: ${sub.title}');
                               },
-                              style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFF38BDF8), foregroundColor: Colors.black, minimumSize: Size.zero, padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4)),
-                              child: const Text('+1 Oy', style: TextStyle(fontSize: 8, fontWeight: FontWeight.bold)),
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: const Color(0xFF38BDF8),
+                                foregroundColor: Colors.black,
+                                minimumSize: Size.zero,
+                                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                              ),
+                              child: const Text(
+                                '+1 Oy',
+                                style: TextStyle(
+                                  fontFamily: kAppFontFamily,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
                             ),
                     ],
                   ),
@@ -1145,7 +1530,7 @@ class _MainScreenState extends State<MainScreen> {
     final bool isVetoed = prop.status == 'REDDEDILDI' || prop.ontologyScore < 50;
 
     return Container(
-      padding: const EdgeInsets.all(12),
+      padding: const EdgeInsets.all(14),
       decoration: BoxDecoration(
         color: const Color(0xFF0F172A),
         borderRadius: BorderRadius.circular(12),
@@ -1160,29 +1545,44 @@ class _MainScreenState extends State<MainScreen> {
               const Expanded(
                 child: Row(
                   children: [
-                    Icon(Icons.gavel_outlined, size: 14, color: Color(0xFF818CF8)),
-                    SizedBox(width: 6),
+                    Icon(Icons.gavel_outlined, size: 16, color: Color(0xFF818CF8)),
+                    SizedBox(width: 8),
                     Expanded(
-                      child: Text('Hukuki Denetim & Normlar Hiyerarşisi', maxLines: 1, overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: Color(0xFF818CF8))),
+                      child: Text(
+                        'Hukuki Denetim & Normlar Hiyerarşisi',
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          fontFamily: kAppFontFamily,
+                          fontSize: 14.5,
+                          fontWeight: FontWeight.w700,
+                          color: Color(0xFF818CF8),
+                        ),
+                      ),
                     ),
                   ],
                 ),
               ),
               const SizedBox(width: 6),
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                 decoration: BoxDecoration(
                   color: isVetoed ? Colors.red.withValues(alpha: 0.15) : const Color(0xFF10B981).withValues(alpha: 0.15),
                   borderRadius: BorderRadius.circular(4),
                 ),
                 child: Text(
                   isVetoed ? 'VETO' : '%${prop.ontologyScore} UYUMLU',
-                  style: TextStyle(fontSize: 9, fontWeight: FontWeight.bold, color: isVetoed ? Colors.redAccent : const Color(0xFF10B981)),
+                  style: TextStyle(
+                    fontFamily: kAppFontFamily,
+                    fontSize: 11.5,
+                    fontWeight: FontWeight.w700,
+                    color: isVetoed ? Colors.redAccent : const Color(0xFF10B981),
+                  ),
                 ),
               ),
             ],
           ),
-          const SizedBox(height: 8),
+          const SizedBox(height: 10),
 
           // Hiyerarşi Katmanları
           _buildNormStep('1. Anayasa Katmanı (Üst Norm)', 'Madde 56: Çevre hakkı / Madde 43: Kıyılar kamu yararınadır.', isVetoed ? Colors.redAccent : const Color(0xFF10B981)),
@@ -1190,13 +1590,22 @@ class _MainScreenState extends State<MainScreen> {
           _buildNormStep('3. Yerel Yönetmelik', 'Teklif edilen yerel düzenleme metni.', const Color(0xFF38BDF8)),
 
           if (isVetoed) ...[
-            const SizedBox(height: 6),
+            const SizedBox(height: 8),
             Container(
-              padding: const EdgeInsets.all(8),
-              decoration: BoxDecoration(color: Colors.red.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(8), border: Border.all(color: Colors.redAccent.withValues(alpha: 0.3))),
+              padding: const EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                color: Colors.red.withValues(alpha: 0.1),
+                borderRadius: BorderRadius.circular(8),
+                border: Border.all(color: Colors.redAccent.withValues(alpha: 0.3)),
+              ),
               child: Text(
                 'Bilirkişi Veto Kararı: ${prop.vetoReason ?? "Üst norm ihlali nedeniyle teklif düşürülmüştür."}',
-                style: const TextStyle(fontSize: 9, color: Colors.redAccent, height: 1.3),
+                style: const TextStyle(
+                  fontFamily: kAppFontFamily,
+                  fontSize: 12.5,
+                  color: Colors.redAccent,
+                  height: 1.4,
+                ),
               ),
             ),
           ],
@@ -1207,19 +1616,35 @@ class _MainScreenState extends State<MainScreen> {
 
   Widget _buildNormStep(String title, String desc, Color color) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 2),
+      padding: const EdgeInsets.symmetric(vertical: 3),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(Icons.circle, size: 6, color: color),
-          const SizedBox(width: 6),
+          Padding(
+            padding: const EdgeInsets.only(top: 5),
+            child: Icon(Icons.circle, size: 7, color: color),
+          ),
+          const SizedBox(width: 8),
           Expanded(
             child: RichText(
               text: TextSpan(
                 text: '$title: ',
-                style: TextStyle(fontSize: 9, fontWeight: FontWeight.bold, color: color),
+                style: TextStyle(
+                  fontFamily: kAppFontFamily,
+                  fontSize: 12.5,
+                  fontWeight: FontWeight.w700,
+                  color: color,
+                ),
                 children: [
-                  TextSpan(text: desc, style: const TextStyle(fontWeight: FontWeight.normal, color: Colors.white70)),
+                  TextSpan(
+                    text: desc,
+                    style: const TextStyle(
+                      fontFamily: kAppFontFamily,
+                      fontWeight: FontWeight.normal,
+                      color: Colors.white70,
+                      height: 1.35,
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -1234,7 +1659,7 @@ class _MainScreenState extends State<MainScreen> {
     final commentCtrl = TextEditingController();
 
     return Container(
-      padding: const EdgeInsets.all(12),
+      padding: const EdgeInsets.all(14),
       decoration: BoxDecoration(
         color: const Color(0xFF0F172A),
         borderRadius: BorderRadius.circular(12),
@@ -1249,23 +1674,41 @@ class _MainScreenState extends State<MainScreen> {
               Expanded(
                 child: Row(
                   children: [
-                    const Icon(Icons.chat_bubble_outline, size: 14, color: Colors.white70),
-                    const SizedBox(width: 6),
+                    const Icon(Icons.chat_bubble_outline, size: 16, color: Colors.white70),
+                    const SizedBox(width: 8),
                     Expanded(
-                      child: Text('Müzakere Defteri (${prop.comments.length} Görüş)', maxLines: 1, overflow: TextOverflow.ellipsis, style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: Colors.white)),
+                      child: Text(
+                        'Müzakere Defteri (${prop.comments.length} Görüş)',
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                          fontFamily: kAppFontFamily,
+                          fontSize: 14.5,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.white,
+                        ),
+                      ),
                     ),
                   ],
                 ),
               ),
               const SizedBox(width: 6),
-              const Text('SHA-256', style: TextStyle(fontSize: 8, fontFamily: 'monospace', color: Color(0xFF38BDF8))),
+              const Text(
+                'SHA-256',
+                style: TextStyle(
+                  fontFamily: 'monospace',
+                  fontSize: 11,
+                  color: Color(0xFF38BDF8),
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ],
           ),
-          const SizedBox(height: 8),
+          const SizedBox(height: 10),
 
           ...prop.comments.map((com) => Container(
-                margin: const EdgeInsets.only(bottom: 6),
-                padding: const EdgeInsets.all(8),
+                margin: const EdgeInsets.only(bottom: 8),
+                padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
                   color: com.isUnderRedaction ? Colors.amber.withValues(alpha: 0.08) : const Color(0xFF090D16),
                   borderRadius: BorderRadius.circular(8),
@@ -1274,30 +1717,77 @@ class _MainScreenState extends State<MainScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    Wrap(
+                      alignment: WrapAlignment.spaceBetween,
+                      crossAxisAlignment: WrapCrossAlignment.center,
+                      spacing: 8,
+                      runSpacing: 4,
                       children: [
-                        Text(com.author, style: const TextStyle(fontSize: 9, fontWeight: FontWeight.bold, color: Colors.white)),
-                        Text(com.txHash, style: const TextStyle(fontSize: 8, fontFamily: 'monospace', color: Color(0xFF38BDF8))),
+                        Text(
+                          com.author,
+                          style: const TextStyle(
+                            fontFamily: kAppFontFamily,
+                            fontSize: 12.5,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.white,
+                          ),
+                        ),
+                        Text(
+                          com.txHash,
+                          style: const TextStyle(
+                            fontFamily: 'monospace',
+                            fontSize: 11,
+                            color: Color(0xFF38BDF8),
+                          ),
+                        ),
                       ],
                     ),
-                    const SizedBox(height: 3),
+                    const SizedBox(height: 4),
                     com.isMasked
-                        ? const Text('[Bu içerik %66 Topluluk Kararıyla Maskelenmiştir - Hash Bütünlüğü Korunmaktadır]', style: TextStyle(fontSize: 9, color: Colors.redAccent, fontStyle: FontStyle.italic))
-                        : Text(com.text, style: const TextStyle(fontSize: 10, color: Colors.white70)),
+                        ? const Text(
+                            '[Bu içerik %66 Topluluk Kararıyla Maskelenmiştir - Hash Bütünlüğü Korunmaktadır]',
+                            style: TextStyle(
+                              fontFamily: kAppFontFamily,
+                              fontSize: 12.5,
+                              color: Colors.redAccent,
+                              fontStyle: FontStyle.italic,
+                            ),
+                          )
+                        : Text(
+                            com.text,
+                            style: const TextStyle(
+                              fontFamily: kAppFontFamily,
+                              fontSize: 13.5,
+                              color: Colors.white70,
+                              height: 1.4,
+                            ),
+                          ),
 
                     // Redaksiyon / Sansürleme Oylaması
                     if (com.isUnderRedaction && !com.isMasked) ...[
-                      const SizedBox(height: 6),
+                      const SizedBox(height: 8),
                       Container(
-                        padding: const EdgeInsets.all(6),
-                        decoration: BoxDecoration(color: Colors.amber.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(6)),
+                        padding: const EdgeInsets.all(8),
+                        decoration: BoxDecoration(
+                          color: Colors.amber.withValues(alpha: 0.1),
+                          borderRadius: BorderRadius.circular(6),
+                        ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Expanded(
-                              child: Text('Şikayet: ${com.redactionReason} (%${com.deleteRate.toStringAsFixed(0)} Silinsin)', maxLines: 1, overflow: TextOverflow.ellipsis, style: const TextStyle(fontSize: 8, color: Colors.amber)),
+                              child: Text(
+                                'Şikayet: ${com.redactionReason} (%${com.deleteRate.toStringAsFixed(0)} Silinsin)',
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: const TextStyle(
+                                  fontFamily: kAppFontFamily,
+                                  fontSize: 11.5,
+                                  color: Colors.amber,
+                                ),
+                              ),
                             ),
+                            const SizedBox(width: 6),
                             ElevatedButton(
                               onPressed: () {
                                 setDetailState(() {
@@ -1309,8 +1799,20 @@ class _MainScreenState extends State<MainScreen> {
                                 setState(() {});
                                 _addBlock('REDACTION_VOTE: ${com.txHash} Maskeleme Oyu');
                               },
-                              style: ElevatedButton.styleFrom(backgroundColor: Colors.redAccent, foregroundColor: Colors.white, minimumSize: Size.zero, padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3)),
-                              child: const Text('Maskele Oyu Ver', style: TextStyle(fontSize: 8, fontWeight: FontWeight.bold)),
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.redAccent,
+                                foregroundColor: Colors.white,
+                                minimumSize: Size.zero,
+                                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                              ),
+                              child: const Text(
+                                'Maskele Oyu Ver',
+                                style: TextStyle(
+                                  fontFamily: kAppFontFamily,
+                                  fontSize: 11,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
                             ),
                           ],
                         ),
@@ -1320,7 +1822,7 @@ class _MainScreenState extends State<MainScreen> {
                 ),
               )),
 
-          const SizedBox(height: 6),
+          const SizedBox(height: 8),
           Row(
             children: [
               Expanded(
@@ -1328,15 +1830,15 @@ class _MainScreenState extends State<MainScreen> {
                   controller: commentCtrl,
                   decoration: const InputDecoration(
                     hintText: 'Deftere silinemez bir görüş yazın...',
-                    hintStyle: TextStyle(fontSize: 10, color: Colors.white38),
+                    hintStyle: TextStyle(fontFamily: kAppFontFamily, fontSize: 13, color: Colors.white38),
                     isDense: true,
-                    contentPadding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                    contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                   ),
-                  style: const TextStyle(fontSize: 10, color: Colors.white),
+                  style: const TextStyle(fontFamily: kAppFontFamily, fontSize: 13.5, color: Colors.white),
                 ),
               ),
               IconButton(
-                icon: const Icon(Icons.send, color: Color(0xFF38BDF8), size: 18),
+                icon: const Icon(Icons.send, color: Color(0xFF38BDF8), size: 20),
                 onPressed: () {
                   if (commentCtrl.text.trim().isEmpty) return;
                   final newCom = CommentItem(
@@ -1364,7 +1866,7 @@ class _MainScreenState extends State<MainScreen> {
     final bool isVetoed = prop.status == 'REDDEDILDI' || prop.ontologyScore < 50;
 
     return Container(
-      padding: const EdgeInsets.all(12),
+      padding: const EdgeInsets.all(14),
       decoration: BoxDecoration(
         color: const Color(0xFF0F172A),
         borderRadius: BorderRadius.circular(12),
@@ -1377,13 +1879,31 @@ class _MainScreenState extends State<MainScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               const Expanded(
-                child: Text('Karesel Oylama & Karar', maxLines: 1, overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: Color(0xFFF59E0B))),
+                child: Text(
+                  'Karesel Oylama & Karar',
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    fontFamily: kAppFontFamily,
+                    fontSize: 14.5,
+                    fontWeight: FontWeight.w700,
+                    color: Color(0xFFF59E0B),
+                  ),
+                ),
               ),
               const SizedBox(width: 6),
-              Text('Kullanılan: $userVote Oy (${userVote * userVote} VC)', style: const TextStyle(fontSize: 10, color: Color(0xFFF59E0B), fontWeight: FontWeight.bold)),
+              Text(
+                'Kullanılan: $userVote Oy (${userVote * userVote} VC)',
+                style: const TextStyle(
+                  fontFamily: kAppFontFamily,
+                  fontSize: 13,
+                  color: Color(0xFFF59E0B),
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
             ],
           ),
-          const SizedBox(height: 8),
+          const SizedBox(height: 10),
 
           Wrap(
             alignment: WrapAlignment.spaceBetween,
@@ -1391,23 +1911,38 @@ class _MainScreenState extends State<MainScreen> {
             spacing: 8,
             runSpacing: 8,
             children: [
-              Row(
-                mainAxisSize: MainAxisSize.min,
+              Wrap(
+                crossAxisAlignment: WrapCrossAlignment.center,
+                spacing: 8,
+                runSpacing: 6,
                 children: [
-                  IconButton(
-                    onPressed: userVote > 0
-                        ? () {
-                            _castQuadraticVote(prop, false);
-                            setDetailState(() {});
-                          }
-                        : null,
-                    icon: const Icon(Icons.remove_circle_outline, color: Colors.white54, size: 20),
-                    padding: EdgeInsets.zero,
-                    constraints: const BoxConstraints(),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8),
-                    child: Text('$userVote Oy', style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Colors.white)),
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      IconButton(
+                        onPressed: userVote > 0
+                            ? () {
+                                _castQuadraticVote(prop, false);
+                                setDetailState(() {});
+                              }
+                            : null,
+                        icon: const Icon(Icons.remove_circle_outline, color: Colors.white54, size: 24),
+                        padding: EdgeInsets.zero,
+                        constraints: const BoxConstraints(),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        child: Text(
+                          '$userVote Oy',
+                          style: const TextStyle(
+                            fontFamily: kAppFontFamily,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                   ElevatedButton(
                     onPressed: () {
@@ -1417,11 +1952,18 @@ class _MainScreenState extends State<MainScreen> {
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xFFF59E0B),
                       foregroundColor: Colors.black,
-                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                       minimumSize: Size.zero,
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
                     ),
-                    child: Text('+1 Oy Ver ($nextCost VC)', style: const TextStyle(fontSize: 10, fontWeight: FontWeight.bold)),
+                    child: Text(
+                      '+1 Oy Ver ($nextCost VC)',
+                      style: const TextStyle(
+                        fontFamily: kAppFontFamily,
+                        fontSize: 13,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
                   ),
                 ],
               ),
@@ -1441,12 +1983,19 @@ class _MainScreenState extends State<MainScreen> {
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFF10B981),
                   foregroundColor: Colors.black,
-                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                  padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
                   minimumSize: Size.zero,
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
                 ),
-                icon: const Icon(Icons.check, size: 14),
-                label: const Text('Oylamayı Sonuçlandır & Yürürlüğe Al', style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold)),
+                icon: const Icon(Icons.check, size: 16),
+                label: const Text(
+                  'Oylamayı Sonuçlandır & Yürürlüğe Al',
+                  style: TextStyle(
+                    fontFamily: kAppFontFamily,
+                    fontSize: 13,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
               ),
             ],
           ),
@@ -1469,42 +2018,64 @@ class _MainScreenState extends State<MainScreen> {
           backgroundColor: const Color(0xFF0F172A),
           actionsOverflowButtonSpacing: 8,
           actionsAlignment: MainAxisAlignment.end,
-          title: const Text('Yeni Yasa Teklifi Sun', style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold, color: Colors.white)),
+          title: const Text(
+            'Yeni Yasa Teklifi Sun',
+            style: TextStyle(
+              fontFamily: kAppFontFamily,
+              fontSize: 16.5,
+              fontWeight: FontWeight.w700,
+              color: Colors.white,
+            ),
+          ),
           content: SingleChildScrollView(
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
                 TextField(
                   controller: titleCtrl,
-                  decoration: const InputDecoration(labelText: 'Yasa Başlığı', labelStyle: TextStyle(fontSize: 10)),
-                  style: const TextStyle(fontSize: 11, color: Colors.white),
+                  decoration: const InputDecoration(
+                    labelText: 'Yasa Başlığı',
+                    labelStyle: TextStyle(fontFamily: kAppFontFamily, fontSize: 13),
+                  ),
+                  style: const TextStyle(fontFamily: kAppFontFamily, fontSize: 13.5, color: Colors.white),
                 ),
-                const SizedBox(height: 8),
+                const SizedBox(height: 10),
                 DropdownButtonFormField<String>(
                   initialValue: category,
                   dropdownColor: const Color(0xFF0F172A),
-                  decoration: const InputDecoration(labelText: 'Mevzuat Alanı', labelStyle: TextStyle(fontSize: 10)),
-                  style: const TextStyle(fontSize: 11, color: Colors.white),
+                  decoration: const InputDecoration(
+                    labelText: 'Mevzuat Alanı',
+                    labelStyle: TextStyle(fontFamily: kAppFontFamily, fontSize: 13),
+                  ),
+                  style: const TextStyle(fontFamily: kAppFontFamily, fontSize: 13.5, color: Colors.white),
                   items: ['Çevre & Şehircilik', 'Ulaşım & Sosyal Haklar', 'Kıyı Mevzuatı', 'Enerji & Çevre', 'Genel Yönetişim']
-                      .map((c) => DropdownMenuItem(value: c, child: Text(c, style: const TextStyle(fontSize: 11))))
+                      .map((c) => DropdownMenuItem(value: c, child: Text(c, style: const TextStyle(fontFamily: kAppFontFamily, fontSize: 13.5))))
                       .toList(),
                   onChanged: (val) {
                     if (val != null) setDlgState(() => category = val);
                   },
                 ),
-                const SizedBox(height: 8),
+                const SizedBox(height: 10),
                 TextField(
                   controller: contentCtrl,
                   maxLines: 3,
-                  decoration: const InputDecoration(labelText: 'Gerekçe ve Yasa Metni', labelStyle: TextStyle(fontSize: 10)),
-                  style: const TextStyle(fontSize: 11, color: Colors.white),
+                  decoration: const InputDecoration(
+                    labelText: 'Gerekçe ve Yasa Metni',
+                    labelStyle: TextStyle(fontFamily: kAppFontFamily, fontSize: 13),
+                  ),
+                  style: const TextStyle(fontFamily: kAppFontFamily, fontSize: 13.5, color: Colors.white),
                 ),
-                const SizedBox(height: 10),
+                const SizedBox(height: 12),
                 const Row(
                   children: [
-                    Icon(Icons.shield_outlined, size: 14, color: Color(0xFF10B981)),
-                    SizedBox(width: 6),
-                    Expanded(child: Text('AI Mevzuat Ontolojisi teklifi otomatik analiz eder.', style: TextStyle(fontSize: 9, color: Color(0xFF10B981)))),
+                    Icon(Icons.shield_outlined, size: 16, color: Color(0xFF10B981)),
+                    SizedBox(width: 8),
+                    Expanded(
+                      child: Text(
+                        'AI Mevzuat Ontolojisi teklifi otomatik analiz eder.',
+                        style: TextStyle(fontFamily: kAppFontFamily, fontSize: 12, color: Color(0xFF10B981)),
+                      ),
+                    ),
                   ],
                 ),
               ],
@@ -1529,10 +2100,16 @@ class _MainScreenState extends State<MainScreen> {
                 _addBlock('NEW_PROPOSAL: ${newProp.title}');
                 Navigator.pop(ctx);
               },
-              style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFF2563EB)),
-              child: const Text('Teklifi Sun', style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold)),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xFF2563EB),
+                padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+              ),
+              child: const Text('Teklifi Sun', style: TextStyle(fontFamily: kAppFontFamily, fontSize: 13, fontWeight: FontWeight.w700)),
             ),
-            TextButton(onPressed: () => Navigator.pop(ctx), child: const Text('İptal', style: TextStyle(fontSize: 10))),
+            TextButton(
+              onPressed: () => Navigator.pop(ctx),
+              child: const Text('İptal', style: TextStyle(fontFamily: kAppFontFamily, fontSize: 13)),
+            ),
           ],
         ),
       ),
@@ -1547,21 +2124,30 @@ class _MainScreenState extends State<MainScreen> {
       context: context,
       builder: (ctx) => AlertDialog(
         backgroundColor: const Color(0xFF0F172A),
-        title: const Text('Düzenleme Önergesi Hazırla (Diff)', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Color(0xFF06B6D4))),
+        title: const Text(
+          'Düzenleme Önergesi Hazırla (Diff)',
+          style: TextStyle(fontFamily: kAppFontFamily, fontSize: 15.5, fontWeight: FontWeight.w700, color: Color(0xFF06B6D4)),
+        ),
         content: SingleChildScrollView(
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               TextField(
                 controller: oldCtrl,
-                decoration: const InputDecoration(labelText: 'Değiştirilmek İstenen Kısım', labelStyle: TextStyle(fontSize: 10)),
-                style: const TextStyle(fontSize: 10, color: Colors.white),
+                decoration: const InputDecoration(
+                  labelText: 'Değiştirilmek İstenen Kısım',
+                  labelStyle: TextStyle(fontFamily: kAppFontFamily, fontSize: 13),
+                ),
+                style: const TextStyle(fontFamily: kAppFontFamily, fontSize: 13, color: Colors.white),
               ),
-              const SizedBox(height: 8),
+              const SizedBox(height: 10),
               TextField(
                 controller: newCtrl,
-                decoration: const InputDecoration(labelText: 'Önerilen Yeni Hüküm', labelStyle: TextStyle(fontSize: 10)),
-                style: const TextStyle(fontSize: 10, color: Colors.white),
+                decoration: const InputDecoration(
+                  labelText: 'Önerilen Yeni Hüküm',
+                  labelStyle: TextStyle(fontFamily: kAppFontFamily, fontSize: 13),
+                ),
+                style: const TextStyle(fontFamily: kAppFontFamily, fontSize: 13, color: Colors.white),
               ),
             ],
           ),
@@ -1581,10 +2167,17 @@ class _MainScreenState extends State<MainScreen> {
               _addBlock('DIFF_PROPOSED: ${prop.title}');
               Navigator.pop(ctx);
             },
-            style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFF06B6D4), foregroundColor: Colors.black),
-            child: const Text('Önergeyi Sun', style: TextStyle(fontSize: 9, fontWeight: FontWeight.bold)),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: const Color(0xFF06B6D4),
+              foregroundColor: Colors.black,
+              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+            ),
+            child: const Text('Önergeyi Sun', style: TextStyle(fontFamily: kAppFontFamily, fontSize: 12.5, fontWeight: FontWeight.w700)),
           ),
-          TextButton(onPressed: () => Navigator.pop(ctx), child: const Text('İptal', style: TextStyle(fontSize: 9))),
+          TextButton(
+            onPressed: () => Navigator.pop(ctx),
+            child: const Text('İptal', style: TextStyle(fontFamily: kAppFontFamily, fontSize: 12.5)),
+          ),
         ],
       ),
     );
@@ -1597,11 +2190,17 @@ class _MainScreenState extends State<MainScreen> {
       context: context,
       builder: (ctx) => AlertDialog(
         backgroundColor: const Color(0xFF0F172A),
-        title: const Text('Yeni Alt Madde / Konu Ekle', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Color(0xFF38BDF8))),
+        title: const Text(
+          'Yeni Alt Madde / Konu Ekle',
+          style: TextStyle(fontFamily: kAppFontFamily, fontSize: 15.5, fontWeight: FontWeight.w700, color: Color(0xFF38BDF8)),
+        ),
         content: TextField(
           controller: titleCtrl,
-          decoration: const InputDecoration(labelText: 'Alt Madde Başlığı', labelStyle: TextStyle(fontSize: 10)),
-          style: const TextStyle(fontSize: 10, color: Colors.white),
+          decoration: const InputDecoration(
+            labelText: 'Alt Madde Başlığı',
+            labelStyle: TextStyle(fontFamily: kAppFontFamily, fontSize: 13),
+          ),
+          style: const TextStyle(fontFamily: kAppFontFamily, fontSize: 13, color: Colors.white),
         ),
         actions: [
           ElevatedButton(
@@ -1619,10 +2218,17 @@ class _MainScreenState extends State<MainScreen> {
               _addBlock('SUBTOPIC_ADDED: ${newSub.title}');
               Navigator.pop(ctx);
             },
-            style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFF38BDF8), foregroundColor: Colors.black),
-            child: const Text('Alt Maddeyi Kaydet', style: TextStyle(fontSize: 9, fontWeight: FontWeight.bold)),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: const Color(0xFF38BDF8),
+              foregroundColor: Colors.black,
+              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+            ),
+            child: const Text('Alt Maddeyi Kaydet', style: TextStyle(fontFamily: kAppFontFamily, fontSize: 12.5, fontWeight: FontWeight.w700)),
           ),
-          TextButton(onPressed: () => Navigator.pop(ctx), child: const Text('İptal', style: TextStyle(fontSize: 9))),
+          TextButton(
+            onPressed: () => Navigator.pop(ctx),
+            child: const Text('İptal', style: TextStyle(fontFamily: kAppFontFamily, fontSize: 12.5)),
+          ),
         ],
       ),
     );
@@ -1636,47 +2242,84 @@ class _MainScreenState extends State<MainScreen> {
     return ListView(
       padding: const EdgeInsets.all(14),
       children: [
-        const Text('Normlar Hiyerarşisi & Bilirkişi Katmanı', style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold, color: Colors.white)),
-        const SizedBox(height: 4),
-        const Text('Hiyerarşide alt norm (yönetmelik), üst norma (Anayasa) aykırı olamaz. Çoğunluk oyu çıksa dahi anayasal haklar gasp edilemez.', style: TextStyle(fontSize: 10, color: Colors.white54, height: 1.35)),
-        const SizedBox(height: 12),
+        const Text(
+          'Normlar Hiyerarşisi & Bilirkişi Katmanı',
+          style: TextStyle(
+            fontFamily: kAppFontFamily,
+            fontSize: 16.5,
+            fontWeight: FontWeight.w700,
+            color: Colors.white,
+          ),
+        ),
+        const SizedBox(height: 6),
+        const Text(
+          'Hiyerarşide alt norm (yönetmelik), üst norma (Anayasa) aykırı olamaz. Çoğunluk oyu çıksa dahi anayasal haklar gasp edilemez.',
+          style: TextStyle(
+            fontFamily: kAppFontFamily,
+            fontSize: 13,
+            color: Colors.white54,
+            height: 1.4,
+          ),
+        ),
+        const SizedBox(height: 14),
 
         Card(
           color: const Color(0xFF0F172A),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12), side: const BorderSide(color: Color(0xFF1E293B))),
           child: Padding(
-            padding: const EdgeInsets.all(12),
+            padding: const EdgeInsets.all(14),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 _buildHierarchyCardItem('1. T.C. Anayasası (En Üst Norm)', 'Madde 43: Kıyılar kamu yararına açıktır.\nMadde 56: Herkes sağlıklı ve dengeli bir çevrede yaşama hakkına sahiptir.', const Color(0xFFEF4444)),
-                const SizedBox(height: 8),
+                const SizedBox(height: 10),
                 _buildHierarchyCardItem('2. Kanunlar', 'Çevre Kanunu, İmar Kanunu, Yenilenebilir Enerji Kanunu.', const Color(0xFFF59E0B)),
-                const SizedBox(height: 8),
+                const SizedBox(height: 10),
                 _buildHierarchyCardItem('3. Yerel Yönetmelikler', 'Belediye meclisi ve mahalle konseyleri kararları.', const Color(0xFF10B981)),
               ],
             ),
           ),
         ),
-        const SizedBox(height: 12),
+        const SizedBox(height: 14),
 
         Card(
           color: const Color(0xFF0F172A),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12), side: const BorderSide(color: Color(0xFF1E293B))),
           child: const Padding(
-            padding: EdgeInsets.all(12),
+            padding: EdgeInsets.all(14),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Kayıtlı Bilirkişiler ve Oy Ağırlıkları', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: Color(0xFFF59E0B))),
-                SizedBox(height: 8),
+                Text(
+                  'Kayıtlı Bilirkişiler ve Oy Ağırlıkları',
+                  style: TextStyle(
+                    fontFamily: kAppFontFamily,
+                    fontSize: 13.5,
+                    fontWeight: FontWeight.w700,
+                    color: Color(0xFFF59E0B),
+                  ),
+                ),
+                SizedBox(height: 10),
                 ListTile(
                   dense: true,
                   contentPadding: EdgeInsets.zero,
-                  leading: CircleAvatar(radius: 16, backgroundColor: Color(0xFF2563EB), child: Text('İA', style: TextStyle(color: Colors.white, fontSize: 10))),
-                  title: Text('Prof. Dr. İlker Akman', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: Colors.white)),
-                  subtitle: Text('Anayasa Hukuku Bilirkişisi', style: TextStyle(fontSize: 9, color: Colors.white54)),
-                  trailing: Text('2.2x Oy Çarpanı', style: TextStyle(fontSize: 9, color: Color(0xFFF59E0B), fontWeight: FontWeight.bold)),
+                  leading: CircleAvatar(
+                    radius: 18,
+                    backgroundColor: Color(0xFF2563EB),
+                    child: Text('İA', style: TextStyle(fontFamily: kAppFontFamily, color: Colors.white, fontSize: 12, fontWeight: FontWeight.bold)),
+                  ),
+                  title: Text(
+                    'Prof. Dr. İlker Akman',
+                    style: TextStyle(fontFamily: kAppFontFamily, fontSize: 14, fontWeight: FontWeight.w700, color: Colors.white),
+                  ),
+                  subtitle: Text(
+                    'Anayasa Hukuku Bilirkişisi',
+                    style: TextStyle(fontFamily: kAppFontFamily, fontSize: 12, color: Colors.white54),
+                  ),
+                  trailing: Text(
+                    '2.2x Oy Çarpanı',
+                    style: TextStyle(fontFamily: kAppFontFamily, fontSize: 12.5, color: Color(0xFFF59E0B), fontWeight: FontWeight.w700),
+                  ),
                 ),
               ],
             ),
@@ -1688,14 +2331,20 @@ class _MainScreenState extends State<MainScreen> {
 
   Widget _buildHierarchyCardItem(String level, String text, Color color) {
     return Container(
-      padding: const EdgeInsets.all(8),
+      padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(color: color.withValues(alpha: 0.08), borderRadius: BorderRadius.circular(8), border: Border.all(color: color.withValues(alpha: 0.3))),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(level, style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: color)),
-          const SizedBox(height: 2),
-          Text(text, style: const TextStyle(fontSize: 9, color: Colors.white70)),
+          Text(
+            level,
+            style: TextStyle(fontFamily: kAppFontFamily, fontSize: 13.5, fontWeight: FontWeight.w700, color: color),
+          ),
+          const SizedBox(height: 4),
+          Text(
+            text,
+            style: const TextStyle(fontFamily: kAppFontFamily, fontSize: 12.5, color: Colors.white70, height: 1.35),
+          ),
         ],
       ),
     );
@@ -1713,7 +2362,12 @@ class _MainScreenState extends State<MainScreen> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             const Expanded(
-              child: Text('Dağıtık Defter (Ledger Explorer)', maxLines: 1, overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold, color: Colors.white)),
+              child: Text(
+                'Dağıtık Defter (Ledger Explorer)',
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(fontFamily: kAppFontFamily, fontSize: 16.5, fontWeight: FontWeight.w700, color: Colors.white),
+              ),
             ),
             const SizedBox(width: 8),
             ElevatedButton.icon(
@@ -1721,37 +2375,60 @@ class _MainScreenState extends State<MainScreen> {
                 _addBlock('MANUAL_MINE: Blok #${ledger.length + 1045} Kazıldı');
                 ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Yeni blok başarıyla kazıldı ve zincire eklendi!')));
               },
-              style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFF10B981), foregroundColor: Colors.black, minimumSize: Size.zero, padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4)),
-              icon: const Icon(Icons.add_box, size: 12),
-              label: const Text('Yeni Blok Kaz', style: TextStyle(fontSize: 9, fontWeight: FontWeight.bold)),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xFF10B981),
+                foregroundColor: Colors.black,
+                minimumSize: Size.zero,
+                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+              ),
+              icon: const Icon(Icons.add_box, size: 14),
+              label: const Text('Yeni Blok Kaz', style: TextStyle(fontFamily: kAppFontFamily, fontSize: 12.5, fontWeight: FontWeight.w700)),
             ),
           ],
         ),
-        const SizedBox(height: 4),
-        const Text('Yapılan tüm yasa teklifleri, oylar ve kararlar kriptografik olarak zincire işlenir. Geriye dönük silinemez.', style: TextStyle(fontSize: 10, color: Colors.white54)),
-        const SizedBox(height: 12),
+        const SizedBox(height: 6),
+        const Text(
+          'Yapılan tüm yasa teklifleri, oylar ve kararlar kriptografik olarak zincire işlenir. Geriye dönük silinemez.',
+          style: TextStyle(fontFamily: kAppFontFamily, fontSize: 13, color: Colors.white54, height: 1.4),
+        ),
+        const SizedBox(height: 14),
 
         ...ledger.reversed.map((block) => Card(
               color: const Color(0xFF0F172A),
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12), side: const BorderSide(color: Color(0xFF1E293B))),
-              margin: const EdgeInsets.only(bottom: 8),
+              margin: const EdgeInsets.only(bottom: 10),
               child: Padding(
-                padding: const EdgeInsets.all(10),
+                padding: const EdgeInsets.all(12),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text('Blok #${block.index}', style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 11, color: Color(0xFF38BDF8))),
-                        Text(block.timestamp, style: const TextStyle(fontSize: 9, color: Colors.white54)),
+                        Text(
+                          'Blok #${block.index}',
+                          style: const TextStyle(fontFamily: kAppFontFamily, fontWeight: FontWeight.w700, fontSize: 13.5, color: Color(0xFF38BDF8)),
+                        ),
+                        Text(
+                          block.timestamp,
+                          style: const TextStyle(fontFamily: kAppFontFamily, fontSize: 12, color: Colors.white54),
+                        ),
                       ],
                     ),
-                    const SizedBox(height: 4),
-                    Text('Hash: ${block.hash}', style: const TextStyle(fontSize: 8, fontFamily: 'monospace', color: Color(0xFF10B981))),
-                    Text('Önceki: ${block.prevHash} | Merkle: ${block.merkleRoot}', style: const TextStyle(fontSize: 8, fontFamily: 'monospace', color: Colors.white38)),
-                    const Divider(color: Color(0xFF1E293B), height: 10),
-                    Text('• ${block.summary}', style: const TextStyle(fontSize: 9, color: Colors.white70)),
+                    const SizedBox(height: 6),
+                    Text(
+                      'Hash: ${block.hash}',
+                      style: const TextStyle(fontSize: 11.5, fontFamily: 'monospace', color: Color(0xFF10B981)),
+                    ),
+                    Text(
+                      'Önceki: ${block.prevHash} | Merkle: ${block.merkleRoot}',
+                      style: const TextStyle(fontSize: 11, fontFamily: 'monospace', color: Colors.white38),
+                    ),
+                    const Divider(color: Color(0xFF1E293B), height: 12),
+                    Text(
+                      '• ${block.summary}',
+                      style: const TextStyle(fontFamily: kAppFontFamily, fontSize: 12.5, color: Colors.white70),
+                    ),
                   ],
                 ),
               ),
@@ -1810,21 +2487,21 @@ class _MainScreenState extends State<MainScreen> {
                             spacing: 6,
                             runSpacing: 2,
                             children: [
-                              const Text('Platform Rehberi', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Colors.white)),
+                              const Text('Platform Rehberi', style: TextStyle(fontFamily: kAppFontFamily, fontSize: 15, fontWeight: FontWeight.bold, color: Colors.white)),
                               Container(
-                                padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 1.5),
+                                padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                                 decoration: const BoxDecoration(
                                   color: Color(0xFF38BDF8),
                                   borderRadius: BorderRadius.all(Radius.circular(6)),
                                 ),
-                                child: const Text('7 Sistem', style: TextStyle(fontSize: 8, fontWeight: FontWeight.bold, color: Colors.black)),
+                                child: const Text('7 Sistem', style: TextStyle(fontFamily: kAppFontFamily, fontSize: 10.5, fontWeight: FontWeight.bold, color: Colors.black)),
                               ),
                             ],
                           ),
-                          const SizedBox(height: 3),
+                          const SizedBox(height: 4),
                           const Text(
                             'Karesel oylama, normlar ontolojisi, diff ve kimlik sistemlerini sayfa sayfa öğrenin.',
-                            style: TextStyle(fontSize: 9, color: Colors.white70, height: 1.3),
+                            style: TextStyle(fontFamily: kAppFontFamily, fontSize: 12, color: Colors.white70, height: 1.35, letterSpacing: kReadingLetterSpacing),
                           ),
                         ],
                       ),
@@ -1848,10 +2525,10 @@ class _MainScreenState extends State<MainScreen> {
               children: [
                 const Row(
                   children: [
-                    Icon(Icons.lock, color: Color(0xFFF59E0B), size: 14),
+                    Icon(Icons.lock, color: Color(0xFFF59E0B), size: 15),
                     SizedBox(width: 6),
                     Expanded(
-                      child: Text('Sistem Katmanı: Doğrulanmış Gerçek Kimlik (KYC)', maxLines: 1, overflow: TextOverflow.ellipsis, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11, color: Color(0xFFF59E0B))),
+                      child: Text('Sistem Katmanı: Doğrulanmış Gerçek Kimlik (KYC)', maxLines: 1, overflow: TextOverflow.ellipsis, style: TextStyle(fontFamily: kAppFontFamily, fontWeight: FontWeight.bold, fontSize: 12.5, color: Color(0xFFF59E0B))),
                     ),
                   ],
                 ),
@@ -1877,27 +2554,27 @@ class _MainScreenState extends State<MainScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text('Kamusal Katman: Sıfır Bilgi İspatı (ZKP Rumuzu)', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11, color: Color(0xFF38BDF8))),
+                const Text('Kamusal Katman: Sıfır Bilgi İspatı (ZKP Rumuzu)', style: TextStyle(fontFamily: kAppFontFamily, fontWeight: FontWeight.bold, fontSize: 12.5, color: Color(0xFF38BDF8))),
                 const SizedBox(height: 6),
-                Text(activeCitizen.pseudonym, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white)),
-                const SizedBox(height: 2),
-                Text('Kayıtlı Bölge: ${activeCitizen.district} | İtibar Skoru: ${activeCitizen.reputation}/100', style: const TextStyle(fontSize: 10, color: Colors.white70)),
+                Text(activeCitizen.pseudonym, style: const TextStyle(fontFamily: kAppFontFamily, fontSize: 18, fontWeight: FontWeight.w800, color: Colors.white, letterSpacing: 0.3)),
+                const SizedBox(height: 3),
+                Text('Kayıtlı Bölge: ${activeCitizen.district} | İtibar Skoru: ${activeCitizen.reputation}/100', style: const TextStyle(fontFamily: kAppFontFamily, fontSize: 12, color: Colors.white70)),
                 const SizedBox(height: 6),
-                const Text('Halka açık defterde ve oylamalarda ad, soyad ve TC asla görünmez; yalnızca ZKP rumuzunuz yer alır.', style: TextStyle(fontSize: 9, color: Colors.white38, fontStyle: FontStyle.italic)),
+                const Text('Halka açık defterde ve oylamalarda ad, soyad ve TC asla görünmez; yalnızca ZKP rumuzunuz yer alır.', style: TextStyle(fontFamily: kAppFontFamily, fontSize: 11, color: Colors.white38, fontStyle: FontStyle.italic, height: 1.3)),
               ],
             ),
           ),
         ),
         const SizedBox(height: 14),
 
-        const Text('Profil Değiştir (Bilirkişi veya Diğer Yurttaş Olarak Test Et):', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: Colors.white70)),
+        const Text('Profil Değiştir (Bilirkişi veya Diğer Yurttaş Olarak Test Et):', style: TextStyle(fontFamily: kAppFontFamily, fontSize: 13, fontWeight: FontWeight.bold, color: Colors.white70)),
         const SizedBox(height: 8),
         ...citizens.map((c) => ListTile(
               dense: true,
               contentPadding: EdgeInsets.zero,
-              title: Text('${c.pseudonym} (${c.role})', style: const TextStyle(color: Colors.white, fontSize: 11, fontWeight: FontWeight.bold)),
-              subtitle: Text('${c.fullName} - ${c.district} | ${c.availableCredits} VC', style: const TextStyle(fontSize: 9, color: Colors.white54)),
-              trailing: activeCitizen.id == c.id ? const Icon(Icons.check_circle, color: Color(0xFF10B981), size: 16) : null,
+              title: Text('${c.pseudonym} (${c.role})', style: const TextStyle(fontFamily: kAppFontFamily, color: Colors.white, fontSize: 13, fontWeight: FontWeight.bold)),
+              subtitle: Text('${c.fullName} - ${c.district} | ${c.availableCredits} VC', style: const TextStyle(fontFamily: kAppFontFamily, fontSize: 11.5, color: Colors.white54)),
+              trailing: activeCitizen.id == c.id ? const Icon(Icons.check_circle, color: Color(0xFF10B981), size: 18) : null,
               onTap: () => setState(() => activeCitizen = c),
             )),
       ],
@@ -1906,11 +2583,11 @@ class _MainScreenState extends State<MainScreen> {
 
   Widget _buildProfileRow(String label, String value) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 2),
+      padding: const EdgeInsets.symmetric(vertical: 3),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(label, style: const TextStyle(fontSize: 10, color: Colors.white54)),
+          Text(label, style: const TextStyle(fontFamily: kAppFontFamily, fontSize: 12, color: Colors.white54)),
           const SizedBox(width: 8),
           Expanded(
             child: Text(
@@ -1918,7 +2595,7 @@ class _MainScreenState extends State<MainScreen> {
               textAlign: TextAlign.right,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
-              style: const TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: Colors.white),
+              style: const TextStyle(fontFamily: kAppFontFamily, fontSize: 12.5, fontWeight: FontWeight.w600, color: Colors.white),
             ),
           ),
         ],
@@ -1958,9 +2635,9 @@ class _MainScreenState extends State<MainScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Sistem Katmanı (KYC)', style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: Color(0xFFF59E0B))),
+                        Text('Sistem Katmanı (KYC)', style: TextStyle(fontFamily: kAppFontFamily, fontSize: 12, fontWeight: FontWeight.bold, color: Color(0xFFF59E0B))),
                         SizedBox(height: 2),
-                        Text('T.C. No, Ad, İkametgah', style: TextStyle(fontSize: 9, color: Colors.white70)),
+                        Text('T.C. No, Ad, İkametgah', style: TextStyle(fontFamily: kAppFontFamily, fontSize: 11, color: Colors.white70)),
                       ],
                     ),
                   ),
@@ -1970,9 +2647,9 @@ class _MainScreenState extends State<MainScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
-                        Text('Kamusal Alan (ZKP)', style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: Color(0xFF10B981))),
+                        Text('Kamusal Alan (ZKP)', style: TextStyle(fontFamily: kAppFontFamily, fontSize: 12, fontWeight: FontWeight.bold, color: Color(0xFF10B981))),
                         SizedBox(height: 2),
-                        Text('@AdaletSavunucusu', style: TextStyle(fontSize: 9, color: Colors.white70)),
+                        Text('@AdaletSavunucusu', style: TextStyle(fontFamily: kAppFontFamily, fontSize: 11, color: Colors.white70)),
                       ],
                     ),
                   ),
@@ -2000,10 +2677,10 @@ class _MainScreenState extends State<MainScreen> {
                 spacing: 8,
                 runSpacing: 4,
                 children: [
-                  Text('1 Oy = 1 VC', style: TextStyle(fontSize: 10, color: Colors.white70)),
-                  Text('2 Oy = 4 VC', style: TextStyle(fontSize: 10, color: Colors.white70)),
-                  Text('3 Oy = 9 VC', style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: Color(0xFFF59E0B))),
-                  Text('4 Oy = 16 VC', style: TextStyle(fontSize: 10, color: Colors.white70)),
+                  Text('1 Oy = 1 VC', style: TextStyle(fontFamily: kAppFontFamily, fontSize: 12, color: Colors.white70)),
+                  Text('2 Oy = 4 VC', style: TextStyle(fontFamily: kAppFontFamily, fontSize: 12, color: Colors.white70)),
+                  Text('3 Oy = 9 VC', style: TextStyle(fontFamily: kAppFontFamily, fontSize: 12, fontWeight: FontWeight.bold, color: Color(0xFFF59E0B))),
+                  Text('4 Oy = 16 VC', style: TextStyle(fontFamily: kAppFontFamily, fontSize: 12, color: Colors.white70)),
                 ],
               ),
             ),
@@ -2026,11 +2703,11 @@ class _MainScreenState extends State<MainScreen> {
               child: const Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('1. T.C. Anayasası (En Üst Norm)', style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: Color(0xFFEF4444))),
+                  Text('1. T.C. Anayasası (En Üst Norm)', style: TextStyle(fontFamily: kAppFontFamily, fontSize: 12, fontWeight: FontWeight.bold, color: Color(0xFFEF4444))),
                   SizedBox(height: 2),
-                  Text('   ↳ 2. Kanunlar', style: TextStyle(fontSize: 9, color: Color(0xFFF59E0B))),
+                  Text('   ↳ 2. Kanunlar', style: TextStyle(fontFamily: kAppFontFamily, fontSize: 11.5, color: Color(0xFFF59E0B))),
                   SizedBox(height: 2),
-                  Text('      ↳ 3. Yerel Yönetmelikler & Kararlar', style: TextStyle(fontSize: 9, color: Color(0xFF10B981))),
+                  Text('      ↳ 3. Yerel Yönetmelikler & Kararlar', style: TextStyle(fontFamily: kAppFontFamily, fontSize: 11.5, color: Color(0xFF10B981))),
                 ],
               ),
             ),
@@ -2053,9 +2730,9 @@ class _MainScreenState extends State<MainScreen> {
               child: const Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('[-] Eski: parklarda betonlaşma sınırlandırılsın.', style: TextStyle(fontSize: 9, color: Colors.redAccent, decoration: TextDecoration.lineThrough)),
+                  Text('[-] Eski: parklarda betonlaşma sınırlandırılsın.', style: TextStyle(fontFamily: kAppFontFamily, fontSize: 11.5, color: Colors.redAccent, decoration: TextDecoration.lineThrough)),
                   SizedBox(height: 3),
-                  Text('[+] Yeni (Diff): parklarda yağmur suyu göletleri kurulsun.', style: TextStyle(fontSize: 9, color: Color(0xFF10B981))),
+                  Text('[+] Yeni (Diff): parklarda yağmur suyu göletleri kurulsun.', style: TextStyle(fontFamily: kAppFontFamily, fontSize: 11.5, color: Color(0xFF10B981))),
                 ],
               ),
             ),
@@ -2078,10 +2755,10 @@ class _MainScreenState extends State<MainScreen> {
               child: const Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('📋 Ana Teklif: Kentsel Yeşil Koridorlar', style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: Colors.white)),
+                  Text('📋 Ana Teklif: Kentsel Yeşil Koridorlar', style: TextStyle(fontFamily: kAppFontFamily, fontSize: 12.5, fontWeight: FontWeight.bold, color: Colors.white)),
                   SizedBox(height: 3),
-                  Text('   ├─ 🚲 Alt Madde 1: Bisiklet Yolları Standardı (%88 Kabul)', style: TextStyle(fontSize: 9, color: Color(0xFF38BDF8))),
-                  Text('   └─ 💡 Alt Madde 2: Güneş Enerjili Aydınlatma (%75 Kabul)', style: TextStyle(fontSize: 9, color: Color(0xFF38BDF8))),
+                  Text('   ├─ 🚲 Alt Madde 1: Bisiklet Yolları Standardı (%88 Kabul)', style: TextStyle(fontFamily: kAppFontFamily, fontSize: 11.5, color: Color(0xFF38BDF8))),
+                  Text('   └─ 💡 Alt Madde 2: Güneş Enerjili Aydınlatma (%75 Kabul)', style: TextStyle(fontFamily: kAppFontFamily, fontSize: 11.5, color: Color(0xFF38BDF8))),
                 ],
               ),
             ),
@@ -2104,9 +2781,9 @@ class _MainScreenState extends State<MainScreen> {
               child: const Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Blok #1048 | Hash: 0x8f2a...c31b', style: TextStyle(fontSize: 9, fontFamily: 'monospace', color: Color(0xFF10B981))),
-                  Text('Önceki Blok: 0x4a12...99ee | Merkle: 0x11ee...00bb', style: TextStyle(fontSize: 8, fontFamily: 'monospace', color: Colors.white54)),
-                  Text('İşlem: [DIFF_ENACTED] Düzenleme Metne İşlendi', style: TextStyle(fontSize: 9, color: Colors.white70)),
+                  Text('Blok #1048 | Hash: 0x8f2a...c31b', style: TextStyle(fontSize: 11, fontFamily: 'monospace', color: Color(0xFF10B981))),
+                  Text('Önceki Blok: 0x4a12...99ee | Merkle: 0x11ee...00bb', style: TextStyle(fontSize: 10, fontFamily: 'monospace', color: Colors.white54)),
+                  Text('İşlem: [DIFF_ENACTED] Düzenleme Metne İşlendi', style: TextStyle(fontFamily: kAppFontFamily, fontSize: 11.5, color: Colors.white70)),
                 ],
               ),
             ),
@@ -2129,10 +2806,10 @@ class _MainScreenState extends State<MainScreen> {
               child: const Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Şikayet Edilen Yorum: (Nefret / KVKK İhlali)', style: TextStyle(fontSize: 9, color: Colors.amber)),
+                  Text('Şikayet Edilen Yorum: (Nefret / KVKK İhlali)', style: TextStyle(fontFamily: kAppFontFamily, fontSize: 11.5, color: Colors.amber)),
                   SizedBox(height: 3),
-                  Text('[Bu içerik %66 topluluk kararıyla maskelenmiştir]', style: TextStyle(fontSize: 9, color: Colors.redAccent, fontStyle: FontStyle.italic)),
-                  Text('SHA-256 Hash Bütünlüğü: KORUNUYOR (0x99a1...ff3b)', style: TextStyle(fontSize: 8, fontFamily: 'monospace', color: Color(0xFF10B981))),
+                  Text('[Bu içerik %66 topluluk kararıyla maskelenmiştir]', style: TextStyle(fontFamily: kAppFontFamily, fontSize: 11.5, color: Colors.redAccent, fontStyle: FontStyle.italic)),
+                  Text('SHA-256 Hash Bütünlüğü: KORUNUYOR (0x99a1...ff3b)', style: TextStyle(fontSize: 10, fontFamily: 'monospace', color: Color(0xFF10B981))),
                 ],
               ),
             ),
@@ -2162,10 +2839,10 @@ class _MainScreenState extends State<MainScreen> {
                         const Expanded(
                           child: Row(
                             children: [
-                              Icon(Icons.menu_book_rounded, color: Color(0xFF38BDF8), size: 18),
+                              Icon(Icons.menu_book_rounded, color: Color(0xFF38BDF8), size: 20),
                               SizedBox(width: 8),
                               Expanded(
-                                child: Text('Platform & Sistem Rehberi', maxLines: 1, overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold, color: Colors.white)),
+                                child: Text('Platform & Sistem Rehberi', maxLines: 1, overflow: TextOverflow.ellipsis, style: TextStyle(fontFamily: kAppFontFamily, fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white)),
                               ),
                             ],
                           ),
@@ -2204,7 +2881,7 @@ class _MainScreenState extends State<MainScreen> {
                               ),
                               child: Text(
                                 s['tag'] as String,
-                                style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: c, letterSpacing: 0.5),
+                                style: TextStyle(fontFamily: kAppFontFamily, fontSize: 11, fontWeight: FontWeight.bold, color: c, letterSpacing: 0.5),
                               ),
                             ),
                             const SizedBox(height: 10),
@@ -2217,7 +2894,7 @@ class _MainScreenState extends State<MainScreen> {
                                 Expanded(
                                   child: Text(
                                     s['title'] as String,
-                                    style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.white),
+                                    style: const TextStyle(fontFamily: kAppFontFamily, fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
                                   ),
                                 ),
                               ],
@@ -2258,7 +2935,7 @@ class _MainScreenState extends State<MainScreen> {
                                   pageCtrl.previousPage(duration: const Duration(milliseconds: 250), curve: Curves.easeInOut);
                                 },
                                 icon: const Icon(Icons.chevron_left, size: 16),
-                                label: const Text('Önceki', style: TextStyle(fontSize: 11)),
+                                label: const Text('Önceki', style: TextStyle(fontFamily: kAppFontFamily, fontSize: 13, fontWeight: FontWeight.w600)),
                               )
                             : const SizedBox(width: 60),
 
@@ -2291,7 +2968,7 @@ class _MainScreenState extends State<MainScreen> {
                                   padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                                   minimumSize: Size.zero,
                                 ),
-                                label: const Text('Sonraki', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold)),
+                                label: const Text('Sonraki', style: TextStyle(fontFamily: kAppFontFamily, fontSize: 13, fontWeight: FontWeight.bold)),
                                 icon: const Icon(Icons.chevron_right, size: 16),
                               )
                             : ElevatedButton(
@@ -2302,7 +2979,7 @@ class _MainScreenState extends State<MainScreen> {
                                   padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
                                   minimumSize: Size.zero,
                                 ),
-                                child: const Text('Anladım ✓', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold)),
+                                child: const Text('Anladım ✓', style: TextStyle(fontFamily: kAppFontFamily, fontSize: 13, fontWeight: FontWeight.bold)),
                               ),
                       ],
                     ),
@@ -2327,9 +3004,9 @@ class _MainScreenState extends State<MainScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(label, style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: accent)),
-          const SizedBox(height: 3),
-          Text(text, style: const TextStyle(fontSize: 10, color: Colors.white, height: 1.35)),
+          Text(label, style: TextStyle(fontFamily: kAppFontFamily, fontSize: 12.5, fontWeight: FontWeight.bold, color: accent)),
+          const SizedBox(height: 4),
+          Text(text, style: const TextStyle(fontFamily: kAppFontFamily, fontSize: 13, color: Colors.white, height: 1.4, letterSpacing: kReadingLetterSpacing)),
         ],
       ),
     );

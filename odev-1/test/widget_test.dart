@@ -36,10 +36,14 @@ void main() {
     // Verify Proposal Detail view top sections
     expect(find.textContaining('Yasa Metni'), findsWidgets);
     expect(find.textContaining('Metin Değişiklik Önergesi'), findsWidgets);
-    expect(find.textContaining('Bağlı Alt Maddeler'), findsWidgets);
 
     // Scroll down in detail screen
-    await tester.drag(find.byType(ListView).last, const Offset(0, -600));
+    await tester.drag(find.byType(ListView).last, const Offset(0, -400));
+    await tester.pumpAndSettle();
+
+    expect(find.textContaining('Bağlı Alt Maddeler'), findsWidgets);
+
+    await tester.drag(find.byType(ListView).last, const Offset(0, -500));
     await tester.pumpAndSettle();
 
     expect(find.textContaining('Hukuki Denetim'), findsWidgets);
@@ -98,7 +102,9 @@ void main() {
     Navigator.of(tester.element(find.text('Platform & Sistem Rehberi').last)).pop();
     await tester.pumpAndSettle();
 
-    // Test persona switch
+    // Test persona switch (scroll down in profile tab)
+    await tester.drag(find.byType(ListView).first, const Offset(0, -400));
+    await tester.pumpAndSettle();
     await tester.tap(find.textContaining('Prof. Dr. İlker Akman').first);
     await tester.pumpAndSettle();
 
