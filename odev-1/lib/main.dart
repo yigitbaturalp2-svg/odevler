@@ -568,7 +568,7 @@ class _MainScreenState extends State<MainScreen> {
                     Icon(Icons.menu_book_rounded, color: Color(0xFF38BDF8), size: 16),
                     SizedBox(width: 8),
                     Text(
-                      'Platform & Mimari Rehberi (8 Sistem)',
+                      'Platform & Mimari Rehberi (9 Sistem & Teknik Borç)',
                       style: TextStyle(
                         fontFamily: kAppFontFamily,
                         fontSize: 13,
@@ -2494,13 +2494,13 @@ class _MainScreenState extends State<MainScreen> {
                                   color: Color(0xFF38BDF8),
                                   borderRadius: BorderRadius.all(Radius.circular(6)),
                                 ),
-                                child: const Text('8 Sistem & Kalıp', style: TextStyle(fontFamily: kAppFontFamily, fontSize: 10.5, fontWeight: FontWeight.bold, color: Colors.black)),
+                                child: const Text('9 Sistem & Teknik Borç', style: TextStyle(fontFamily: kAppFontFamily, fontSize: 10.5, fontWeight: FontWeight.bold, color: Colors.black)),
                               ),
                             ],
                           ),
                           const SizedBox(height: 4),
                           const Text(
-                            'Karesel oylama, normlar ontolojisi, diff, UML mimarisi ve tasarım kalıplarını sayfa sayfa inceleyin.',
+                            'Karesel oylama, normlar ontolojisi, diff, UML mimarisi ve teknik borç yönetimini sayfa sayfa inceleyin.',
                             style: TextStyle(fontFamily: kAppFontFamily, fontSize: 12, color: Colors.white70, height: 1.35, letterSpacing: kReadingLetterSpacing),
                           ),
                         ],
@@ -2618,7 +2618,7 @@ class _MainScreenState extends State<MainScreen> {
 
         final List<Map<String, dynamic>> slides = [
           {
-            'tag': '1/8 • GİZLİLİK VE KİMLİK',
+            'tag': '1/9 • GİZLİLİK VE KİMLİK',
             'icon': Icons.fingerprint,
             'color': const Color(0xFF10B981),
             'title': 'Çift Katmanlı Kimlik (KYC vs. ZKP)',
@@ -2664,7 +2664,7 @@ class _MainScreenState extends State<MainScreen> {
             'academic': 'GDPR (Madde 25) ve KVKK \'Tasarım Yoluyla Veri Koruması ve Veri Minimizasyonu\' ilkelerine dayanır. Bilgisayar bilimlerindeki Sybil Direnci (Sybil Resistance) ile Bireysel Mahremiyet dengesi ZKP protokolüyle kurulmuştur.',
           },
           {
-            'tag': '2/8 • OYLAMA MODELİ',
+            'tag': '2/9 • OYLAMA MODELİ',
             'icon': Icons.calculate_outlined,
             'color': const Color(0xFFF59E0B),
             'title': 'Karesel Oylama (Quadratic Voting)',
@@ -2695,7 +2695,7 @@ class _MainScreenState extends State<MainScreen> {
             'academic': 'Vitalik Buterin, Glen Weyl ve Zoë Hitzig (2018) tarafından formüle edilen \'Liberal Radicalism & Quadratic Voting\' teorisine dayanır. Arrow İmkansızlık Teoremi karşısında toplumsal refahı maksimize eden mikroiktisadi karar modelidir.',
           },
           {
-            'tag': '3/8 • HUKUK GÜVENCESİ',
+            'tag': '3/9 • HUKUK GÜVENCESİ',
             'icon': Icons.gavel,
             'color': const Color(0xFFEF4444),
             'title': 'Normlar Hiyerarşisi & Anayasal Veto',
@@ -2725,7 +2725,7 @@ class _MainScreenState extends State<MainScreen> {
             'academic': 'Hans Kelsen\'in \'Saf Hukuk Teorisi\' (Pure Theory of Law) ve Normlar Hiyerarşisi piramidi yazılıma aktarılmıştır. Anayasa en üst normdur; alt normlar üst normlara aykırı olamaz (Lex Superior Derogat Legi Inferiori).',
           },
           {
-            'tag': '4/8 • METİN DÜZENLEME',
+            'tag': '4/9 • METİN DÜZENLEME',
             'icon': Icons.difference_outlined,
             'color': const Color(0xFF06B6D4),
             'title': 'Metin Değişiklik Önergesi (Diff)',
@@ -2753,7 +2753,7 @@ class _MainScreenState extends State<MainScreen> {
             'academic': 'Jürgen Habermas\'ın \'Müzakereci Demokrasi Teorisi\'ne (Deliberative Democracy) dayanır. Kanunlar statik metinler olmaktan çıkarılıp, dağıtık katılımcıların katkısıyla evrilen dinamik yazılım kodları gibi modellenmiştir.',
           },
           {
-            'tag': '5/8 • MODÜLER YÖNETİŞİM',
+            'tag': '5/9 • MODÜLER YÖNETİŞİM',
             'icon': Icons.account_tree_outlined,
             'color': const Color(0xFF38BDF8),
             'title': 'Alt Maddeler & Ağaç Yapısı (Sub-topics)',
@@ -2777,12 +2777,12 @@ class _MainScreenState extends State<MainScreen> {
             'what': 'Kapsamlı yasa tekliflerinin alt fıkralarını ve uygulama maddelerini bağımsız oylanabilir hiyerarşik bir ağaç yapısında sunan modüler mimaridir.',
             'how': 'Ana teklifin altında SubTopic nesneleri listelenir. Her alt madde bağımsız kabul/ret sayaçlarına ve yüzde oranlarına sahiptir.',
             'why': 'Geleneksel parlamentolarda sıkça başvurulan \'Torba Yasa\' suistimalini engeller; olumlu bir yasa paketinin içine halkın onaylamayacağı maddelerin gizlenmesini önler.',
-            'dataFlow': '• Veri Kaynağı: Proposal.subTopics dinamik listesi içerisindeki SubTopic nesneleri.\n• İşleme Akışı: _addSubTopic() fonksiyonu ile yeni fıkra nesnesi oluşturulur (id, title, yesVotes, noVotes, totalVotes). Kullanıcı alt maddeye oy verdiğinde sayaç yerel state\'te bağımsız olarak artırılır.\n• Veri Çıktısı: Her alt maddenin kabul oranı dinamik hesaplanır (Örn: %88 Kabul) ve teklif kartında hiyerarşik ağaç dalı olarak gösterilir.',
+            'dataFlow': '• Veri Kaynağı: Proposal.subTopics dinamik listesi içerisindeki SubTopic nesneleri.\n• İşleme Akışı: _addSubTopic() fonksiyonu ile yeni fıkra nesnesi oluşturulur (id, title, yesVotes, noVotes, totalVotes). Kullanıcı alt maddeye oy verdiğinde sayaç yerel state\'te bağımsız olarak artırılır.\n• Veri Çıktısı: Her alt maddenin kabul oranı dinamik hesaplanır (Örn: `%88 Kabul`) ve teklif kartında hiyerarşik ağaç dalı olarak gösterilir.',
             'pattern': 'Composite Pattern & Recursive Tree Structure. Proposal ve SubTopic sınıfları (main.dart: 119-138, 750-780). Ana teklif ve alt fıkralar hiyerarşik ağaç düğümleri olarak yapılandırılır.',
             'academic': 'Kamu Tercihi Teorisi (Public Choice Theory) ve James Buchanan\'ın anayasal iktisat modeline dayanır. Oy ticareti (logrolling) ve torba yasa manipülasyonu modüler ayrıştırma (unbundling) ile teknik olarak engellenmiştir.',
           },
           {
-            'tag': '6/8 • KRİPTOGRAFİK ŞEFFAFLIK',
+            'tag': '6/9 • KRİPTOGRAFİK ŞEFFAFLIK',
             'icon': Icons.hub_outlined,
             'color': const Color(0xFF818CF8),
             'title': 'Dağıtık Müzakere Defteri (SHA-256)',
@@ -2810,7 +2810,7 @@ class _MainScreenState extends State<MainScreen> {
             'academic': 'Satoshi Nakamoto (2008) eşler arası zaman damgası mimarisi ve Ralph Merkle (1979) kriptografik ağaç yapısı uygulanmıştır. Bizans Hata Toleransı (BFT) prensiplerine uygun, güven gerektirmeyen (trustless) şeffaflık sağlanır.',
           },
           {
-            'tag': '7/8 • MAZUR İÇERİK DENETİMİ',
+            'tag': '7/9 • MAZUR İÇERİK DENETİMİ',
             'icon': Icons.visibility_off_outlined,
             'color': const Color(0xFFEC4899),
             'title': '%66 Topluluk Redaksiyonu (Maskeleme)',
@@ -2839,7 +2839,7 @@ class _MainScreenState extends State<MainScreen> {
             'academic': 'Blok zincirlerinde Değişmezlik (Immutability) ile Avrupa İnsan Hakları Sözleşmesi (AİHS) ve Unutulma Hakkı (Right to be Forgotten) arasındaki gerilimin teknik çözümüdür. Kriptografik bütünlük korunurken görünürlük demokratik konsensüsle filtrelenir.',
           },
           {
-            'tag': '8/8 • YAZILIM MİMARİSİ (UML & SOLID)',
+            'tag': '8/9 • YAZILIM MİMARİSİ (UML & SOLID)',
             'icon': Icons.architecture_rounded,
             'color': const Color(0xFF38BDF8),
             'title': 'UML Sınıf Mimarisi & SOLID Prensipleri',
@@ -2867,6 +2867,36 @@ class _MainScreenState extends State<MainScreen> {
             'dataFlow': '• Veri Kaynağı: _DemokrasiAppState merkezi reaktif durum deposu.\n• İşleme Akışı: Veri modelleri immutable ve tip güvenli (type-safe) Dart sınıfları olarak yapılandırılmıştır. UI bileşenleri veri modellerine parametrik olarak erişir; doğrudan sıkı bağımlılık (tight coupling) engellenmiştir.\n• Veri Çıktısı: 0 taşmalı responsive widget ağacı (Widget Tree), deterministik test kapsamı (Widget & Unit Tests) ve modüler servis yapısı.',
             'pattern': 'Domain-Driven Design (DDD), Composition over Inheritance, SOLID Prensipleri (SRP, OCP, DIP). Model katmanı: main.dart satır 48-180. Aggregate Root olarak Proposal sınıfı.',
             'academic': 'Robert C. Martin (Clean Architecture) ve Erich Gamma (GoF Design Patterns) prensipleri uygulanmıştır: SRP (her sınıf tek sorumluluk taşır), OCP (yeni teklif tipleri mevcut yapıyı bozmadan eklenir), DIP (UI katmanı soyut modellere bağlıdır).',
+          },
+          {
+            'tag': '9/9 • TEKNİK BORÇ VE REFACTORING',
+            'icon': Icons.engineering_outlined,
+            'color': const Color(0xFFF59E0B),
+            'title': 'Teknik Borç Yönetimi & Refactoring (Martin Fowler)',
+            'visual': Container(
+              padding: const EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                color: const Color(0xFFF59E0B).withValues(alpha: 0.1),
+                borderRadius: BorderRadius.circular(10),
+                border: Border.all(color: const Color(0xFFF59E0B).withValues(alpha: 0.3)),
+              ),
+              child: const Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('📊 Martin Fowler Teknik Borç Dörtgeni:', style: TextStyle(fontFamily: kAppFontFamily, fontSize: 11, fontWeight: FontWeight.bold, color: Color(0xFFF59E0B))),
+                  SizedBox(height: 3),
+                  Text('✔ Bu Proje: Bilinçli & Tedbirli (Deliberate & Prudent)', style: TextStyle(fontFamily: 'monospace', fontSize: 10.5, color: Color(0xFF10B981))),
+                  Text('  ↳ Amaç: Yerel jüri ortamında %100 kesintisiz demo hızı', style: TextStyle(fontFamily: kAppFontFamily, fontSize: 10, color: Colors.white70)),
+                  Text('  ↳ İtfa Planı: Feature-First Clean Architecture & SQLite', style: TextStyle(fontFamily: kAppFontFamily, fontSize: 10, color: Color(0xFF38BDF8))),
+                ],
+              ),
+            ),
+            'what': 'Yazılım mühendisliğinde prototip doğrulaması ve teslim hızını artırmak için bilinçli olarak alınan mimari ödünler (Technical Debt) ve bunların geri ödeme stratejisidir.',
+            'how': 'Yerel demo sırasında internet kopması veya uzak sunucu arızası riskini bertaraf etmek için in-memory state ve tekil dosya mimarisi seçilmiştir. Tip güvenliği (type-safety) ve model soyutlaması ile borcun faizi (teknik karmaşa) kontrol altında tutulmuştur.',
+            'why': 'Hiçbir gerçek yazılım projesi sıfır teknik borçla başlamaz. Profesyonel mühendislik, teknik borcu gizlemek yerine açıkça belgelemeyi, sınıflandırmayı ve itfa yol haritasını yönetmeyi gerektirir.',
+            'dataFlow': '• Alınan Bilinçli Borç: Veriler uzak API yerine yerel RAM deposunda (_DemokrasiAppState) tutulur.\n• Neden Alındı?: 3-4 dakikalık jüri incelemesinde ağ gecikmesini 0 ms\'ye indirmek ve deterministik test ortamı sunmak.\n• İtfa Planı (Refactoring): Production aşamasında flutter_secure_storage (ZKP anahtarları), Isar/Hive yerel NoSQL veritabanı ve gRPC Node senkronizasyonu katmanlarına taşınacaktır.',
+            'pattern': 'Technical Debt Quadrant (Martin Fowler) & Strangler Fig Pattern (Aşamalı Refactoring). Proje kodu Spaghetti yapıda değil; Clean Architecture katmanlarına ayrıştırılmaya hazır SOLID modellerle kurulmuştur.',
+            'academic': 'Ward Cunningham (1992) Teknik Borç Metaforu ve Martin Fowler (2009) Teknik Borç Dörtgeni\'ne dayanır. Proje "Bilinçli ve Tedbirli" (Deliberate & Prudent) çeyreğinde yer alır. Önceden kapatılan borçlar: 0 RenderFlex taşması, Outfit tipografi ölçeklemesi ve ZKP/KYC model ayrımıdır.',
           },
         ];
 

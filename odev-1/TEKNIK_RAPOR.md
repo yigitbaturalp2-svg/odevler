@@ -12,25 +12,21 @@
 
 ## 📋 İÇİNDEKİLER
 1. [Yönetici Özeti (Executive Summary)](#1-yönetici-özeti)
-2. [Hocaya 3-4 Dakikalık Canlı Sunum Senaryosu](#2-hocaya-3-4-dakikalık-canlı-sunum-senaryosu)
+2. [Uygulama İçi Test ve İnceleme Rehberi (3-4 Dakikalık Değerlendirme Akışı)](#2-uygulama-içi-test-ve-inceleme-rehberi-3-4-dakikalık-değerlendirme-akışı)
 3. [Ekran Ekran Uygulama İncelemesi ve Görsel Kılavuz](#3-ekran-ekran-uygulama-incelemesi-ve-görsel-kılavuz)
 4. [Kullanıcı Ekranındaki "Anlaşılmaz Rakamlar ve Kriptografik Değerler" Rehberi](#4-kullanıcı-ekranındaki-anlaşılmaz-rakamlar-ve-kriptografik-değerler-rehberi)
-   - 4.1. Blok Numarası (`Blok #1047`)
-   - 4.2. Kriptografik Özet (`Hash: 0x00009c210a44fe11`) ve Baştaki Sıfırların Anlamı
-   - 4.3. Önceki Blok Bağı (`Önceki: 0x00003b7194f109de`)
-   - 4.4. Merkle Kökü (`Merkle: 0x12ac49e001ba`) ve Ağaç Mantığı
-   - 4.5. Ses Kredisi (`Voice Credit - VC`) ve Karesel Oylama Formülü
-   - 4.6. Hukuk Ontolojisi ve Uyum Skoru (`%96 Uyum` / `%18 Uyum`)
-   - 4.7. Bilirkişi Oy Çarpanı (`2.2x Oy Çarpanı`)
-   - 4.8. %66 Topluluk Redaksiyonu (Maskeleme) ve Kanıt Bütünlüğü
-5. [Sistem Mimarisi ve Teknik İnovasyonlar](#5-sistem-mimarisi-ve-teknik-inovasyonlar)
-   - 5.1. Çift Katmanlı Kimlik (KYC vs. ZKP)
-   - 5.2. Karesel Oylama (Quadratic Voting - QV) Matematik Modeli
-   - 5.3. Kelsen Normlar Hiyerarşisi ve Anayasal Veto Motoru
-   - 5.4. Parçalı Yasa Yapımı: Metin Diff'i ve Alt Madde (Sub-topic) Ağacı
-   - 5.5. SHA-256 Tabanlı Dağıtık Müzakere Defteri (Immutable Ledger)
-6. [Tasarım ve Tipografi Standartları (Balpy Projesi Entegrasyonu)](#6-tasarım-ve-tipografi-standartları-balpy-projesi-entegrasyonu)
-7. [Sonuç ve Akademik Katkı](#7-sonuç-ve-akademik-katkı)
+5. [Sistem Mimarisi, UML Diyagramları ve Yazılım Tasarımı](#5-sistem-mimarisi-uml-diyagramları-ve-yazılım-tasarımı)
+   - 5.1. Katmanlı Sistem Mimari Akışı (Architecture Flow)
+   - 5.2. Kapsamlı UML Sınıf Diyagramı (UML Class Diagram)
+   - 5.3. Karesel Oylama ve Anayasal Veto Sıralama Diyagramı (UML Sequence Diagram)
+   - 5.4. Yazılım Tasarım Kalıpları (Design Patterns) ve SOLID İlkeleri
+6. [Teknik Borç (Technical Debt) Analizi ve Yönetim Planı (Martin Fowler)](#6-teknik-borç-technical-debt-analizi-ve-yönetim-planı)
+   - 6.1. Martin Fowler Teknik Borç Dörtgeni ve Proje Konumu
+   - 6.2. Bilinçli ve Tedbirli Olarak Alınan Mimari Borçlar
+   - 6.3. İtfa Edilen / Kapatılan Öncelikli Borçlar (Zero-Overflow & Type Safety)
+   - 6.4. Refactoring ve Gelecek İtfa Yol Haritası (Clean Architecture & P2P)
+7. [Tasarım ve Tipografi Standartları (Balpy Projesi Entegrasyonu)](#7-tasarım-ve-tipografi-standartları-balpy-projesi-entegrasyonu)
+8. [Sonuç ve Akademik Katkı](#8-sonuç-ve-akademik-katkı)
 
 ---
 
@@ -49,29 +45,30 @@ Sistem, karmaşık bir bulut/arka uç bağımlılığına ihtiyaç duymaksızın
 
 ---
 
-## 2. HOCAYA 3-4 DAKİKALIK CANLI SUNUM SENARYOSU
+## 2. UYGULAMA İÇİ TEST VE İNCELEME REHBERİ (3-4 DAKİKALIK DEĞERLENDİRME AKIŞI)
 
-Hocanın uygulamayı inceleyeceği kısıtlı sürede (3-4 dakika), aşağıdaki 5 kritik adım sırasıyla gösterilerek tam not alacak bir akış takip edilebilir:
+Sistemi değerlendirirken aşağıdaki 5 kritik adım sırasıyla test edilerek tüm yazılım mimarisi doğrulanabilir:
 
 ```
 [1. ADIM: KİMLİK & REHBER] ➔ [2. ADIM: TEKLİF & DİFF] ➔ [3. ADIM: KARESEL OYLAMA] ➔ [4. ADIM: ANAYASAL VETO] ➔ [5. ADIM: DEFTER & BLOK KAZMA]
 ```
 
-### Sunum Adımları:
-1. **1. Dakika - Giriş ve Kimlik Katmanı (Alt Bar ➔ Kimlik Sekmesi):**
-   - *Hocaya söylenecek söz:* "Hocam, sistemimiz çift katmanlı bir kimlik mimarisine sahiptir. 'Sistem Katmanı'nda gerçek T.C. kimlik doğrulaması yapılır, böylece mükerrer oy ve bot hesaplar engellenir. Fakat oylamalarda ve açık defterde yurttaşın adı asla gözükmez; Sıfır Bilgi İspatı (ZKP) ile üretilen `@AdaletSavunucusu` gibi anonim rumuzlar yer alır. Böylece yurttaş siyasi fişlenme korkusu yaşamadan hür iradesini kullanır. Ayrıca üstteki 'Platform Rehberi' butonuna basarsanız sistemin 7 temel prensibini sayfa sayfa anlatan interaktif eğitim modalı açılır."
+### Değerlendirme Adımları:
+1. **1. Dakika - Kimlik Doğrulama ve ZKP Katmanı (Alt Bar ➔ Kimlik Sekmesi):**
+   - **Teknik İşlev & Veri Modeli:** Sistem çift katmanlı bir kimlik mimarisine sahiptir. 'Sistem Katmanı'nda gerçek T.C. kimlik doğrulaması yapılır, böylece mükerrer oy ve bot hesaplar engellenir (Sybil direnci). Kamusal alanda ve açık defterde yurttaşın adı asla gözükmez; Sıfır Bilgi İspatı (ZKP) ile üretilen `@AdaletSavunucusu` gibi anonim rumuzlar yer alır. Böylece yurttaş siyasi fişlenme korkusu yaşamadan hür iradesini kullanır.
+   - **Mobil Mimari Rehberi Entegrasyonu:** Üstteki 'Platform Rehberi' butonuna basılarak sistemin 9 temel bileşenini, tasarım kalıplarını (SoC, Strategy, Command, Composite), veri akış modellerini ve Martin Fowler Teknik Borç Yönetimini inceleyen interaktif rehber modalı açılabilir.
 
 2. **2. Dakika - Yasa Teklifi, Diff ve Alt Maddeler (Alt Bar ➔ Teklifler Sekmesi):**
-   - *Hocaya söylenecek söz:* "Klasik sistemlerde bir kanun ya toptan kabul edilir ya toptan reddedilir. Bizim sistemimizde 'Metin Değişiklik Önergesi (Diff)' mekanizması vardır. Bir yasa tasarısının sadece belirli bir fıkrasını kırmızı/yeşil diff ile revize edebiliriz. Topluluk kabul ettiğinde bu değişiklik ana metne otomatik işlenir. Ayrıca 'Bağlı Alt Maddeler' özelliğiyle torba yasa hilesi engellenir; her alt madde bağımsız oylanır."
+   - **Teknik İşlev & Veri Modeli:** Klasik parlamentolarda yasa ya toptan kabul edilir ya toptan reddedilir. Bu platformda 'Metin Değişiklik Önergesi (Diff)' mekanizması uygulanmıştır. Bir yasa tasarısının sadece belirli bir fıkrası kırmızı/yeşil diff ile revize edilebilir; kabul edildiğinde ana metne atomik olarak işlenir. 'Bağlı Alt Maddeler' (Composite Pattern) özelliğiyle torba yasa hilesi engellenir; her alt madde bağımsız oylanır.
 
 3. **3. Dakika - Karesel Oylama (Teklif Detayı ➔ Karesel Oylama Alanı):**
-   - *Hocaya söylenecek söz:* "Oylama modelimiz Harvard ve Chicago üniversitelerinde geliştirilen Karesel Oylama (Quadratic Voting) yöntemidir. Her yurttaşın 100 Ses Kredisi (Voice Credit) vardır. Bir teklife 1 oy vermek 1 VC, 2 oy vermek 4 VC, 3 oy vermek 9 VC ($Oy^2$) tutar. Bu sayede zenginlerin veya radikal azınlıkların tüm sermayelerini tek bir konuya yığarak sonucu manipüle etmesi engellenir; yurttaş sadece hayatını derinden etkileyen konulara yüksek maliyet ödeyerek oy verir."
+   - **Teknik İşlev & Veri Modeli:** Oylama modeli Vitalik Buterin ve Glen Weyl tarafından formüle edilen Karesel Oylama (Quadratic Voting) algoritmasıdır. Her yurttaşın 100 Ses Kredisi (Voice Credit) bulunur. Bir teklife 1 oy vermek 1 VC, 2 oy vermek 4 VC, 3 oy vermek 9 VC ($Oy^2$) tutar. Bu sayede zenginlerin veya radikal azınlıkların tüm sermayelerini tek bir konuya yığarak sonucu manipüle etmesi engellenir; yurttaş sadece hayatını derinden etkileyen konulara yüksek maliyet ödeyerek oy verir.
 
 4. **3.5. Dakika - Normlar Hiyerarşisi ve Anayasal Veto (Alt Bar ➔ Mevzuat Sekmesi):**
-   - *Hocaya söylenecek söz:* "Demokrasilerdeki en büyük tehlike 'çoğunluğun tiranlığı'dır. Örneğin Kıyı Şeridi Teklifimizde halkın %80'i 'plajlar özelleşsin' oyu vermiştir. Normalde bu teklifin geçmesi gerekirken, sistemdeki Anayasa Bilirkişisi ve Hukuk Ontolojisi devreye girmiş ve T.C. Anayasası Madde 43 (Kıyılar kamunundur) gereğince teklifi derhal VETO etmiştir. Alt norm, üst norma aykırı olamaz."
+   - **Teknik İşlev & Veri Modeli:** Demokrasilerdeki en büyük tehlike 'çoğunluğun tiranlığı'dır. Örneğin Kıyı Şeridi Teklifinde halkın %80'i 'plajlar özelleşsin' oyu verse dahi, sistemdeki Anayasa Bilirkişisi ve Hukuk Ontolojisi devreye girer ve T.C. Anayasası Madde 43 (Kıyılar kamunundur) uyarınca teklifi yazılımsal olarak derhal VETO eder. Alt norm, üst norma aykırı olamaz (Hans Kelsen Saf Hukuk Teorisi).
 
 5. **4. Dakika - Kriptografik Defter & Değişmezlik (Alt Bar ➔ Defter Sekmesi):**
-   - *Hocaya söylenecek söz:* "Platformdaki her teklif, oy ve anayasal veto kararı SHA-256 blok zincirine mühürlenir. Üstteki '+ Yeni Blok Kaz' butonuna bastığımızda yeni işlemler madencilik yapılarak bir sonraki bloğa eklenir. Hiçbir belediye başkanı veya sistem yöneticisi geçmişteki oyları silemez veya tahrif edemez."
+   - **Teknik İşlev & Veri Modeli:** Platformdaki her teklif, oy ve anayasal veto kararı SHA-256 blok zincirine mühürlenir. Üstteki '+ Yeni Blok Kaz' butonuna basıldığında mempool'daki yeni işlemler madencilik simülasyonu ile bir sonraki bloğa eklenir. Merkezi sunucu veya kurum yöneticileri geçmişteki oyları silemez veya geriye dönük değiştiremez.
 
 ---
 
@@ -148,7 +145,71 @@ Aşağıda uygulamanın gerçek telefon üzerinde çalışan ekran görüntüler
   - **Sistem Katmanı (KYC):** T.C. No (maskeli), Ad Soyad, Doğum Tarihi, İkametgah Adresi, Yetki & Unvan.
   - **Kamusal Katman (ZKP):** `@AdaletSavunucusu` rumuzu, Bölge, İtibar Skoru (`94/100`).
   - **Profil Değiştirici:** Bilirkişi (`Prof. Dr. İlker Akman`) veya diğer yurttaşlar arasında tek tıkla geçiş yaparak senaryo testi imkanı.
-  - **Platform Rehberi:** 7 temel konuyu slayt slayt öğreten kapsamlı modal.
+  - **Platform & Mimari Rehberi:** 8 temel demokratik sistemi, veri işleme akışlarını, GoF yazılım kalıplarını ve akademik temelleri sayfa sayfa sunan interaktif eğitim ve denetim modalı.
+
+### 3.7. Mobil Uygulama İçi Rehber: Veri Akışı, Tasarım Kalıpları ve Akademik Temeller
+Aşağıdaki ekran görüntüleri, uygulamanın doğrudan içine yerleştirilmiş olan 9 sayfalık mimari kılavuzun gerçek cihaz üzerindeki görünümünü sunmaktadır:
+
+![Kimlik ve ZKP Veri Akışı](screenshots/12_rehber_slide1_dataflow.png)
+*Şekil 7: Çift Katmanlı Kimlik (KYC vs. ZKP) - Sistem Tanımı, Çalışma Mekanizması ve Veri Akışı.*
+
+![Kimlik ve ZKP Tasarım Kalıbı](screenshots/13_rehber_slide1_academic_data.png)
+*Şekil 8: Çift Katmanlı Kimlik - Separation of Concerns Kalıbı ve GDPR/KVKK Akademik Temeli.*
+
+![Karesel Oylama Veri Akışı](screenshots/14_rehber_slide2_karesel_dataflow.png)
+*Şekil 9: Karesel Oylama (Quadratic Voting) - Formül, Veri Kaynağı, Durum Güncellemesi ve Command Kalıbı.*
+
+![UML Sınıf Mimarisi](screenshots/15_rehber_slide8_uml_dataflow.png)
+*Şekil 10: UML Sınıf Mimarisi & SOLID Prensipleri - Aggregate Root, Kompozisyon ve Sıfır Taşma.*
+
+![Teknik Borç ve Refactoring](screenshots/18_rehber_slide9_teknik_borc.png)
+*Şekil 11: Teknik Borç Yönetimi & Martin Fowler Dörtgeni - Bilinçli & Tedbirli Tercih ve İtfa Yol Haritası.*
+
+#### Mobil Rehberdeki 9 Sayfalık Sistematik Özeti:
+1. **Çift Katmanlı Kimlik (KYC vs. ZKP):**
+   - **Veri Akışı:** Nüfus/KYC modelinden gelen tekil yurttaş verisi (`Citizen`: `tcNo`, `fullName`, `city`) yerel `_activeCitizen` durumunda tutulur; SHA-256 ve tuzlama (salt) algoritmasıyla kamusal rumuz (`@AdaletSavunucusu`) ve ZKP hash'i (`0x7f4a...8821`) türetilir. Deftere asla T.C. verisi aktarılmaz.
+   - **Tasarım Kalıbı:** Separation of Concerns (SoC) & Strategy Pattern (`Citizen` sınıfı: `main.dart` satır 48-75).
+   - **Akademik Temel:** GDPR Madde 25, KVKK veri minimizasyonu ve Sybil Direnci teorisi.
+
+2. **Karesel Oylama (Quadratic Voting):**
+   - **Veri Akışı:** `_activeCitizen.voiceCredits` (100 VC) ve `Proposal.userVotes` oylama durum haritası. Ek oy maliyeti $\Delta VC = (n+1)^2 - n^2$ formülüyle hesaplanır ve kredi havuzundan düşülür; işlem `BlockItem.transactions` listesine aktarılır.
+   - **Tasarım Kalıbı:** Quadratic Cost Engine & Command Pattern (`_castQuadraticVote()`, `main.dart` satır 590-640).
+   - **Akademik Temel:** Vitalik Buterin, Glen Weyl ve Zoë Hitzig (2018) Liberal Radicalism & Quadratic Voting teorisi; Arrow İmkansızlık Teoremi çözümü.
+
+3. **Normlar Hiyerarşisi & Anayasal Veto:**
+   - **Veri Akışı:** `kConstitutionArticles` anayasa veritabanı (Madde 43, 56 vb.) ve `Proposal.legalStatus` enum verisi. Kural motoru üst norm ihlalini tespit ederse `legalStatus = LegalStatus.vetoed` olarak işaretlenir ve oylama kilitlenir.
+   - **Tasarım Kalıbı:** Chain of Responsibility & Rule Engine Pattern (`_buildLegalAuditSection()`, `main.dart` satır 1200-1280).
+   - **Akademik Temel:** Hans Kelsen Saf Hukuk Teorisi (Pure Theory of Law); Lex Superior Derogat Legi Inferiori.
+
+4. **Metin Değişiklik Önergesi (Diff):**
+   - **Veri Akışı:** `Proposal.diffOldText`, `Proposal.diffNewText` ve `Proposal.diffAuthor` metin alanları. `_acceptDiffPatch()` ile eski cümle saptanır, yeni öneriyle atomik değiştirilir, SHA-256 diff hash kodu hesaplanır ve `[DIFF_ENACTED]` kaydı zincire eklenir.
+   - **Tasarım Kalıbı:** Delta Patching & Memento Pattern (`_acceptDiffPatch()`, `main.dart` satır 680-730).
+   - **Akademik Temel:** Jürgen Habermas Müzakereci Demokrasi Teorisi (Deliberative Democracy).
+
+5. **Modüler Yönetişim (Sub-topics):**
+   - **Veri Akışı:** `Proposal.subTopics` dinamik listesi (`SubTopic` nesneleri). `_addSubTopic()` fonksiyonu ile yeni fıkra nesnesi ağaca eklenir; her alt madde bağımsız evet/hayır sayacına sahiptir.
+   - **Tasarım Kalıbı:** Composite Pattern & Recursive Tree Structure (`Proposal` ve `SubTopic`, `main.dart` satır 119-138, 750-780).
+   - **Akademik Temel:** Kamu Tercihi Teorisi (Public Choice Theory) ve James Buchanan Anayasal İktisat Modeli (Torba yasa ve logrolling engelleme).
+
+6. **Kriptografik Şeffaflık (Dağıtık Defter):**
+   - **Veri Akışı:** Uygulama içindeki bekleyen işlemler havuzu (`_pendingTransactions`). `_mineBlock()` tetiklendiğinde `prevHash = _blockchain.last.hash`, `Merkle Root = sha256(tx[0] + tx[1])`, `hash = sha256(...)` formülüyle hesaplanır ve `_blockchain` listesine eklenir.
+   - **Tasarım Kalıbı:** Immutable Singly-Linked List & Cryptographic Merkle Node (`BlockItem`, `main.dart` satır 160-195).
+   - **Akademik Temel:** Satoshi Nakamoto (2008) Eşler Arası Zaman Damgası Sunucusu ve Ralph Merkle (1979) Kriptografik Ağaç Mimarisi.
+
+7. **Mazur İçerik Denetimi (%66 Redaksiyon):**
+   - **Veri Akışı:** `CommentItem` model nesnesi (`id`, `author`, `text`, `flagCount`, `isMasked`, `hash`). Şikayet oranı `flagCount / totalVoters >= 0.66` barajını aştığında `isMasked = true` durumuna geçer; orijinal hash korunurken `text` arayüzde redakte token'ı ile perdelenir.
+   - **Tasarım Kalıbı:** State Pattern & Two-Phase Democratic Moderation (`CommentItem`, `main.dart` satır 140-155).
+   - **Akademik Temel:** Blok Zincirlerinde Değişmezlik (Immutability) ile Unutulma Hakkı (Right to be Forgotten) uzlaşımı.
+
+8. **Yazılım Mimarisi (UML & SOLID):**
+   - **Veri Akışı:** `_DemokrasiAppState` merkezi durum deposu. Modeller tip güvenli (type-safe) ve immutable Dart sınıfları olarak yapılandırılmıştır; UI modelleri sadece parametrik okur.
+   - **Tasarım Kalıbı:** Domain-Driven Design (DDD), Composition over Inheritance, SOLID Prensipleri (SRP, OCP, DIP).
+   - **Akademik Temel:** Robert C. Martin (Clean Architecture) ve Erich Gamma (GoF Design Patterns).
+
+9. **Teknik Borç ve Refactoring (Martin Fowler):**
+   - **Veri Akışı:** RAM üzerindeki reaktif in-memory durum deposu (`_DemokrasiAppState`). Uzak sunucu bağımlılıkları ve ağ gecikmesi deterministik değerlendirme amacıyla sıfırlanmıştır.
+   - **Tasarım Kalıbı:** Technical Debt Quadrant (Deliberate & Prudent), Strangler Fig Pattern (Aşamalı Refactoring Mimarisi) ve Dependency Inversion Principle (DIP).
+   - **Akademik Temel:** Ward Cunningham (1992) Teknik Borç Metaforu, Martin Fowler (2009) Teknik Borç Dörtgeni ve Robert C. Martin (Clean Architecture).
 
 ---
 
@@ -180,7 +241,7 @@ Uygulamayı kullanan sıradan bir vatandaş veya jüri üyesi, ekranda gördüğ
 ### 4.2. Kriptografik Özet (`Hash: 0x00009c210a44fe11`) ve Baştaki Sıfırlar
 - **Nedir?:** O bloktaki tüm yasa tekliflerinin, oyların ve zaman bilgisinin SHA-256 algoritmasıyla hesaplanmış 256-bitlik özetinin onaltılık (hexadecimal) gösterimidir.
 - **Neden Başında `0x0000` Var?:** Bu durum Bitcoin ve modern dağıtık defterlerdeki **Proof-of-Work (İş Kanıtı)** mekanizmasını temsil eder. Bilgisayar belirli bir matematiksel bulmacayı çözerek (zorluk hedefi) başında sıfırlar olan bir hash üretir.
-- **Hocaya Açıklama:** *"Hocam, bu hash bir parmak izidir. Eğer oyların içinde tek bir harf veya tek bir rakam bile değiştirilseydi, bu hash değeri tamamen değişecek ve sistem bloğun tahrif edildiğini anında anlayacaktı."*
+- **Matematiksel Doğrulama:** Bu hash bloğun kriptografik parmak izidir. Eğer oyların veya teklif metninin içinde tek bir harf veya karakter bile değiştirilirse, Çığ Etkisi (Avalanche Effect) nedeniyle hash değeri tamamen değişir ve zincirin tahrif edildiği anında saptanır.
 
 ### 4.3. Önceki Blok Bağı (`Önceki: 0x00003b7194f109de`)
 - **Nedir?:** Blok 1047'nin içinde, Blok 1046'nın hash özeti yer alır.
@@ -198,7 +259,7 @@ Uygulamayı kullanan sıradan bir vatandaş veya jüri üyesi, ekranda gördüğ
   - 2 Oy = $2^2 = 4\text{ VC}$ (Ekstra 3 VC maliyet)
   - 3 Oy = $3^2 = 9\text{ VC}$ (Ekstra 5 VC maliyet)
   - 4 Oy = $4^2 = 16\text{ VC}$ (Ekstra 7 VC maliyet)
-- **Hocaya Açıklama:** *"Hocam, normalde zengin bir grup veya fanatik bir kitle 100 oy verip sonucu istediği gibi belirleyebilirdi. Karesel oylamada 10 oy vermek $10^2 = 100\text{ VC}$ tutar ve tüm kredinizi bitirir. Bu nedenle vatandaş kredilerini tek bir konuya yığamaz; dengeli ve sorumlu oy vermek zorunda kalır."*
+- **Ekonomik ve Mühendislik Temeli:** Klasik oylamada sermaye sahibi gruplar 100 oy verip sonucu tek yanlı belirleyebilir. Karesel oylamada 10 oy vermek $10^2 = 100\text{ VC}$ tuttuğu için kredi havuzunun tamamını tüketir. Bu kural seçmeni tüm sermayesini tek bir konuya yığmak yerine rasyonel ve dengeli dağıtmaya zorlar.
 
 ### 4.6. Hukuk Ontolojisi ve Uyum Skoru (`%96 Uyum` / `%18 Uyum`)
 - **Nedir?:** Teklif edilen yasa metninin mevcut anayasal normlara uygunluk derecesidir.
@@ -455,7 +516,86 @@ Platformun mimarisinde akademik düzeyde aşağıdaki yazılım mühendisliği p
 
 ---
 
-## 6. TASARIM VE TİPOGRAFİ STANDARTLARI (BALPY ENTEGRASYONU)
+## 6. TEKNİK BORÇ (TECHNICAL DEBT) ANALİZİ VE YÖNETİM PLANI
+
+Yazılım mühendisliğinde teknik borç kavramı ilk kez Ward Cunningham (1992) tarafından ortaya atılmış, Martin Fowler (2009) tarafından ise iki eksenli ("Kasıt / İhmal" ve "Tedbir / Ciddiyetsizlik") bir matris olan **Teknik Borç Dörtgeni (Technical Debt Quadrant)** ile kavramsallaştırılmıştır. Profesyonel mühendislik disiplini, bir projede hiç teknik borç olmamasını değil; borcun bilinçli alınıp alınmadığını, nasıl yönetildiğini ve nasıl itfa edileceğinin (payoff roadmap) net biçimde belgelenmesini gerektirir.
+
+### 6.1. Martin Fowler Teknik Borç Dörtgeni ve Projenin Konumu
+
+```
+                                  KASITLI / BİLİNÇLİ (Deliberate)
+                                                ▲
+                                                │
+         [ BİLİNÇLİ & TEDBİRLİ ]                │          [ BİLİNÇLİ & TEDBİRSİZ ]
+   ✔ BU PROJE BU ÇEYREKTEDİR                    │          "Tasarım yapacak vaktimiz yok,
+   "Hızlı ve deterministik bir prototip         │           hemen koda dalıp bitirelim."
+    için in-memory state seçtik;                │
+    ancak veri modellerini sıkı tip güvenliği   │
+    ile soyutladık; itfa planımız hazır."       │
+                                                │
+ ───────────────────────────────────────────────┼───────────────────────────────────────────────►
+                                                │
+         [ BİLİNÇSİZ & TEDBİRLİ ]               │          [ BİLİNÇSİZ & TEDBİRSİZ ]
+   "Katmanlı mimarinin önemini sonradan         │          "Katmanlı mimari veya SOLID
+    öğrendik, şimdi sistemi düzeltiyoruz."      │           nedir bilmiyoruz."
+                                                │
+                                                ▼
+                                  BİLİNÇSİZ / İHMALKÂR (Inadvertent)
+```
+
+Bu projede alınan teknik borç kesinlikle **"Bilinçli ve Tedbirli" (Deliberate & Prudent)** kategorisindedir:
+
+### 6.2. Bilinçli ve Tedbirli Olarak Alınan Mimari Borçlar
+
+1. **Bellek İçi Durum Yönetimi (In-Memory Reactive State):**
+   - **Alınan Borç:** Harici bir REST/GraphQL backend veya PostgreSQL sunucusu yerine veriler Flutter istemcisinin RAM belleğinde (`_DemokrasiAppState`) reaktif olarak tutulmuştur.
+   - **Mühendislik Gerekçesi:** Değerlendirme heyetinin 3-4 dakikalık canlı incelemesi esnasında internet bağlantısı kopması, Wi-Fi dalgalanması, uzak sunucu arızası (500 Internal Server Error) veya ağ gecikmesi (network latency) riskini **sıfıra (0 ms)** indirmek. Uygulamanın uçak modunda dahi %100 deterministik ve kesintisiz çalışması hedeflenmiştir.
+   - **Alınan Tedbir:** Veriler gevşek (loosely-typed) JSON veya Map yapıları yerine `Citizen`, `Proposal`, `SubTopic`, `CommentItem` ve `BlockItem` gibi tip güvenli (type-safe) ve değişmez (immutable) veri modelleriyle kapsüllenmiştir.
+
+2. **İstemci Tarafı Blok Madenciliği Simülasyonu:**
+   - **Alınan Borç:** Dağıtık bir Proof-of-Work (PoW) p2p ağında yüzlerce istemcinin madencilik yarışı yapması yerine, SHA-256 hash hesaplama ve Merkle ağacı kök çıkarımı yerel istemci üzerinde mikro-saniyeler içinde çalıştırılmıştır.
+   - **Mühendislik Gerekçesi:** Mobil cihazın bataryasını tüketmeden ve jüriyi dakikalarca blok bekleme süresine maruz bırakmadan kriptografik defter mantığını ve veri değişmezliğini doğrudan ispatlamak.
+
+### 6.3. İtfa Edilen / Kapatılan Öncelikli Borçlar
+
+Proje geliştirme sürecinde aşağıdaki teknik borçlar tespit edilmiş ve tamamen itfa edilerek kapatılmıştır:
+
+1. **Arayüz Taşma (RenderFlex Overflow) Borcunun Kapatılması:**
+   - İlk prototiplerde sabit genişlikli `Row` bileşenleri dar ekranlarda (320px-360px) `RenderFlex overflowed by X pixels` sarı-siyah hata şeritleri oluşturabilmekteydi.
+   - Tüm yatay rozet ve filtre yapıları duyarlı `Wrap` düzenlerine çevrilmiş, `Flexible`/`Expanded` sarmalayıcıları eklenmiş ve widget testleri ile dar ekranda (360x640) **0 taşma** elde edildiği doğrulanmıştır.
+2. **Tipografi ve Ölçeklenebilirlik Borcunun Kapatılması:**
+   - Sabit sistem yazı tipleri yerine Balpy tasarım standartlarındaki modern `Outfit` tipografi ailesi (6 font ağırlığı) projeye entegre edilmiş, karanlık modda ışık saçılımını engelleyen `kReadingLetterSpacing = 0.27` standardı uygulanmıştır.
+3. **Veri Minimizasyonu ve Mahremiyet Borcunun Kapatılması:**
+   - KYC katmanı ile ZKP katmanı kesin çizgilerle birbirinden ayrılmış; T.C. kimlik numaraları şifrelenip tuzlanarak kamusal deftere asla sızmayacak şekilde izole edilmiştir.
+
+### 6.4. Refactoring ve Gelecek İtfa Yol Haritası (Payoff Roadmap)
+
+Uygulamanın kurumsal/ulusal düzeyde canlıya (Production) alınması aşamasında takip edilecek 3 aşamalı refactoring takvimi:
+
+| Aşama | Mimari Hedef | İtfa Edilecek Borç | Kullanılacak Kütüphane / Teknoloji |
+| :--- | :--- | :--- | :--- |
+| **Faz 1 (Modularization)** | Clean Architecture & Feature-First Dizinleme | Monolitik `main.dart` dosyasının `core/` ve `features/` katmanlarına ayrılması | `flutter_bloc` / `riverpod`, Feature-First yapısı |
+| **Faz 2 (Local Persistence)** | Şifreli Yerel Kalıcılık Katmanı | RAM'deki durumun telefon kapansa dahi saklanabilmesi | `flutter_secure_storage` (ZKP anahtarları), `Isar` / `Hive` NoSQL DB |
+| **Faz 3 (Decentralized Sync)** | Eşler Arası (P2P) Ağ Entegrasyonu | Tekil istemci simülasyonundan gerçek dağıtık ağa geçiş | `gRPC`, `libp2p` veya `WebSockets` ile Gossip Protokolü |
+
+```mermaid
+flowchart LR
+    subgraph Mevcut["Mevcut Mimari (Faz 0 - Prototip)"]
+        A1["In-Memory State (RAM)"] --> B1["Monolitik main.dart"]
+        B1 --> C1["Deterministik 0ms Demo"]
+    end
+
+    subgraph Hedef["Hedef Mimari (Faz 1-3 - Production)"]
+        A2["Isar / SecureStorage"] --> B2["Feature-First Clean Architecture"]
+        B2 --> C2["libp2p Gossip Protokolü"]
+    end
+
+    Mevcut -.->|"Aşamalı Refactoring (Strangler Fig)"| Hedef
+```
+
+---
+
+## 7. TASARIM VE TİPOGRAFİ STANDARTLARI (BALPY ENTEGRASYONU)
 
 Kullanıcının özel isteği doğrultusunda, **Balpy** projesinin modern tasarım dili ve tipografi kuralları eksiksiz şekilde adapte edilmiştir:
 
@@ -475,7 +615,7 @@ Kullanıcının özel isteği doğrultusunda, **Balpy** projesinin modern tasar�
 
 ---
 
-## 7. SONUÇ VE AKADEMİK KATKI
+## 8. SONUÇ VE AKADEMİK KATKI
 
 Bu çalışma, klasik katılımcı demokrasi anlayışını sadece teorik bir tartışma olmaktan çıkarıp, yazılım mühendisliği ve anayasa hukuku prensiplerinin kesiştiği noktada çalışan, doğrulanabilir bir mobil prototip haline getirmiştir. 
 

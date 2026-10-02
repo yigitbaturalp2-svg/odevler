@@ -339,8 +339,23 @@
     </div>
   </header>
 
+  <!-- İÇİNDEKİLER -->
+  <section class="card" style="padding: 18px 24px;">
+    <h3 style="margin: 0 0 12px 0; color: var(--primary); font-size: 17px;">📋 Rapor İçindekiler</h3>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 10px; font-size: 14px;">
+      <div><a href="#sec1" style="color: #93C5FD; text-decoration: none;">1. Yönetici Özeti</a></div>
+      <div><a href="#sec2" style="color: #93C5FD; text-decoration: none;">2. Defterdeki Değerler Rehberi</a></div>
+      <div><a href="#sec3" style="color: #93C5FD; text-decoration: none;">3. Canlı Uygulama Ekranları (11 Görsel)</a></div>
+      <div><a href="#sec4" style="color: #93C5FD; text-decoration: none;">4. 3-4 Dakikalık Değerlendirme Akışı</a></div>
+      <div><a href="#sec5" style="color: #93C5FD; text-decoration: none;">5. UML Sınıf & Sıralama Mimarisi</a></div>
+      <div><a href="#sec6" style="color: #93C5FD; text-decoration: none;">6. Teknik Borç Analizi (Martin Fowler)</a></div>
+      <div><a href="#sec7" style="color: #93C5FD; text-decoration: none;">7. Balpy Tipografisi & Sıfır Taşma</a></div>
+      <div><a href="#sec8" style="color: #93C5FD; text-decoration: none;">8. Sonuç ve Akademik Katkı</a></div>
+    </div>
+  </section>
+
   <!-- 1. BÖLÜM: YÖNETİCİ ÖZETİ -->
-  <section class="card card-highlight">
+  <section id="sec1" class="card card-highlight">
     <h2>🎯 1. Yönetici Özeti</h2>
     <p>
       Geleneksel temsilî demokrasi modelleri; torba yasalarla halkın iradesinin perdelenmesi, çoğunluk oyuyla temel anayasal hakların çiğnenmesi (çoğunluğun tiranlığı), sermaye sahiplerinin oy manipülasyonu ve vatandaşların siyasi fişlenme endişesiyle hür iradelerini ortaya koyamaması gibi köklü krizlerle karşı karşıyadır.
@@ -351,7 +366,7 @@
   </section>
 
   <!-- 2. BÖLÜM: DEFTERDEKİ ANLAŞILMAZ SAYILAR REHBERİ -->
-  <section class="card">
+  <section id="sec2" class="card">
     <h2>🔍 2. Kullanıcının Gördüğü "Anlaşılmaz Rakamlar ve Kriptografik Değerler" Rehberi</h2>
     <p>
       Uygulamayı ilk defa açan bir vatandaş veya jüri üyesi, özellikle <strong>Dağıtık Defter</strong> ekranındaki karmaşık hash kodlarını ve karesel kredi hesaplarını anlamakta zorlanabilir. Aşağıdaki tablo ve teknik izahat, her değerin arkasındaki bilimsel temeli ortaya koyar:
@@ -430,7 +445,7 @@
   </section>
 
   <!-- 3. BÖLÜM: CANLI EKRANLAR VE GÖRSEL REHBER -->
-  <section class="card">
+  <section id="sec3" class="card">
     <h2>📱 3. Canlı Uygulama Ekranları ve Görsel Kılavuz</h2>
     <p>
       Uygulama telefon üzerinde gerçek ortamda test edilmiş ve tüm ekranlar sıfır taşma (zero-overflow) ile doğrulanmıştır:
@@ -526,11 +541,20 @@
           <p>Proposal Aggregate Root, SubTopic, CommentItem, BlockItem kompozisyonu ve sıfır taşmalı (zero-overflow) responsive mimari.</p>
         </div>
       </div>
+
+      <!-- 11. Ekran: Teknik Borç & Refactoring (Slide 9) -->
+      <div class="screenshot-card">
+        <img src="screenshots/18_rehber_slide9_teknik_borc.png" alt="Teknik Borç Ekranı">
+        <div class="caption">
+          <h4>11. Teknik Borç & Refactoring (Martin Fowler)</h4>
+          <p>Deliberate & Prudent sınıflandırması, 0ms in-memory gerekçelendirmesi ve Clean Architecture itfa yol haritası.</p>
+        </div>
+      </div>
     </div>
   </section>
 
   <!-- 4. BÖLÜM: UYGULAMA İÇİ TEST VE İNCELEME REHBERİ -->
-  <section class="card">
+  <section id="sec4" class="card">
     <h2>⏱️ 4. Uygulama İçi Test ve İnceleme Rehberi (3-4 Dakikalık Değerlendirme Akışı)</h2>
     <p>Sistemin mimarisini, veri akışını ve demokratik modellerini test etmek için aşağıdaki değerlendirme adımları uygulanabilir:</p>
 
@@ -538,7 +562,7 @@
       <li class="step-item">
         <h4>0. Giriş & Sistem Mimarisi: Mobil Uygulama İçi Rehber (Kimlik ➔ Platform Rehberi)</h4>
         <p>
-          Uygulama içine entegre edilen 8 sayfalık <strong>Platform & Mimari Rehberi</strong> açılarak sistemin temel prensipleri, veri kaynakları, algoritmik işleme modelleri, GoF yazılım kalıpları (Separation of Concerns, Command, Chain of Responsibility, Composite, Memento, Singly-Linked List, SOLID) ve akademik referansları slayt slayt incelenebilir.
+          Uygulama içine entegre edilen 9 sayfalık <strong>Platform & Mimari Rehberi</strong> açılarak sistemin temel prensipleri, veri kaynakları, algoritmik işleme modelleri, GoF yazılım kalıpları (Separation of Concerns, Command, Chain of Responsibility, Composite, Memento, Singly-Linked List, SOLID), Martin Fowler Teknik Borç Yönetimi ve akademik referansları slayt slayt incelenebilir.
         </p>
       </li>
       <li class="step-item">
@@ -575,7 +599,7 @@
   </section>
 
   <!-- 5. BÖLÜM: UML SINIF DİYAGRAMI VE YAZILIM MİMARİSİ -->
-  <section class="card">
+  <section id="sec5" class="card">
     <h2>📐 5. UML Sınıf Diyagramı (Class Diagram) ve Yazılım Mimarisi</h2>
     <p>
       Projenin nesneye dayalı yazılım mühendisliği tasarımı, bileşenler arası ilişkiler, kardinaliteler (1-to-many composition), veri tipleri ve metod imzaları aşağıdaki UML Sınıf Diyagramında modellenmiştir:
@@ -747,9 +771,107 @@ sequenceDiagram
     </ul>
   </section>
 
-  <!-- 6. BÖLÜM: BALPY TİPOGRAFİSİ VE TEKNİK DETAYLAR -->
-  <section class="card">
-    <h2>🎨 6. Balpy Tipografisi ve Sıfır Taşma (Zero-Overflow) Başarısı</h2>
+  <!-- 6. BÖLÜM: TEKNİK BORÇ VE REFACTORING YÖNETİMİ -->
+  <section id="sec6" class="card">
+    <h2>🛠️ 6. Teknik Borç (Technical Debt) Analizi ve Yönetim Planı (Martin Fowler)</h2>
+    <p>
+      Yazılım mühendisliğinde teknik borç (Ward Cunningham, 1992); teslim hızını ve prototip doğrulanabilirliğini artırmak amacıyla bilinçli olarak alınan mimari ödünlerdir. Martin Fowler'ın (2009) <strong>Teknik Borç Dörtgeni (Technical Debt Quadrant)</strong> modelinde bu proje <strong>"Bilinçli & Tedbirli" (Deliberate & Prudent)</strong> çeyreğinde yer almaktadır.
+    </p>
+
+    <div style="background:#0F172A; border:1px solid #1E293B; border-radius:12px; padding:20px; margin:20px 0;">
+      <h3 style="color:#38BDF8; margin-top:0;">📊 Martin Fowler Teknik Borç Matrisi ve Proje Konumlandırması</h3>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:14px;">
+        <div style="background:rgba(16, 185, 129, 0.1); border:1px solid #10B981; border-radius:10px; padding:16px;">
+          <h4 style="color:#10B981; margin-bottom:8px;">✔ BİLİNÇLİ & TEDBİRLİ (BU PROJE)</h4>
+          <p style="font-size:13.5px; color:#D1FAE5; margin:0;">
+            <strong>Yaklaşım:</strong> "3-4 dakikalık değerlendirmede 0 ms ağ gecikmesi ve %100 deterministik test sunmak için in-memory state seçtik; ancak modelleri sıkı tip güvenliği (type-safety) ve SOLID prensipleriyle soyutladık. İtfa planımız hazır."
+          </p>
+        </div>
+        <div style="background:rgba(239, 68, 68, 0.08); border:1px solid #EF4444; border-radius:10px; padding:16px;">
+          <h4 style="color:#EF4444; margin-bottom:8px;">✖ BİLİNÇLİ & TEDBİRSİZ</h4>
+          <p style="font-size:13.5px; color:#FECACA; margin:0;">
+            <strong>Yaklaşım:</strong> "Tasarım kalıplarına vaktimiz yok, mimariyi düşünmeden hızlıca kodlayalım, sonra bakarız." (Bu projede reddedilmiştir).
+          </p>
+        </div>
+        <div style="background:rgba(245, 158, 11, 0.08); border:1px solid #F59E0B; border-radius:10px; padding:16px;">
+          <h4 style="color:#F59E0B; margin-bottom:8px;">⚡ BİLİNÇSİZ & TEDBİRLİ</h4>
+          <p style="font-size:13.5px; color:#FDE68A; margin:0;">
+            <strong>Yaklaşım:</strong> "Geliştirme bittikten sonra katmanlı mimarinin önemini fark ettik, sistemi baştan yazıyoruz."
+          </p>
+        </div>
+        <div style="background:rgba(148, 163, 184, 0.08); border:1px solid #64748B; border-radius:10px; padding:16px;">
+          <h4 style="color:#94A3B8; margin-bottom:8px;">✖ BİLİNÇSİZ & TEDBİRSİZ</h4>
+          <p style="font-size:13.5px; color:#CBD5E1; margin:0;">
+            <strong>Yaklaşım:</strong> "SOLID, Design Pattern veya teknik borç kavramlarının ne olduğunu bilmiyoruz."
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <h3>1. Bilinçli ve Tedbirli Alınan Mimari Kararlar:</h3>
+    <ul style="padding-left:20px; font-size:14.5px; color:#CBD5E1; line-height:1.8; margin-bottom:20px;">
+      <li><strong>Bellek İçi Durum (In-Memory State):</strong> Uzak REST/GraphQL sunucu arızası veya Wi-Fi kopması riskine karşı veriler istemci RAM'inde yönetilir. <code>Citizen</code>, <code>Proposal</code>, <code>BlockItem</code> tip güvenli veri sınıflarıyla kapsüllenmiştir.</li>
+      <li><strong>Mikro-Madencilik Simülasyonu:</strong> Mobil cihaz bataryasını tüketmeden ve jüriyi bekletmeden SHA-256 hash ve Merkle Root üretimi mikrosaniyeler içinde yerel çalıştırılır.</li>
+    </ul>
+
+    <h3>2. Kapatılan ve İtfa Edilen Öncelikli Borçlar:</h3>
+    <ul style="padding-left:20px; font-size:14.5px; color:#CBD5E1; line-height:1.8; margin-bottom:20px;">
+      <li><strong>Sıfır Taşma (RenderFlex Overflow Borcu):</strong> Dar ekranlarda (320-360px) oluşabilecek tüm RenderFlex taşmaları responsive <code>Wrap</code> ve <code>Expanded</code> yapılarıyla tamamen giderilmiş; widget testleri ile mühürlenmiştir.</li>
+      <li><strong>Tipografi Standardı (Balpy Entegrasyonu):</strong> 6 farklı ağırlığa sahip <code>Outfit</code> font hiyerarşisi uygulanmıştır.</li>
+      <li><strong>Veri Minimizasyonu (KVKK Borcu):</strong> KYC gerçek kimliği ile ZKP kamusal rumuzu birbirinden tamamen soyutlanmıştır.</li>
+    </ul>
+
+    <h3>3. Gelecek Refactoring ve İtfa Yol Haritası (Payoff Roadmap):</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Aşama</th>
+          <th>Mimari Hedef</th>
+          <th>İtfa Edilecek Borç</th>
+          <th>Kullanılacak Kütüphane / Teknoloji</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Faz 1 (Modularization)</strong></td>
+          <td>Feature-First Clean Architecture</td>
+          <td>Monolitik main.dart dosyasının core/ ve features/ katmanlarına ayrılması</td>
+          <td><code>flutter_bloc</code> / <code>riverpod</code>, Domain-Data-Presentation</td>
+        </tr>
+        <tr>
+          <td><strong>Faz 2 (Persistence)</strong></td>
+          <td>Şifreli Yerel Kalıcılık Katmanı</td>
+          <td>RAM durumunun cihaz yeniden başlatıldığında saklanması</td>
+          <td><code>flutter_secure_storage</code> (ZKP anahtarları), <code>Isar / Hive</code> NoSQL DB</td>
+        </tr>
+        <tr>
+          <td><strong>Faz 3 (Decentralized Sync)</strong></td>
+          <td>Eşler Arası (P2P) Ağ Entegrasyonu</td>
+          <td>Tekil istemci simülasyonundan gerçek dağıtık ağa geçiş</td>
+          <td><code>gRPC</code>, <code>libp2p</code> veya <code>WebSockets</code> ile Gossip Protokolü</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="mermaid" style="background:#0F172A; padding:20px; border-radius:12px; border:1px solid #1E293B; margin: 20px 0; overflow-x: auto;">
+flowchart LR
+    subgraph Mevcut["Mevcut Mimari (Faz 0 - Prototip)"]
+        A1["In-Memory State (RAM)"] --> B1["Monolitik main.dart"]
+        B1 --> C1["Deterministik 0ms Demo"]
+    end
+
+    subgraph Hedef["Hedef Mimari (Faz 1-3 - Production)"]
+        A2["Isar / SecureStorage"] --> B2["Feature-First Clean Architecture"]
+        B2 --> C2["libp2p Gossip Protokolü"]
+    end
+
+    Mevcut -.->|"Aşamalı Refactoring (Strangler Fig)"| Hedef
+    </div>
+  </section>
+
+  <!-- 7. BÖLÜM: BALPY TİPOGRAFİSİ VE TEKNİK DETAYLAR -->
+  <section id="sec7" class="card">
+    <h2>🎨 7. Balpy Tipografisi ve Sıfır Taşma (Zero-Overflow) Başarısı</h2>
     <p>
       Kullanıcının talimatı doğrultusunda <strong>Balpy</strong> projesindeki <strong>Outfit</strong> font ailesi projeye entegre edilmiş; renk paletine (Gece Siyahı, Zümrüt Yeşili, Elektrik Mavisi, Kehribar) kesinlikle dokunulmamıştır:
     </p>
@@ -760,6 +882,26 @@ sequenceDiagram
 
     <p>
       Tüm ekranlar <code>flutter analyze</code> ile 0 hata/uyarı ve dar ekranlarda (320px) <code>flutter test</code> ile 0 RenderFlex overflow başarısıyla mühürlenmiştir.
+    </p>
+  </section>
+
+  <!-- 8. BÖLÜM: SONUÇ VE AKADEMİK KATKI -->
+  <section id="sec8" class="card card-highlight">
+    <h2>🏛️ 8. Sonuç ve Akademik Katkı</h2>
+    <p>
+      Bu çalışma, klasik katılımcı demokrasi anlayışını sadece teorik bir tartışma olmaktan çıkarıp, yazılım mühendisliği ve anayasa hukuku prensiplerinin kesiştiği noktada çalışan, doğrulanabilir bir mobil prototip haline getirmiştir.
+    </p>
+    <p>
+      Sistem;
+    </p>
+    <ul style="padding-left:20px; font-size:14.5px; color:#CBD5E1; line-height:1.8; margin-bottom:16px;">
+      <li>Sermayenin oyları satın almasını <strong>Karesel Oylama</strong> ile,</li>
+      <li>Çoğunluğun azınlığı ezmesini <strong>Normlar Hiyerarşisi ve Anayasal Veto</strong> ile,</li>
+      <li>Torba yasalarla halkın aldatılmasını <strong>Diff ve Alt Madde Ağaçları</strong> ile,</li>
+      <li>Bürokrasinin geriye dönük sonuçları değiştirmesini ise <strong>SHA-256 Dağıtık Defteri</strong> ile matematiksel olarak imkansız kılmaktadır.</li>
+    </ul>
+    <p style="margin:0; font-size:13.5px; color:var(--text-muted);">
+      Tüm kaynak kodları, mimari diyagramlar ve test senaryoları açık kaynak repo üzerinden anlık olarak incelenebilir.
     </p>
   </section>
 
