@@ -81,8 +81,22 @@ void main() {
     // 5. Tab 4: Kimlik
     await tester.tap(find.text('Kimlik'));
     await tester.pumpAndSettle();
+    expect(find.textContaining('Platform Rehberi'), findsWidgets);
     expect(find.textContaining('Gerçek Kimlik (KYC)'), findsWidgets);
     expect(find.textContaining('ZKP Rumuzu'), findsWidgets);
+
+    // Open Interactive Guide
+    await tester.tap(find.textContaining('Platform Rehberi').first);
+    await tester.pumpAndSettle();
+    expect(find.text('Sonraki'), findsOneWidget);
+
+    // Tap Sonraki to advance page
+    await tester.tap(find.text('Sonraki'));
+    await tester.pumpAndSettle();
+
+    // Close guide modal
+    Navigator.of(tester.element(find.text('Platform & Sistem Rehberi').last)).pop();
+    await tester.pumpAndSettle();
 
     // Test persona switch
     await tester.tap(find.textContaining('Prof. Dr. İlker Akman').first);

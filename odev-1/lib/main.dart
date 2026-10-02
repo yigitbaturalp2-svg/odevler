@@ -426,13 +426,30 @@ class _MainScreenState extends State<MainScreen> {
           ),
           const SizedBox(width: 4),
 
-          // Sunum Senaryoları Menüsü
+          // Sunum Senaryoları & Rehber Menüsü
           PopupMenuButton<int>(
             icon: const Icon(Icons.more_vert, color: Colors.white70, size: 20),
             color: const Color(0xFF0F172A),
-            tooltip: 'Hızlı Senaryolar',
-            onSelected: (val) => _switchScenario(val),
+            tooltip: 'Hızlı Senaryolar & Rehber',
+            onSelected: (val) {
+              if (val == 0) {
+                _showInteractiveGuideModal();
+              } else {
+                _switchScenario(val);
+              }
+            },
             itemBuilder: (ctx) => [
+              const PopupMenuItem(
+                value: 0,
+                child: Row(
+                  children: [
+                    Icon(Icons.menu_book_rounded, color: Color(0xFF38BDF8), size: 14),
+                    SizedBox(width: 6),
+                    Text('Platform Rehberi (Nasıl Çalışır?)', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: Color(0xFF38BDF8))),
+                  ],
+                ),
+              ),
+              const PopupMenuDivider(),
               const PopupMenuItem(value: 1, child: Text('1. Kentsel Dönüşüm & Karesel Oylama', style: TextStyle(fontSize: 11))),
               const PopupMenuItem(value: 2, child: Text('2. Anayasaya Aykırı Teklif (Veto Örneği)', style: TextStyle(fontSize: 11))),
               const PopupMenuItem(value: 3, child: Text('3. KVKK İhlali & Sansür Oylaması', style: TextStyle(fontSize: 11))),
@@ -1751,6 +1768,75 @@ class _MainScreenState extends State<MainScreen> {
     return ListView(
       padding: const EdgeInsets.all(14),
       children: [
+        // 📘 UYGULAMA & SİSTEM REHBERİ BANNERI
+        Container(
+          margin: const EdgeInsets.only(bottom: 14),
+          decoration: BoxDecoration(
+            gradient: const LinearGradient(
+              colors: [Color(0xFF1E3A8A), Color(0xFF0F172A)],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+            borderRadius: BorderRadius.circular(14),
+            border: Border.all(color: const Color(0xFF38BDF8).withValues(alpha: 0.5)),
+            boxShadow: [
+              BoxShadow(color: const Color(0xFF0284C7).withValues(alpha: 0.2), blurRadius: 8, offset: const Offset(0, 4)),
+            ],
+          ),
+          child: Material(
+            color: Colors.transparent,
+            child: InkWell(
+              onTap: _showInteractiveGuideModal,
+              borderRadius: BorderRadius.circular(14),
+              child: Padding(
+                padding: const EdgeInsets.all(14),
+                child: Row(
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFF38BDF8).withValues(alpha: 0.15),
+                        shape: BoxShape.circle,
+                      ),
+                      child: const Icon(Icons.menu_book_rounded, color: Color(0xFF38BDF8), size: 24),
+                    ),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Wrap(
+                            crossAxisAlignment: WrapCrossAlignment.center,
+                            spacing: 6,
+                            runSpacing: 2,
+                            children: [
+                              const Text('Platform Rehberi', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Colors.white)),
+                              Container(
+                                padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 1.5),
+                                decoration: const BoxDecoration(
+                                  color: Color(0xFF38BDF8),
+                                  borderRadius: BorderRadius.all(Radius.circular(6)),
+                                ),
+                                child: const Text('7 Sistem', style: TextStyle(fontSize: 8, fontWeight: FontWeight.bold, color: Colors.black)),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 3),
+                          const Text(
+                            'Karesel oylama, normlar ontolojisi, diff ve kimlik sistemlerini sayfa sayfa öğrenin.',
+                            style: TextStyle(fontSize: 9, color: Colors.white70, height: 1.3),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const Icon(Icons.arrow_forward_ios_rounded, color: Color(0xFF38BDF8), size: 14),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+
         // Gerçek Kimlik Kartı (Sistem Katmanı)
         Card(
           color: const Color(0xFF0F172A),
@@ -1839,4 +1925,414 @@ class _MainScreenState extends State<MainScreen> {
       ),
     );
   }
+
+  // ==========================================================================
+  // SİSTEM REHBERİ (Sayfa Sayfa İnteraktif Öğretici Modal)
+  // ==========================================================================
+
+  void _showInteractiveGuideModal() {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (ctx) {
+        int pageIndex = 0;
+        final pageCtrl = PageController();
+
+        final List<Map<String, dynamic>> slides = [
+          {
+            'tag': '1/7 • GİZLİLİK VE KİMLİK',
+            'icon': Icons.fingerprint,
+            'color': const Color(0xFF10B981),
+            'title': 'Çift Katmanlı Kimlik (KYC vs. ZKP)',
+            'visual': Container(
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: const Color(0xFF10B981).withValues(alpha: 0.1),
+                borderRadius: BorderRadius.circular(10),
+                border: Border.all(color: const Color(0xFF10B981).withValues(alpha: 0.3)),
+              ),
+              child: const Row(
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('Sistem Katmanı (KYC)', style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: Color(0xFFF59E0B))),
+                        SizedBox(height: 2),
+                        Text('T.C. No, Ad, İkametgah', style: TextStyle(fontSize: 9, color: Colors.white70)),
+                      ],
+                    ),
+                  ),
+                  Icon(Icons.arrow_forward, color: Colors.white38, size: 14),
+                  SizedBox(width: 8),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Text('Kamusal Alan (ZKP)', style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: Color(0xFF10B981))),
+                        SizedBox(height: 2),
+                        Text('@AdaletSavunucusu', style: TextStyle(fontSize: 9, color: Colors.white70)),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            'what': 'Sistemde gerçek kimliğiniz doğrulanır ama oylamalarda ve açık defterde asla ifşa edilmez.',
+            'how': 'Her yurttaş T.C. kimliğiyle 1 tekil hak alır; fakat halka açık defterde yalnızca Sıfır Bilgi İspatı (ZKP) ile üretilen anonim rumuz görünür.',
+            'why': 'Hem sahte bot hesapların ve mükerrer oyların önüne geçilir hem de yurttaşın siyasi baskı veya fişlenme korkusu yaşamadan oy kullanması sağlanır.',
+          },
+          {
+            'tag': '2/7 • OYLAMA MODELİ',
+            'icon': Icons.calculate_outlined,
+            'color': const Color(0xFFF59E0B),
+            'title': 'Karesel Oylama (Quadratic Voting)',
+            'visual': Container(
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: const Color(0xFFF59E0B).withValues(alpha: 0.1),
+                borderRadius: BorderRadius.circular(10),
+                border: Border.all(color: const Color(0xFFF59E0B).withValues(alpha: 0.3)),
+              ),
+              child: const Wrap(
+                alignment: WrapAlignment.spaceAround,
+                spacing: 8,
+                runSpacing: 4,
+                children: [
+                  Text('1 Oy = 1 VC', style: TextStyle(fontSize: 10, color: Colors.white70)),
+                  Text('2 Oy = 4 VC', style: TextStyle(fontSize: 10, color: Colors.white70)),
+                  Text('3 Oy = 9 VC', style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: Color(0xFFF59E0B))),
+                  Text('4 Oy = 16 VC', style: TextStyle(fontSize: 10, color: Colors.white70)),
+                ],
+              ),
+            ),
+            'what': 'Kullanılan oy adedinin maliyetinin karesel (Maliyet = Oy²) olarak arttığı adil bir oylama sistemidir.',
+            'how': 'Her yurttaşa 100 Ses Kredisi (Voice Credit - VC) verilir. Bir teklife 1 oy vermek 1 VC, 2 oy vermek 4 VC, 3 oy vermek 9 VC tutar.',
+            'why': 'Zenginlerin veya azınlık grupların tüm kredilerini tek bir konuya yığarak sonucu manipüle etmesini engeller. Yurttaş sadece hayatını derinden etkileyen konulara yüksek maliyet ödeyerek oy verir.',
+          },
+          {
+            'tag': '3/7 • HUKUK GÜVENCESİ',
+            'icon': Icons.gavel,
+            'color': const Color(0xFFEF4444),
+            'title': 'Normlar Hiyerarşisi & Anayasal Veto',
+            'visual': Container(
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: const Color(0xFFEF4444).withValues(alpha: 0.1),
+                borderRadius: BorderRadius.circular(10),
+                border: Border.all(color: const Color(0xFFEF4444).withValues(alpha: 0.3)),
+              ),
+              child: const Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('1. T.C. Anayasası (En Üst Norm)', style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: Color(0xFFEF4444))),
+                  SizedBox(height: 2),
+                  Text('   ↳ 2. Kanunlar', style: TextStyle(fontSize: 9, color: Color(0xFFF59E0B))),
+                  SizedBox(height: 2),
+                  Text('      ↳ 3. Yerel Yönetmelikler & Kararlar', style: TextStyle(fontSize: 9, color: Color(0xFF10B981))),
+                ],
+              ),
+            ),
+            'what': 'Halk oylamasından çoğunluk çıksa dahi temel anayasal normlara aykırı tekliflerin engellenmesidir.',
+            'how': 'AI Ontolojisi ve Anayasa Bilirkişisi teklifi denetler. Örneğin halkın %80\'i "kıyılar özelleşsin" dese bile, Anayasa Madde 43 (kıyılar kamu yararınadır) uyarınca teklif derhal VETO edilir.',
+            'why': 'Çoğunluğun tiranlığını (çoğunluk oyuyla temel insan ve çevre haklarının gasp edilmesini) önler.',
+          },
+          {
+            'tag': '4/7 • METİN DÜZENLEME',
+            'icon': Icons.difference_outlined,
+            'color': const Color(0xFF06B6D4),
+            'title': 'Metin Değişiklik Önergesi (Diff)',
+            'visual': Container(
+              padding: const EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                color: const Color(0xFF06B6D4).withValues(alpha: 0.1),
+                borderRadius: BorderRadius.circular(10),
+                border: Border.all(color: const Color(0xFF06B6D4).withValues(alpha: 0.3)),
+              ),
+              child: const Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('[-] Eski: parklarda betonlaşma sınırlandırılsın.', style: TextStyle(fontSize: 9, color: Colors.redAccent, decoration: TextDecoration.lineThrough)),
+                  SizedBox(height: 3),
+                  Text('[+] Yeni (Diff): parklarda yağmur suyu göletleri kurulsun.', style: TextStyle(fontSize: 9, color: Color(0xFF10B981))),
+                ],
+              ),
+            ),
+            'what': 'Bir yasa teklifinin tamamını toptan reddetmek yerine sadece belirli bir fıkrasını revize etme mekanizmasıdır.',
+            'how': 'Herhangi bir yurttaş kırmızı/yeşil diff önergesi sunar. Topluluk kabul ettiğinde "✓ Kabul Et & Metne İşle" butonuyla yasa tasarısına otomatik eklenir.',
+            'why': 'Kutuplaşmış "evet/hayır" kavgaları yerine yapıcı ve uzlaşmacı kanun yapım süreçleri sağlar.',
+          },
+          {
+            'tag': '5/7 • MODÜLER YÖNETİŞİM',
+            'icon': Icons.account_tree_outlined,
+            'color': const Color(0xFF38BDF8),
+            'title': 'Alt Maddeler & Ağaç Yapısı (Sub-topics)',
+            'visual': Container(
+              padding: const EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                color: const Color(0xFF38BDF8).withValues(alpha: 0.1),
+                borderRadius: BorderRadius.circular(10),
+                border: Border.all(color: const Color(0xFF38BDF8).withValues(alpha: 0.3)),
+              ),
+              child: const Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('📋 Ana Teklif: Kentsel Yeşil Koridorlar', style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: Colors.white)),
+                  SizedBox(height: 3),
+                  Text('   ├─ 🚲 Alt Madde 1: Bisiklet Yolları Standardı (%88 Kabul)', style: TextStyle(fontSize: 9, color: Color(0xFF38BDF8))),
+                  Text('   └─ 💡 Alt Madde 2: Güneş Enerjili Aydınlatma (%75 Kabul)', style: TextStyle(fontSize: 9, color: Color(0xFF38BDF8))),
+                ],
+              ),
+            ),
+            'what': 'Geniş kapsamlı bir yasanın altındaki özel uygulamaların bağımsız maddeler halinde yapılandırılmasıdır.',
+            'how': 'Yurttaşlar ana yasanın altına diledikleri alt maddeyi ekleyebilir. Her alt madde bağımsız oylanır.',
+            'why': 'Torba yasa suistimalini önler; iyi bir yasanın içine halkın istemediği bir maddenin gizlice sızdırılması engellenir.',
+          },
+          {
+            'tag': '6/7 • KRİPTOGRAFİK ŞEFFAFLIK',
+            'icon': Icons.hub_outlined,
+            'color': const Color(0xFF818CF8),
+            'title': 'Dağıtık Müzakere Defteri (SHA-256)',
+            'visual': Container(
+              padding: const EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                color: const Color(0xFF818CF8).withValues(alpha: 0.1),
+                borderRadius: BorderRadius.circular(10),
+                border: Border.all(color: const Color(0xFF818CF8).withValues(alpha: 0.3)),
+              ),
+              child: const Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('Blok #1048 | Hash: 0x8f2a...c31b', style: TextStyle(fontSize: 9, fontFamily: 'monospace', color: Color(0xFF10B981))),
+                  Text('Önceki Blok: 0x4a12...99ee | Merkle: 0x11ee...00bb', style: TextStyle(fontSize: 8, fontFamily: 'monospace', color: Colors.white54)),
+                  Text('İşlem: [DIFF_ENACTED] Düzenleme Metne İşlendi', style: TextStyle(fontSize: 9, color: Colors.white70)),
+                ],
+              ),
+            ),
+            'what': 'Platformda gerçekleşen her teklifin, oyun ve yorumun kriptografik bloklara mühürlendiği değişmez kayıt kütüğüdür.',
+            'how': 'Her yeni işlem blok zincirine eklenir. Bir blok madenciliği simülasyonuyla yeni bloklar zincire eklenir.',
+            'why': 'Merkezi bir otoritenin, belediyenin veya yöneticinin geçmişe dönük oyları silmesini veya sonuçları tahrif etmesini imkansız kılar.',
+          },
+          {
+            'tag': '7/7 • MAZUR İÇERİK DENETİMİ',
+            'icon': Icons.visibility_off_outlined,
+            'color': const Color(0xFFEC4899),
+            'title': '%66 Topluluk Redaksiyonu (Maskeleme)',
+            'visual': Container(
+              padding: const EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                color: const Color(0xFFEC4899).withValues(alpha: 0.1),
+                borderRadius: BorderRadius.circular(10),
+                border: Border.all(color: const Color(0xFFEC4899).withValues(alpha: 0.3)),
+              ),
+              child: const Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('Şikayet Edilen Yorum: (Nefret / KVKK İhlali)', style: TextStyle(fontSize: 9, color: Colors.amber)),
+                  SizedBox(height: 3),
+                  Text('[Bu içerik %66 topluluk kararıyla maskelenmiştir]', style: TextStyle(fontSize: 9, color: Colors.redAccent, fontStyle: FontStyle.italic)),
+                  Text('SHA-256 Hash Bütünlüğü: KORUNUYOR (0x99a1...ff3b)', style: TextStyle(fontSize: 8, fontFamily: 'monospace', color: Color(0xFF10B981))),
+                ],
+              ),
+            ),
+            'what': 'Değişmez blok zincirinde hakaret, nefret veya KVKK ihlali içeren yorumların demokratik denetimidir.',
+            'how': 'Bir içerik şikayet edildiğinde topluluk oylamasına girer. %66 oy oranına ulaştığında içerik maskelenir.',
+            'why': 'Blok zincirinde kayıt silmek zinciri kıracağı için silme yerine maskeleme yapılır; böylece hem nefret söylemi kamudan saklanır hem de adli kanıt bütünlüğü korunur.',
+          },
+        ];
+
+        return StatefulBuilder(
+          builder: (context, setModalState) {
+            return Container(
+              height: MediaQuery.of(context).size.height * 0.88,
+              decoration: const BoxDecoration(
+                color: Color(0xFF090D16),
+                borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+                border: Border(top: BorderSide(color: Color(0xFF38BDF8), width: 1.5)),
+              ),
+              child: Column(
+                children: [
+                  // Sürükleme Tutamacı & Üst Bar
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(16, 12, 16, 8),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Expanded(
+                          child: Row(
+                            children: [
+                              Icon(Icons.menu_book_rounded, color: Color(0xFF38BDF8), size: 18),
+                              SizedBox(width: 8),
+                              Expanded(
+                                child: Text('Platform & Sistem Rehberi', maxLines: 1, overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold, color: Colors.white)),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(width: 8),
+                        IconButton(
+                          icon: const Icon(Icons.close, color: Colors.white70, size: 20),
+                          onPressed: () => Navigator.pop(ctx),
+                          padding: EdgeInsets.zero,
+                          constraints: const BoxConstraints(),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const Divider(color: Color(0xFF1E293B), height: 1),
+
+                  // Sayfa İçeriği
+                  Expanded(
+                    child: PageView.builder(
+                      controller: pageCtrl,
+                      itemCount: slides.length,
+                      onPageChanged: (idx) => setModalState(() => pageIndex = idx),
+                      itemBuilder: (context, idx) {
+                        final s = slides[idx];
+                        final Color c = s['color'] as Color;
+
+                        return ListView(
+                          padding: const EdgeInsets.all(16),
+                          children: [
+                            // Etiket
+                            Container(
+                              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                              decoration: BoxDecoration(
+                                color: c.withValues(alpha: 0.15),
+                                borderRadius: BorderRadius.circular(6),
+                              ),
+                              child: Text(
+                                s['tag'] as String,
+                                style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: c, letterSpacing: 0.5),
+                              ),
+                            ),
+                            const SizedBox(height: 10),
+
+                            // Başlık & İkon
+                            Row(
+                              children: [
+                                Icon(s['icon'] as IconData, color: c, size: 22),
+                                const SizedBox(width: 8),
+                                Expanded(
+                                  child: Text(
+                                    s['title'] as String,
+                                    style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.white),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 14),
+
+                            // Görsel Temsil Kutusu
+                            s['visual'] as Widget,
+                            const SizedBox(height: 16),
+
+                            // Açıklama Maddeleri
+                            _buildGuidePoint('1. Nedir?', s['what'] as String, c),
+                            const SizedBox(height: 10),
+                            _buildGuidePoint('2. Nasıl Çalışır?', s['how'] as String, const Color(0xFF38BDF8)),
+                            const SizedBox(height: 10),
+                            _buildGuidePoint('3. Neden Gereklidir?', s['why'] as String, const Color(0xFF10B981)),
+                            const SizedBox(height: 20),
+                          ],
+                        );
+                      },
+                    ),
+                  ),
+
+                  // Alt Navigasyon Barı (Noktalar & Butonlar)
+                  Container(
+                    padding: const EdgeInsets.fromLTRB(16, 10, 16, 16),
+                    decoration: const BoxDecoration(
+                      color: Color(0xFF0F172A),
+                      border: Border(top: BorderSide(color: Color(0xFF1E293B))),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        // Önceki Butonu
+                        pageIndex > 0
+                            ? TextButton.icon(
+                                onPressed: () {
+                                  pageCtrl.previousPage(duration: const Duration(milliseconds: 250), curve: Curves.easeInOut);
+                                },
+                                icon: const Icon(Icons.chevron_left, size: 16),
+                                label: const Text('Önceki', style: TextStyle(fontSize: 11)),
+                              )
+                            : const SizedBox(width: 60),
+
+                        // Nokta Göstergesi
+                        Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: List.generate(slides.length, (i) {
+                            final isSel = pageIndex == i;
+                            return Container(
+                              margin: const EdgeInsets.symmetric(horizontal: 2.5),
+                              width: isSel ? 16 : 6,
+                              height: 6,
+                              decoration: BoxDecoration(
+                                color: isSel ? const Color(0xFF38BDF8) : Colors.white24,
+                                borderRadius: BorderRadius.circular(3),
+                              ),
+                            );
+                          }),
+                        ),
+
+                        // Sonraki / Bitir Butonu
+                        pageIndex < slides.length - 1
+                            ? ElevatedButton.icon(
+                                onPressed: () {
+                                  pageCtrl.nextPage(duration: const Duration(milliseconds: 250), curve: Curves.easeInOut);
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: const Color(0xFF38BDF8),
+                                  foregroundColor: Colors.black,
+                                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                                  minimumSize: Size.zero,
+                                ),
+                                label: const Text('Sonraki', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold)),
+                                icon: const Icon(Icons.chevron_right, size: 16),
+                              )
+                            : ElevatedButton(
+                                onPressed: () => Navigator.pop(ctx),
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: const Color(0xFF10B981),
+                                  foregroundColor: Colors.black,
+                                  padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+                                  minimumSize: Size.zero,
+                                ),
+                                child: const Text('Anladım ✓', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold)),
+                              ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            );
+          },
+        );
+      },
+    );
+  }
+
+  Widget _buildGuidePoint(String label, String text, Color accent) {
+    return Container(
+      padding: const EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        color: const Color(0xFF0A0F1D),
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: const Color(0xFF1E293B)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(label, style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: accent)),
+          const SizedBox(height: 3),
+          Text(text, style: const TextStyle(fontSize: 10, color: Colors.white, height: 1.35)),
+        ],
+      ),
+    );
+  }
 }
+
