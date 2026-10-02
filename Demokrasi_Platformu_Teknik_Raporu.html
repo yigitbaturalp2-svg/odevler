@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Demokrasi Platformu - Teknik Rapor ve Sunum Kılavuzu</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #090D16;
+      --card-bg: #0F172A;
+      --card-border: #1E293B;
+      --primary: #38BDF8;
+      --accent: #818CF8;
+      --success: #10B981;
+      --warning: #F59E0B;
+      --danger: #EF4444;
+      --text-main: #F1F5F9;
+      --text-muted: #94A3B8;
+      --text-dim: #64748B;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      line-height: 1.6;
+      letter-spacing: 0.2px;
+      padding: 40px 20px;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    header {
+      background: linear-gradient(135deg, rgba(30, 58, 138, 0.4), rgba(15, 23, 42, 0.8));
+      border: 1px solid var(--primary);
+      border-radius: 20px;
+      padding: 36px 30px;
+      margin-bottom: 36px;
+      box-shadow: 0 10px 30px rgba(56, 189, 248, 0.15);
+    }
+
+    .badge-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .badge {
+      font-size: 12px;
+      font-weight: 700;
+      padding: 5px 12px;
+      border-radius: 20px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .badge-primary { background: rgba(56, 189, 248, 0.2); color: var(--primary); border: 1px solid rgba(56, 189, 248, 0.4); }
+    .badge-success { background: rgba(16, 185, 129, 0.2); color: var(--success); border: 1px solid rgba(16, 185, 129, 0.4); }
+    .badge-warning { background: rgba(245, 158, 11, 0.2); color: var(--warning); border: 1px solid rgba(245, 158, 11, 0.4); }
+
+    h1 {
+      font-size: 32px;
+      font-weight: 800;
+      color: #FFFFFF;
+      margin-bottom: 10px;
+    }
+
+    .subtitle {
+      font-size: 16px;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+
+    .meta-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      font-size: 13.5px;
+    }
+
+    .meta-item strong { color: var(--primary); }
+
+    h2 {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--primary);
+      margin: 40px 0 20px 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-bottom: 2px solid var(--card-border);
+      padding-bottom: 10px;
+    }
+
+    h3 {
+      font-size: 18px;
+      font-weight: 700;
+      color: #FFFFFF;
+      margin: 24px 0 12px 0;
+    }
+
+    p { margin-bottom: 16px; font-size: 15px; color: #CBD5E1; }
+
+    .card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 24px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+    }
+
+    .card-highlight {
+      border-color: rgba(56, 189, 248, 0.4);
+      background: linear-gradient(180deg, rgba(15, 23, 42, 0.95), rgba(15, 23, 42, 0.7));
+    }
+
+    /* Tablo */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+      background: var(--card-bg);
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--card-border);
+    }
+
+    th, td {
+      padding: 14px 16px;
+      text-align: left;
+      font-size: 14px;
+      border-bottom: 1px solid var(--card-border);
+    }
+
+    th {
+      background-color: #1E293B;
+      color: var(--primary);
+      font-weight: 700;
+      text-transform: uppercase;
+      font-size: 12.5px;
+      letter-spacing: 0.5px;
+    }
+
+    tr:hover { background-color: rgba(56, 189, 248, 0.05); }
+
+    code {
+      font-family: 'JetBrains Mono', monospace;
+      background: rgba(0, 0, 0, 0.35);
+      color: #38BDF8;
+      padding: 2px 6px;
+      border-radius: 5px;
+      font-size: 13px;
+      border: 1px solid rgba(56, 189, 248, 0.2);
+    }
+
+    .code-hash { color: #10B981; }
+    .code-prev { color: #94A3B8; }
+    .code-merkle { color: #F59E0B; }
+
+    /* Ekran Kartları Görsel Izgara */
+    .screenshot-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+      margin: 28px 0;
+    }
+
+    .screenshot-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+
+    .screenshot-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--primary);
+    }
+
+    .screenshot-card img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-bottom: 1px solid var(--card-border);
+      background: #000;
+    }
+
+    .screenshot-card .caption {
+      padding: 16px;
+      flex: 1;
+    }
+
+    .screenshot-card .caption h4 {
+      font-size: 16px;
+      font-weight: 700;
+      color: #FFFFFF;
+      margin-bottom: 6px;
+    }
+
+    .screenshot-card .caption p {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin: 0;
+    }
+
+    /* Formül Kutuları */
+    .formula-box {
+      background: rgba(245, 158, 11, 0.08);
+      border: 1px solid rgba(245, 158, 11, 0.4);
+      border-radius: 12px;
+      padding: 18px 24px;
+      margin: 18px 0;
+      text-align: center;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--warning);
+    }
+
+    .callout {
+      padding: 16px 20px;
+      border-radius: 12px;
+      margin: 18px 0;
+      font-size: 14.5px;
+      border-left: 4px solid;
+    }
+
+    .callout-info {
+      background: rgba(56, 189, 248, 0.1);
+      border-color: var(--primary);
+      color: #E2E8F0;
+    }
+
+    .callout-danger {
+      background: rgba(239, 68, 68, 0.1);
+      border-color: var(--danger);
+      color: #FECACA;
+    }
+
+    .callout-success {
+      background: rgba(16, 185, 129, 0.1);
+      border-color: var(--success);
+      color: #D1FAE5;
+    }
+
+    .step-list {
+      list-style: none;
+      counter-reset: step-counter;
+      margin: 20px 0;
+    }
+
+    .step-item {
+      position: relative;
+      padding-left: 48px;
+      margin-bottom: 20px;
+    }
+
+    .step-item::before {
+      counter-increment: step-counter;
+      content: counter(step-counter);
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 32px;
+      height: 32px;
+      background: var(--primary);
+      color: #000000;
+      font-weight: 800;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+    }
+
+    .step-item h4 {
+      font-size: 16px;
+      font-weight: 700;
+      color: #FFFFFF;
+      margin-bottom: 4px;
+    }
+
+    .step-item p {
+      font-size: 14px;
+      margin: 0;
+    }
+
+    footer {
+      margin-top: 60px;
+      padding-top: 24px;
+      border-top: 1px solid var(--card-border);
+      text-align: center;
+      font-size: 13px;
+      color: var(--text-dim);
+    }
+
+    @media print {
+      body { background: #FFFFFF; color: #000000; padding: 0; }
+      .card, table, header { border: 1px solid #CCC; background: #FFF !important; color: #000; }
+      h1, h2, h3, h4, th, td { color: #000 !important; }
+      code { background: #EEE; color: #000; border: 1px solid #CCC; }
+      .screenshot-card { page-break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- HEADER -->
+  <header>
+    <div class="badge-bar">
+      <span class="badge badge-primary">Doğrudan Demokrasi</span>
+      <span class="badge badge-success">Kriptografik Defter</span>
+      <span class="badge badge-warning">Karesel Oylama</span>
+      <span class="badge badge-primary">Balpy Outfit Tipografisi</span>
+    </div>
+    <h1>Doğrudan Dijital Demokrasi ve Katılımcı Yönetişim Platformu</h1>
+    <div class="subtitle">Teknik Mimari Raporu, Görsel Defter Analizi ve Akademik Değerlendirme Kılavuzu</div>
+    <div class="meta-grid">
+      <div class="meta-item"><strong>Öğrenci / Geliştirici:</strong> Yiğit Baturalp</div>
+      <div class="meta-item"><strong>Kapsam:</strong> Ödev 1 - Karar Alma Sistemleri</div>
+      <div class="meta-item"><strong>Canlı Kaynak Repo:</strong> <a href="https://github.com/yigitbaturalp2-svg/odevler" target="_blank" style="color:#38BDF8;">odevler (odev-1)</a></div>
+      <div class="meta-item"><strong>Masaüstü APK:</strong> <code>Demokrasi.apk</code></div>
+    </div>
+  </header>
+
+  <!-- 1. BÖLÜM: YÖNETİCİ ÖZETİ -->
+  <section class="card card-highlight">
+    <h2>🎯 1. Yönetici Özeti</h2>
+    <p>
+      Geleneksel temsilî demokrasi modelleri; torba yasalarla halkın iradesinin perdelenmesi, çoğunluk oyuyla temel anayasal hakların çiğnenmesi (çoğunluğun tiranlığı), sermaye sahiplerinin oy manipülasyonu ve vatandaşların siyasi fişlenme endişesiyle hür iradelerini ortaya koyamaması gibi köklü krizlerle karşı karşıyadır.
+    </p>
+    <p>
+      Bu proje; modern bilgisayar bilimleri, <strong>kriptografik özetleme (SHA-256 / Merkle Trees)</strong>, <strong>Karesel Oylama (Quadratic Voting)</strong> ve <strong>Kelsen Normlar Hiyerarşisi</strong>ni bir araya getirerek doğrudan halk denetiminde çalışan yerel ve ulusal bir dijital yönetişim altyapısı sunar.
+    </p>
+  </section>
+
+  <!-- 2. BÖLÜM: DEFTERDEKİ ANLAŞILMAZ SAYILAR REHBERİ -->
+  <section class="card">
+    <h2>🔍 2. Kullanıcının Gördüğü "Anlaşılmaz Rakamlar ve Kriptografik Değerler" Rehberi</h2>
+    <p>
+      Uygulamayı ilk defa açan bir vatandaş veya jüri üyesi, özellikle <strong>Dağıtık Defter</strong> ekranındaki karmaşık hash kodlarını ve karesel kredi hesaplarını anlamakta zorlanabilir. Aşağıdaki tablo ve teknik izahat, her değerin arkasındaki bilimsel temeli ortaya koyar:
+    </p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Ekranda Görünen Değer</th>
+          <th>Teknik Anlamı</th>
+          <th>Vatandaş & Hoca İçin Tercümesi</th>
+          <th>Sistemdeki Görevi</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>Blok #1047</code></td>
+          <td>Blok Yüksekliği (Block Height)</td>
+          <td>Değişmez defterin 1047. sayfasıdır.</td>
+          <td>Oyların geriye dönük silinmesini engeller; sıralı zincir bütünlüğü sağlar.</td>
+        </tr>
+        <tr>
+          <td><code>Hash: 0x00009c210a44...</code></td>
+          <td>SHA-256 Kriptografik Özeti</td>
+          <td>O bloğun matematiksel dijital mührüdür.</td>
+          <td>İçerikten tek bir harf dahi değiştirilse hash bozulur ve tahrifat kanıtlanır.</td>
+        </tr>
+        <tr>
+          <td><code>Önceki: 0x00003b71...</code></td>
+          <td>Previous Block Hash</td>
+          <td>Önceki bloğa bağlanan kopmaz çelik zincirdir.</td>
+          <td>Geçmişteki kararları değiştirmeyi matematiksel olarak imkansız kılar.</td>
+        </tr>
+        <tr>
+          <td><code>Merkle: 0x12ac49e001ba</code></td>
+          <td>Merkle Ağacı Kökü (Root)</td>
+          <td>Sayfadaki yüzlerce oyun tek satırlık DNA özetidir.</td>
+          <td>Mobil cihazlarda gigabaytlarca veri indirmeden anlık oy ispatı (SPV) sağlar.</td>
+        </tr>
+        <tr>
+          <td><code>75 VC</code></td>
+          <td>Voice Credit (Ses Kredisi)</td>
+          <td>Yurttaşın demokratik oy bütçesidir.</td>
+          <td>Paranın değil, her yurttaşın eşit kredilendirilmesini sağlar.</td>
+        </tr>
+        <tr>
+          <td><code>+1 Oy Ver (9 VC)</code></td>
+          <td>Karesel Maliyet Formülü (Oy²)</td>
+          <td>3. oy için 9 kredi talep edilir.</td>
+          <td>Radikal grupların veya zenginlerin tek konuya tüm gücünü yığmasını önler.</td>
+        </tr>
+        <tr>
+          <td><code>%96 Uyum</code> / <code>%18 Uyum</code></td>
+          <td>Normlar Hiyerarşisi Skoru</td>
+          <td>Teklifin Anayasaya uygunluk puanıdır.</td>
+          <td>%50 altı teklifler çoğunluk oyu çıksa dahi otomatik VETO edilir.</td>
+        </tr>
+        <tr>
+          <td><code>2.2x Oy Çarpanı</code></td>
+          <td>Bilirkişi Uzmanlık Katsayısı</td>
+          <td>Hukukçunun anayasal konulardaki oy ağırlığıdır.</td>
+          <td>Popülizme karşı liyakat temelli teknik ağırlık sağlar.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout callout-info">
+      <strong>💡 Baştaki <code>0x0000</code> Sıfırları Ne Anlama Gelir?</strong><br>
+      Bitcoin ve modern dağıtık defterlerdeki Proof-of-Work (İş Kanıtı) algoritmasını temsil eder. Bilgisayar belirli bir matematiksel zorluk derecesini çözerek bloğu doğrular. <code>+ Yeni Blok Kaz</code> butonuna tıklandığında yeni bir blok madencilikle kütüğe eklenir.
+    </div>
+
+    <div class="callout callout-danger">
+      <strong>⚖️ Neden %66 Redaksiyon (Maskeleme) Yapılır da Veri Silinmez?</strong><br>
+      Nefret söylemi veya KVKK ihlali yapıldığında blok zincirinden veriyi silmek hash zincirini kırar. Bu yüzden veri silinmez; %66 topluluk oyu ile maskelenir (redacted). Kriptografik hash sağlam kalır (adli kanıt bütünlüğü korunur), fakat arayüzde sansürlenir.
+    </div>
+  </section>
+
+  <!-- 3. BÖLÜM: CANLI EKRANLAR VE GÖRSEL REHBER -->
+  <section class="card">
+    <h2>📱 3. Canlı Uygulama Ekranları ve Görsel Kılavuz</h2>
+    <p>
+      Uygulama telefon üzerinde gerçek ortamda test edilmiş ve tüm ekranlar sıfır taşma (zero-overflow) ile doğrulanmıştır:
+    </p>
+
+    <div class="screenshot-grid">
+      <!-- 1. Ekran -->
+      <div class="screenshot-card">
+        <img src="screenshots/01_teklifler.png" alt="Teklifler Ekranı">
+        <div class="caption">
+          <h4>1. Ana Teklifler Ekranı</h4>
+          <p>Yasa teklifleri, onay oranları, veto etiketleri ve üstte harcanabilir <strong>75 VC</strong> bütçesi.</p>
+        </div>
+      </div>
+
+      <!-- 2. Ekran -->
+      <div class="screenshot-card">
+        <img src="screenshots/02_teklif_detay.png" alt="Yasa Detayı">
+        <div class="caption">
+          <h4>2. Yasa Metni & Diff Katmanı</h4>
+          <p>Fıkra bazlı kırmızı/yeşil diff değişiklik önergeleri ve alt norm denetimi.</p>
+        </div>
+      </div>
+
+      <!-- 3. Ekran -->
+      <div class="screenshot-card">
+        <img src="screenshots/02_teklif_oylama.png" alt="Karesel Oylama">
+        <div class="caption">
+          <h4>3. Karesel Oylama & Karar</h4>
+          <p>Maliyet = Oy² hesaplayıcısı ve her yoruma özel SHA-256 işlem özetleri.</p>
+        </div>
+      </div>
+
+      <!-- 4. Ekran -->
+      <div class="screenshot-card">
+        <img src="screenshots/03_mevzuat.png" alt="Mevzuat Ekranı">
+        <div class="caption">
+          <h4>4. Normlar Hiyerarşisi Piramidi</h4>
+          <p>Hans Kelsen piramidi: Anayasa > Kanun > Yönetmelik ve 2.2x Bilirkişi ağırlığı.</p>
+        </div>
+      </div>
+
+      <!-- 5. Ekran -->
+      <div class="screenshot-card">
+        <img src="screenshots/04_dagitik_defter.png" alt="Dağıtık Defter Ekranı">
+        <div class="caption">
+          <h4>5. Dağıtık Blok Defteri (Ledger)</h4>
+          <p>Blok indeksi, SHA-256 hash mührü, Previous Hash, Merkle Root ve Yeni Blok Kaz butonu.</p>
+        </div>
+      </div>
+
+      <!-- 6. Ekran -->
+      <div class="screenshot-card">
+        <img src="screenshots/05_kimlik.png" alt="Kimlik Ekranı">
+        <div class="caption">
+          <h4>6. Çift Katmanlı Kimlik & ZKP</h4>
+          <p>Doğrulanmış KYC (Ad/TC) devlette kalır; oylamalarda sadece @AdaletSavunucusu ZKP rumuzu görünür.</p>
+        </div>
+      </div>
+
+      <!-- 7. Ekran: Rehber & Veri Akışı (Slide 1) -->
+      <div class="screenshot-card">
+        <img src="screenshots/12_rehber_slide1_dataflow.png" alt="Rehber Veri Akışı">
+        <div class="caption">
+          <h4>7. Çift Katmanlı Kimlik: Veri Akışı & İşleme Modeli</h4>
+          <p>Nüfus/KYC Citizen verisinin tuzlama (salt) ve SHA-256 ile ZKP pseudonym (@AdaletSavunucusu) üretimi ve defter izolasyonu.</p>
+        </div>
+      </div>
+
+      <!-- 8. Ekran: Rehber Tasarım Kalıbı & Akademik Temel (Slide 1) -->
+      <div class="screenshot-card">
+        <img src="screenshots/13_rehber_slide1_academic_data.png" alt="Rehber Akademik Temel">
+        <div class="caption">
+          <h4>8. Separation of Concerns & GDPR/KVKK Temeli</h4>
+          <p>SoC ve Strategy Pattern entegrasyonu, Sybil direnci ve KVKK Veri Minimizasyonu kurallarının yazılımsal uygulanışı.</p>
+        </div>
+      </div>
+
+      <!-- 9. Ekran: Karesel Oylama & Command Kalıbı (Slide 2) -->
+      <div class="screenshot-card">
+        <img src="screenshots/14_rehber_slide2_karesel_dataflow.png" alt="Karesel Oylama Veri Akışı">
+        <div class="caption">
+          <h4>9. Karesel Oylama: Formül & Command Kalıbı</h4>
+          <p>Vitalik Buterin & Weyl karesel maliyet motoru ($Cost = n^2$), Voice Credit düşümü ve blok defterine oylama işlemi mühürlenmesi.</p>
+        </div>
+      </div>
+
+      <!-- 10. Ekran: UML Sınıf Mimarisi & SOLID (Slide 8) -->
+      <div class="screenshot-card">
+        <img src="screenshots/15_rehber_slide8_uml_dataflow.png" alt="UML Sınıf Mimarisi">
+        <div class="caption">
+          <h4>10. UML Sınıf Mimarisi & SOLID Prensipleri</h4>
+          <p>Proposal Aggregate Root, SubTopic, CommentItem, BlockItem kompozisyonu ve sıfır taşmalı (zero-overflow) responsive mimari.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. BÖLÜM: UYGULAMA İÇİ TEST VE İNCELEME REHBERİ -->
+  <section class="card">
+    <h2>⏱️ 4. Uygulama İçi Test ve İnceleme Rehberi (3-4 Dakikalık Değerlendirme Akışı)</h2>
+    <p>Sistemin mimarisini, veri akışını ve demokratik modellerini test etmek için aşağıdaki değerlendirme adımları uygulanabilir:</p>
+
+    <ul class="step-list">
+      <li class="step-item">
+        <h4>0. Giriş & Sistem Mimarisi: Mobil Uygulama İçi Rehber (Kimlik ➔ Platform Rehberi)</h4>
+        <p>
+          Uygulama içine entegre edilen 8 sayfalık <strong>Platform & Mimari Rehberi</strong> açılarak sistemin temel prensipleri, veri kaynakları, algoritmik işleme modelleri, GoF yazılım kalıpları (Separation of Concerns, Command, Chain of Responsibility, Composite, Memento, Singly-Linked List, SOLID) ve akademik referansları slayt slayt incelenebilir.
+        </p>
+      </li>
+      <li class="step-item">
+        <h4>1. Dakika: Çift Katmanlı Kimlik ve ZKP Katmanı (Alt Bar ➔ Kimlik Sekmesi)</h4>
+        <p>
+          Sistemde tekil yurttaş haklarını güvenceye almak ve Sybil (sahte bot) saldırılarını engellemek için yerel düzeyde T.C. Kimlik doğrulaması (KYC) yapılır. Kamusal alanda ve açık defterde ise kimlik verisi asla ifşa edilmez; Sıfır Bilgi İspatı (ZKP) ile üretilen anonim rumuz kullanılır. Böylece yurttaşın oy mahremiyeti ve GDPR/KVKK veri minimizasyonu tam güvenceye alınır.
+        </p>
+      </li>
+      <li class="step-item">
+        <h4>2. Dakika: Parçalı Yasa Yapımı & Diff (Alt Bar ➔ Teklifler Sekmesi)</h4>
+        <p>
+          Klasik parlamentolardaki toptancı kabul/ret mekanizması yerine 'Metin Değişiklik Önergesi (Diff)' modeli uygulanır. Yurttaş yasa metninin belirli bir fıkrasına kırmızı/yeşil diff sunabilir ve topluluk kabul ettiğinde bu yama ana yasa metnine atomik olarak işlenir. Alt maddeler (Composite Pattern) yapısıyla torba yasa istismarı engellenir.
+        </p>
+      </li>
+      <li class="step-item">
+        <h4>3. Dakika: Karesel Oylama (Teklif Detayı ➔ Oylama Alanı)</h4>
+        <p>
+          Vitalik Buterin ve Glen Weyl tarafından formüle edilen Karesel Oylama modeli işletilir. Her yurttaşın 100 Voice Crediti vardır; maliyet karesel olarak artar ($1\text{ oy} = 1\text{ VC}, 2\text{ oy} = 4\text{ VC}, 3\text{ oy} = 9\text{ VC}$). Bu matematiksel kural, sermaye gruplarının oy satın almasını engeller ve seçmenlerin sadece hayatlarını doğrudan etkileyen konulara ağırlık vermesini sağlar.
+        </p>
+      </li>
+      <li class="step-item">
+        <h4>3.5. Dakika: Normlar Hiyerarşisi ve Anayasal Veto (Alt Bar ➔ Mevzuat Sekmesi)</h4>
+        <p>
+          Hans Kelsen Normlar Hiyerarşisi mimarisi uyarınca çoğunluğun tiranlığı engellenir. Kıyı Şeridi Teklifinde halkın %80'i 'plajlar özelleşsin' dese dahi, sistemdeki AI Hukuk Denetçisi ve Anayasa Bilirkişisi devreye girerek T.C. Anayasası Madde 43 (Kıyılar kamunundur) uyarınca teklifi derhal VETO eder.
+        </p>
+      </li>
+      <li class="step-item">
+        <h4>4. Dakika: Kriptografik Defter & Değişmezlik (Alt Bar ➔ Defter Sekmesi)</h4>
+        <p>
+          Platformdaki her teklif, oy ve veto kararı SHA-256 blok zincirine mühürlenir. '+ Yeni Blok Kaz' butonuyla mempool'daki bekleyen işlemler Proof-of-Work simülasyonuyla yeni bloğa eklenir. Kriptografik özet zinciri sayesinde geçmiş işlemler geriye dönük olarak silinemez veya tahrif edilemez.
+        </p>
+      </li>
+    </ul>
+  </section>
+
+  <!-- 5. BÖLÜM: UML SINIF DİYAGRAMI VE YAZILIM MİMARİSİ -->
+  <section class="card">
+    <h2>📐 5. UML Sınıf Diyagramı (Class Diagram) ve Yazılım Mimarisi</h2>
+    <p>
+      Projenin nesneye dayalı yazılım mühendisliği tasarımı, bileşenler arası ilişkiler, kardinaliteler (1-to-many composition), veri tipleri ve metod imzaları aşağıdaki UML Sınıf Diyagramında modellenmiştir:
+    </p>
+
+    <div class="mermaid" style="background:#0F172A; padding:20px; border-radius:12px; border:1px solid #1E293B; margin: 20px 0; overflow-x: auto;">
+classDiagram
+    direction TB
+
+    class Citizen {
+        +String id
+        +String fullName
+        +String tcNo
+        +String birthDate
+        +String district
+        +String city
+        +String role
+        +String pseudonym
+        +int availableCredits
+        +int spentCredits
+        +int reputation
+        +double expertMultiplier
+        +bool verifyIdentity()
+        +bool spendCredits(int amount)
+        +void refundCredits(int amount)
+        +String generateZkpProof()
+    }
+
+    class Proposal {
+        +String id
+        +String title
+        +String content
+        +String author
+        +String category
+        +int yesVotes
+        +int noVotes
+        +String status
+        +int ontologyScore
+        +String? vetoReason
+        +String? normViolation
+        +bool hasAmendment
+        +String? amendmentOld
+        +String? amendmentNew
+        +int amendmentVotes
+        +List~SubTopic~ subTopics
+        +List~CommentItem~ comments
+        +double calculateApprovalRate()
+        +bool isVetoed()
+        +void applyAmendment()
+        +void addSubTopic(SubTopic sub)
+        +void addComment(CommentItem comment)
+    }
+
+    class SubTopic {
+        +String id
+        +String title
+        +String proposer
+        +int yesVotes
+        +int noVotes
+        +String status
+        +void vote(bool inFavor)
+        +double getApprovalRate()
+    }
+
+    class CommentItem {
+        +String id
+        +String author
+        +String text
+        +String timestamp
+        +String txHash
+        +bool isUnderRedaction
+        +String? redactionReason
+        +int deleteVotes
+        +int keepVotes
+        +bool isMasked
+        +void checkRedactionStatus()
+        +void voteRedaction(bool redact)
+    }
+
+    class BlockItem {
+        +int index
+        +String timestamp
+        +String hash
+        +String prevHash
+        +String merkleRoot
+        +String summary
+        +String computeHash(String data)
+        +String generateMerkleRoot(List txs)
+        +bool validateBlock()
+    }
+
+    class NormHierarchyNode {
+        +int level
+        +String title
+        +List~String~ articles
+        +bool isBinding
+        +bool evaluateCompliance(Proposal p)
+    }
+
+    class QuadraticVotingEngine {
+        +int baseCredits
+        +int calculateCost(int currentVotes, int targetVotes)
+        +bool validateBudget(Citizen citizen, int cost)
+        +void processVote(Citizen citizen, Proposal proposal, int voteCount)
+    }
+
+    class LedgerEngine {
+        +List~BlockItem~ chain
+        +void mineBlock(String summary)
+        +bool verifyChainIntegrity()
+        +BlockItem getLatestBlock()
+    }
+
+    Proposal "1" *-- "0..*" SubTopic : composes
+    Proposal "1" *-- "0..*" CommentItem : contains
+    Proposal ..> Citizen : proposedBy (ZKP Rumuzu)
+    Citizen "1" --> "1" QuadraticVotingEngine : uses
+    QuadraticVotingEngine ..> Proposal : castsVotes
+    Proposal ..> NormHierarchyNode : auditedBy
+    LedgerEngine "1" *-- "1..*" BlockItem : maintains
+    BlockItem --> BlockItem : prevHash links
+    QuadraticVotingEngine ..> LedgerEngine : logsTransactions
+    </div>
+
+    <h3>⚡ UML Sıralama Diyagramı (Sequence Diagram: Karesel Oylama & Anayasal Veto)</h3>
+    <p>Bir yurttaşın oy verme anından itibaren çalışan kredi hesabı, anayasal denetim ve blok defteri çağrı sırası:</p>
+
+    <div class="mermaid" style="background:#0F172A; padding:20px; border-radius:12px; border:1px solid #1E293B; margin: 20px 0; overflow-x: auto;">
+sequenceDiagram
+    autonumber
+    actor Yurttas as Yurttaş (@AdaletSavunucusu)
+    participant UI as Demokrasi Arayüzü (Flutter)
+    participant QV as Karesel Oylama Motoru
+    participant Norm as Hukuk Ontolojisi Motoru
+    participant Ledger as Dağıtık Defter (Ledger)
+
+    Yurttas->>UI: "+1 Oy Ver" Butonuna Tıklar
+    UI->>QV: calculateCost(currentVotes=0, targetVotes=1)
+    Note over QV: Maliyet = 1² - 0² = 1 VC
+    QV-->>UI: Gereken Kredi: 1 VC (Kullanıcının 75 VC'si var)
+    
+    alt Yetersiz Ses Kredisi
+        QV-->>UI: Hata: Yetersiz VC!
+        UI-->>Yurttas: SnackBar("Yetersiz Ses Kredisi!")
+    else Bütçe Yeterli
+        QV->>QV: Krediyi Düş (75 - 1 = 74 VC), Oy Sayısını Artır
+        UI->>Norm: evaluateCompliance(Proposal: Kentsel Koridor)
+        
+        alt Ontoloji Skoru < %50 (Örn: Kıyı Şeridi Teklifi)
+            Norm-->>UI: VETO: Anayasa Md. 43 (Kamu Yararı) İhlali!
+            UI->>Ledger: mineBlock("VETO_ENACT: Kıyı Şeridi Md. 43 ile Veto Edildi")
+            Ledger->>Ledger: SHA-256 Hash & Merkle Root Hesapla
+            UI-->>Yurttas: "Teklif Çoğunluk Oyu Alsa Bile Anayasal Veto Yedi"
+        else Norm Uyumu Başarılı (Skor >= %50)
+            Norm-->>UI: Onay: %96 Uyum (Anayasa Md. 56 Çevre Hakkı)
+            UI->>Ledger: mineBlock("VOTE_REGISTER: Kentsel Koridor +1 Oy")
+            Ledger->>Ledger: SHA-256 Hash (0x0000...) & Merkle Root Hesapla
+            UI-->>Yurttas: "Oy Başarıyla Blok Zincirine Mühürlendi"
+        end
+    end
+    </div>
+
+    <h3>🏗️ Yazılım Tasarım Kalıpları (Design Patterns) ve Akademik İlkeler</h3>
+    <ul style="padding-left: 20px; font-size: 14.5px; color: #CBD5E1; line-height: 1.8;">
+      <li><strong>Composite Pattern:</strong> <code>Proposal</code> nesnesi, torba yasa suistimalini önlemek adına <code>SubTopic</code> (Alt Maddeler) ve <code>CommentItem</code> nesnelerini tek tip bir hiyerarşide yönetir.</li>
+      <li><strong>Chain of Responsibility:</strong> Normlar Hiyerarşisi denetimi (Anayasa ➔ Kanun ➔ Yerel Karar) ardışık bir denetim hattıdır; anayasal düzeyde takılan teklif alt katmanlara geçmeden veto edilir.</li>
+      <li><strong>Immutable Cryptographic Structure:</strong> <code>BlockItem</code> nesneleri <code>prevHash</code> göstergesiyle geriye dönük değiştirilemez tek yönlü bağlı liste (singly-linked list) oluşturur.</li>
+      <li><strong>Separation of Concerns:</strong> Devlet doğrulaması (KYC) ile kamusal oylama kimliği (ZKP) birbirinden kesin hatlarla ayrılmıştır.</li>
+    </ul>
+  </section>
+
+  <!-- 6. BÖLÜM: BALPY TİPOGRAFİSİ VE TEKNİK DETAYLAR -->
+  <section class="card">
+    <h2>🎨 6. Balpy Tipografisi ve Sıfır Taşma (Zero-Overflow) Başarısı</h2>
+    <p>
+      Kullanıcının talimatı doğrultusunda <strong>Balpy</strong> projesindeki <strong>Outfit</strong> font ailesi projeye entegre edilmiş; renk paletine (Gece Siyahı, Zümrüt Yeşili, Elektrik Mavisi, Kehribar) kesinlikle dokunulmamıştır:
+    </p>
+
+    <div class="formula-box">
+      Font Ailesi: Outfit | Optik Harf Aralığı: 0.27 | Başlıklar: 16.5px - 20px (w700) | Gövde: 13.5px
+    </div>
+
+    <p>
+      Tüm ekranlar <code>flutter analyze</code> ile 0 hata/uyarı ve dar ekranlarda (320px) <code>flutter test</code> ile 0 RenderFlex overflow başarısıyla mühürlenmiştir.
+    </p>
+  </section>
+
+  <footer>
+    <p>🏛️ Doğrudan Dijital Demokrasi Platformu &copy; 2026 Yiğit Baturalp. Kamuya açık açık kaynak repo: <code>yigitbaturalp2-svg/odevler</code></p>
+    <p style="margin-top:6px;">Rapor HTML ve Markdown formatında masaüstünde kayıtlıdır: <code>C:\Users\yigit\Desktop\Demokrasi_Raporu\</code></p>
+  </footer>
+
+</div>
+
+<script type="module">
+  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+  mermaid.initialize({ startOnLoad: true, theme: 'dark', fontFamily: 'Outfit' });
+</script>
+</body>
+</html>
